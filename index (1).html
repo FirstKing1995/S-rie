@@ -1,0 +1,688 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#141C33">
+<title>Série</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23141C33'/><text x='50' y='72' font-size='64' text-anchor='middle' fill='%23D9A441' font-family='Impact,sans-serif'>S</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#141C33; --ink2:#1B2542; --ink3:#27345A;
+  --bone:#EEE7D7; --bone2:#C9C2B2; --muted:#8E98B3;
+  --gold:#D9A441; --gold2:#F0C46A; --coral:#E3705F;
+  --line:rgba(238,231,215,.12);
+  --display:'Big Shoulders Display',Impact,'Arial Narrow',sans-serif;
+  --body:'Instrument Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html,body{background:var(--ink);color:var(--bone);font-family:var(--body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+body{min-height:100dvh}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0;padding:0}
+:focus-visible{outline:2px solid var(--gold2);outline-offset:3px;border-radius:8px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+.tela{max-width:560px;margin:0 auto;padding:max(16px,env(safe-area-inset-top)) 20px 120px;min-height:100dvh}
+.topo{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 0 18px}
+.ola{font-size:15px;color:var(--bone2)}
+.links{display:flex;gap:2px}
+.link{padding:8px 10px;color:var(--muted);font-size:14px;border-radius:8px}
+.link:hover{color:var(--bone)}
+.display{font-family:var(--display);font-weight:800;line-height:.88}
+.titulo{font-size:clamp(56px,16vw,88px);margin-bottom:6px}
+.sub{color:var(--muted);font-size:15px}
+.desc{color:var(--bone2);line-height:1.65;max-width:62ch}
+.rot2{font-size:15px;font-weight:600;color:var(--bone2);margin:22px 0 10px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 22px;border-radius:999px;font-weight:600;font-size:16px;transition:transform .12s,background-color .15s,border-color .15s}
+.btn:active{transform:scale(.98)}
+.btn-ouro{background:var(--gold);color:var(--ink)}
+.btn-ouro:hover{background:var(--gold2)}
+.btn-linha{border:1.5px solid var(--line);color:var(--bone)}
+.btn-linha:hover{border-color:var(--bone2)}
+.btn[disabled]{opacity:.38;pointer-events:none}
+.btn-p{min-height:38px;padding:0 16px;font-size:14px}
+.largo{width:100%}
+
+.campo{display:block;margin-bottom:16px}
+.campo>span{display:block;font-size:14px;color:var(--bone2);margin-bottom:6px}
+input,textarea,select{width:100%;background:var(--ink2);border:1.5px solid var(--line);border-radius:10px;padding:13px 14px;outline:none}
+input:focus,textarea:focus,select:focus{border-color:var(--gold)}
+textarea{resize:vertical}
+.erro{color:var(--coral);font-size:14px;min-height:20px;margin:6px 0}
+
+/* login */
+.login{display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:48px}
+.marca{font-size:clamp(110px,36vw,190px);color:var(--bone);margin-bottom:10px;letter-spacing:-.01em}
+.login .sub{max-width:30ch;margin-bottom:36px;font-size:16px}
+
+/* onboarding */
+.passo{font-size:14px;color:var(--muted);margin:20px 0 10px}
+.pergunta{font-family:var(--display);font-weight:800;font-size:clamp(46px,12.5vw,68px);line-height:.95;margin-bottom:28px;max-width:12ch}
+.opcoes{display:grid;gap:10px}
+.opcao{text-align:left;padding:18px 20px;border-radius:14px;border:1.5px solid var(--line);font-size:17px;font-weight:500;transition:border-color .15s,background-color .15s}
+.opcao:hover{border-color:var(--bone2)}
+.opcao.sel{border-color:var(--gold);background:rgba(217,164,65,.1)}
+.nav-onb{display:flex;gap:10px;margin-top:20px}
+.nav-onb .btn-ouro{flex:1}
+
+/* semana */
+.semana{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:28px}
+.dia{display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 0 9px;border-radius:12px;color:var(--muted);font-size:13px;font-weight:500}
+.dia .ponto{width:5px;height:5px;border-radius:50%}
+.dia.tem .ponto{background:var(--muted)}
+.dia.hoje{color:var(--bone)}
+.dia.hoje span{box-shadow:0 2px 0 var(--gold)}
+.dia.ativo{background:var(--ink3);color:var(--bone)}
+.dia.ativo.tem .ponto{background:var(--gold)}
+
+.hero-dia h1{font-size:clamp(76px,23vw,128px);color:var(--bone)}
+.hero-dia .sub{margin-top:10px;font-size:16px}
+.aviso{background:var(--ink2);border-left:3px solid var(--gold);padding:12px 14px;border-radius:0 10px 10px 0;font-size:15px;margin:18px 0 0}
+
+.lista-ex{list-style:none;padding:0;border-top:1px solid var(--line);margin:22px 0 8px}
+.lista-ex li{display:grid;grid-template-columns:26px 1fr auto;gap:12px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line)}
+.lista-ex .n{font-family:var(--display);font-weight:700;color:var(--muted);font-size:19px}
+.nome{font-weight:500}
+.foco{font-size:13px;color:var(--muted)}
+.lista-ex .sr{font-family:var(--display);font-weight:700;font-size:23px;color:var(--gold);white-space:nowrap}
+
+.bloco{margin-top:44px}
+.bloco h2{font-size:15px;font-weight:600;color:var(--bone2);margin-bottom:12px}
+.recado{background:var(--ink2);border-radius:14px;padding:16px 18px}
+
+.hist{list-style:none;padding:0;border-top:1px solid var(--line)}
+.hist li{padding:14px 0;border-bottom:1px solid var(--line)}
+.hist-top{display:flex;justify-content:space-between;font-size:14px;margin-bottom:2px}
+.hist-top span{color:var(--muted)}
+.hist p{font-size:15px;color:var(--bone2)}
+.cans{display:flex;align-items:center;gap:4px;margin-top:6px}
+.cans i{width:14px;height:6px;border-radius:3px;background:var(--line)}
+.cans i.on{background:var(--coral)}
+.cans span{font-size:13px;color:var(--muted);margin-left:6px}
+.coment{font-style:italic;margin-top:4px}
+
+.rodape{position:fixed;left:0;right:0;bottom:0;padding:24px 20px calc(14px + env(safe-area-inset-bottom));background:linear-gradient(to bottom,rgba(20,28,51,0),var(--ink) 38%);z-index:10}
+.rodape>div{max-width:520px;margin:0 auto}
+
+/* execução */
+.progresso{height:3px;background:var(--line);border-radius:3px;overflow:hidden;margin:0 0 18px}
+.progresso i{display:block;height:100%;background:var(--gold);transition:width .3s}
+.midia{aspect-ratio:4/3;background:var(--ink2);border-radius:18px;overflow:hidden;display:grid;place-items:center;margin-bottom:22px}
+.midia img{width:100%;height:100%;object-fit:cover;display:block}
+.ph{font-family:var(--display);font-weight:800;font-size:clamp(52px,17vw,104px);color:transparent;-webkit-text-stroke:1.5px rgba(142,152,179,.45);padding:0 12px;text-align:center;line-height:.9}
+.ex-nome{font-size:24px;font-weight:600;line-height:1.2;margin-bottom:6px}
+.carga{display:flex;align-items:baseline;gap:.06em;font-family:var(--display);font-weight:800;color:var(--gold);line-height:.82;font-size:clamp(104px,34vw,176px);margin:6px 0 2px}
+.carga .x{font-size:.42em;color:var(--bone2);font-weight:600;padding:0 .04em}
+.carga.longa{font-size:clamp(64px,18vw,104px)}
+.carga-leg{color:var(--muted);font-size:15px;margin-bottom:22px}
+.series{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 18px}
+.serie{width:50px;height:50px;border-radius:50%;border:1.5px solid var(--line);font-family:var(--display);font-weight:700;font-size:21px;transition:background-color .15s,border-color .15s}
+.serie.feita{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.descanso{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--ink2);border-radius:12px;padding:10px 12px 10px 16px;margin-bottom:16px}
+.descanso b{font-family:var(--display);font-size:32px;color:var(--gold2);line-height:1}
+.nav-exec{display:grid;grid-template-columns:auto 1fr;gap:10px}
+
+.fim{font-size:clamp(96px,30vw,160px);color:var(--gold);margin:10px 0 12px}
+.escala{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.escala button{padding:12px 0 9px;border-radius:12px;border:1.5px solid var(--line);display:flex;flex-direction:column;align-items:center;gap:2px}
+.escala b{font-family:var(--display);font-size:30px;line-height:1}
+.escala small{font-size:11px;color:var(--muted)}
+.escala button[aria-checked="true"]{border-color:var(--coral);background:rgba(227,112,95,.14)}
+
+/* personal */
+.aluno{padding:26px 0;border-bottom:1px solid var(--line)}
+.aluno h2{font-family:var(--display);font-size:54px;font-weight:800;line-height:.9}
+.aluno .perfil{color:var(--muted);font-size:14px;margin:8px 0 16px}
+.numeros{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.numeros div{background:var(--ink2);border-radius:12px;padding:12px}
+.numeros b{display:block;font-family:var(--display);font-size:34px;font-weight:700;line-height:1;margin-bottom:4px}
+.numeros b.menor{font-size:24px;line-height:1.2}
+.numeros span{font-size:12px;color:var(--muted);line-height:1.3;display:block}
+
+.abas{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:18px 0 18px}
+.aba{padding:10px 12px;color:var(--muted);font-weight:500;border-bottom:2px solid transparent;margin-bottom:-1px}
+.aba.ativa{color:var(--bone);border-color:var(--gold)}
+
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.chip{position:relative;padding:7px 13px;border-radius:999px;border:1.5px solid var(--line);font-size:14px;color:var(--bone2)}
+.chip.ativo{border-color:var(--gold);color:var(--bone);background:rgba(217,164,65,.12)}
+.chip.tem::after{content:"";position:absolute;top:4px;right:5px;width:5px;height:5px;border-radius:50%;background:var(--gold)}
+.chip.sujo{border-style:dashed}
+.pend{font-size:13px;color:var(--coral);font-weight:500;margin-left:6px}
+.edit-cab,.edit-ex{display:grid;grid-template-columns:1fr 58px 88px 36px;gap:8px;align-items:center}
+.edit-cab{font-size:12px;color:var(--muted);padding-bottom:6px;border-bottom:1px solid var(--line)}
+.edit-ex{padding:11px 0;border-bottom:1px solid var(--line)}
+.edit-ex input{padding:10px 6px;text-align:center}
+.rm{width:36px;height:36px;border-radius:50%;color:var(--coral);font-size:22px;line-height:1}
+.rm:hover{background:rgba(227,112,95,.14)}
+.acoes-edit{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:22px}
+
+/* modal */
+.modal-fundo{position:fixed;inset:0;background:rgba(9,13,26,.72);display:flex;align-items:flex-end;justify-content:center;z-index:50}
+.modal{background:var(--ink2);width:100%;max-width:560px;max-height:88dvh;border-radius:20px 20px 0 0;display:flex;flex-direction:column;animation:sobe .22s ease-out}
+.modal-cab{padding:18px 20px 12px;border-bottom:1px solid var(--line)}
+.modal-cab h2{font-size:18px;font-weight:600}
+.modal-linha{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.modal-corpo{overflow:auto;padding:4px 20px calc(20px + env(safe-area-inset-bottom))}
+.modal input,.modal select,.modal textarea{background:var(--ink)}
+.lib-ex{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.lib-ex .info{flex:1;min-width:0}
+@keyframes sobe{from{transform:translateY(28px);opacity:0}}
+@media (min-width:640px){.modal-fundo{align-items:center}.modal{border-radius:20px}}
+
+/* chat */
+.chat{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.msg{max-width:84%;padding:10px 14px;border-radius:16px 16px 16px 4px;background:var(--ink2);font-size:15px;white-space:pre-wrap;overflow-wrap:anywhere}
+.msg.minha{align-self:flex-end;background:var(--ink3);border-radius:16px 16px 4px 16px}
+.msg time{display:block;font-size:11px;color:var(--muted);margin-top:4px}
+.enviar{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:end}
+
+.carregando{display:grid;place-items:center;min-height:70dvh;color:var(--muted);text-align:center}
+.barra{width:64px;height:3px;background:var(--line);border-radius:3px;overflow:hidden;margin:0 auto 14px;position:relative}
+.barra::after{content:"";position:absolute;inset:0;width:40%;background:var(--gold);animation:vai 1s ease-in-out infinite alternate}
+@keyframes vai{to{transform:translateX(150%)}}
+
+#toast{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom));transform:translate(-50%,12px);background:var(--bone);color:var(--ink);padding:10px 18px;border-radius:999px;font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:60;max-width:88vw;text-align:center}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* =========================================================
+   CONFIGURAÇÃO — cole aqui a URL do App da Web do Apps Script
+   ========================================================= */
+const API_URL = 'COLE_AQUI_A_URL_DO_WEB_APP';
+
+const DIAS = ['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
+const CURTO = {Segunda:'Seg',Terça:'Ter',Quarta:'Qua',Quinta:'Qui',Sexta:'Sex',Sábado:'Sáb',Domingo:'Dom'};
+const PERGUNTAS = [
+  {chave:'genero',   titulo:'Como você se identifica?',        opcoes:[['Feminino','Feminino'],['Masculino','Masculino'],['Prefiro não dizer','Prefiro não dizer']]},
+  {chave:'objetivo', titulo:'Qual seu objetivo principal?',    opcoes:[['Emagrecimento','Emagrecer'],['Hipertrofia','Ganhar massa muscular'],['Condicionamento','Ter mais fôlego e disposição'],['Saúde e bem-estar','Cuidar da saúde']]},
+  {chave:'local',    titulo:'Onde você vai treinar?',          opcoes:[['Casa','Em casa, sem aparelhos'],['Academia','Na academia']]},
+  {chave:'tempo',    titulo:'Quanto tempo você tem por dia?',  opcoes:[['30','30 minutos'],['45','45 minutos'],['60','1 hora']]}
+];
+const NIVEIS = ['Leve','Tranquilo','Moderado','Pesado','Exausto'];
+
+const $app = document.getElementById('app');
+const st = {aluno:null, exec:null, dash:null, lib:null, det:null, onb:null, timer:null};
+
+/* ---------- utilidades ---------- */
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const diaHoje = () => DIAS[(new Date().getDay() + 6) % 7];
+function on(sel, ev, fn, root = document){ const el = root.querySelector(sel); if (el) el.addEventListener(ev, fn); }
+function onAll(sel, ev, fn, root = document){ root.querySelectorAll(sel).forEach(el => el.addEventListener(ev, e => fn(e, el))); }
+
+const sessao = {
+  get(){ try { return JSON.parse(localStorage.getItem('serie_sessao')) || null; } catch(e){ return null; } },
+  set(v){ try { localStorage.setItem('serie_sessao', JSON.stringify(v)); } catch(e){} },
+  limpar(){ try { localStorage.removeItem('serie_sessao'); } catch(e){} }
+};
+
+async function api(action, dados = {}){
+  if (API_URL.startsWith('COLE')) throw new Error('Configure a API_URL no topo do index.html com a URL do Apps Script.');
+  const s = sessao.get();
+  let r;
+  try {
+    r = await fetch(API_URL, {
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},   // evita preflight de CORS no Apps Script
+      body: JSON.stringify({action, token: s && s.token, dados})
+    });
+  } catch(e){ throw new Error('Sem conexão com o servidor. Verifique sua internet e tente de novo.'); }
+  let j;
+  try { j = await r.json(); } catch(e){ throw new Error('O servidor respondeu de um jeito inesperado. Confira se o App da Web está implantado com acesso para "Qualquer pessoa".'); }
+  if (!j.ok){
+    if (j.codigo === 'SESSAO'){ pararTimer(); sessao.limpar(); telaLogin(); toast(j.erro); throw Object.assign(new Error(j.erro), {sessao:true}); }
+    throw new Error(j.erro);
+  }
+  return j.data;
+}
+
+function toast(msg){ const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('on'), 2600); }
+function msgErro(id, e){ if (e.sessao) return; const el = document.getElementById(id); if (el) el.textContent = e.message; else toast(e.message); }
+function carregando(msg = 'Carregando…'){ $app.innerHTML = `<main class="tela"><div class="carregando"><div><div class="barra"></div><p>${esc(msg)}</p></div></div></main>`; }
+function erroTela(e, tentar){
+  if (e.sessao) return;
+  $app.innerHTML = `<main class="tela"><div class="carregando"><div style="max-width:34ch">
+    <p class="erro" style="font-size:16px;margin-bottom:18px">${esc(e.message)}</p>
+    <button class="btn btn-linha" id="tentar">Tentar de novo</button>
+    <p style="margin-top:10px"><button class="link" id="sairErro">Sair da conta</button></p></div></div></main>`;
+  on('#tentar','click',tentar); on('#sairErro','click',sair);
+}
+function fmtData(iso){
+  if (!iso) return '';
+  const d = new Date(iso), h = new Date();
+  const z = x => new Date(x.getFullYear(), x.getMonth(), x.getDate());
+  const diff = Math.round((z(h) - z(d)) / 864e5);
+  if (diff === 0) return 'Hoje';
+  if (diff === 1) return 'Ontem';
+  if (diff < 7) return `Há ${diff} dias`;
+  return d.toLocaleDateString('pt-BR', {day:'2-digit', month:'short'});
+}
+function fmtHora(iso){ const d = new Date(iso); return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}) + ' às ' + d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}); }
+function imgUrl(u){
+  if (!u) return '';
+  const m = String(u).match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=\w+&)?id=)([\w-]+)/);
+  return m ? `https://drive.google.com/thumbnail?id=${m[1]}&sz=w1000` : u;
+}
+function repsTxt(series, reps){
+  const r = String(reps), s = parseInt(series) || 1;
+  return `${s} ${s === 1 ? 'série' : 'séries'} de ${/^\d+$/.test(r) ? r + ' repetições' : r}`;
+}
+function perfilTxt(p){ return [p.objetivo, p.local === 'Casa' ? 'treina em casa' : 'treina na academia', p.tempo ? p.tempo + ' min por dia' : ''].filter(Boolean).join(', '); }
+
+function topo(){
+  const s = sessao.get();
+  return `<header class="topo"><p class="ola">Oi, ${esc(String(s.nome).split(' ')[0])}</p>
+    <nav class="links"><button class="link" data-acao="senha">Trocar senha</button><button class="link" data-acao="sair">Sair</button></nav></header>`;
+}
+function ligarTopo(){ onAll('[data-acao="sair"]','click',sair); onAll('[data-acao="senha"]','click',modalSenha); }
+function sair(){ pararTimer(); sessao.limpar(); Object.keys(st).forEach(k => { if (k !== 'timer') st[k] = null; }); telaLogin(); }
+
+/* ---------- roteamento ---------- */
+function iniciar(){
+  const s = sessao.get();
+  if (!s) return telaLogin();
+  if (s.tipo === 'Personal') return telaPersonal();
+  if (!s.questionario) return telaOnboarding();
+  telaAluno();
+}
+
+/* ---------- login ---------- */
+function telaLogin(){
+  $app.innerHTML = `<main class="tela login">
+    <h1 class="display marca">Série</h1>
+    <p class="sub">Seu treino da semana, acompanhado de perto pela sua personal.</p>
+    <form id="fLogin" novalidate>
+      <label class="campo"><span>E-mail</span><input type="email" name="email" autocomplete="username" required></label>
+      <label class="campo"><span>Senha</span><input type="password" name="senha" autocomplete="current-password" required></label>
+      <p class="erro" id="eLogin" role="alert"></p>
+      <button class="btn btn-ouro largo" type="submit">Entrar</button>
+    </form></main>`;
+  on('#fLogin','submit', async e => {
+    e.preventDefault();
+    const f = e.target, b = f.querySelector('button');
+    document.getElementById('eLogin').textContent = '';
+    b.disabled = true; b.textContent = 'Entrando…';
+    try {
+      const r = await api('login', {email:f.email.value, senha:f.senha.value});
+      sessao.set({token:r.token, id:r.usuario.id, nome:r.usuario.nome, tipo:r.usuario.tipo, questionario:r.questionario_respondido});
+      iniciar();
+    } catch(err){ msgErro('eLogin', err); b.disabled = false; b.textContent = 'Entrar'; }
+  });
+}
+
+/* ---------- onboarding ---------- */
+function telaOnboarding(){ st.onb = {i:0, r:{}}; renderOnb(); }
+function renderOnb(){
+  const {i, r} = st.onb, p = PERGUNTAS[i], ultimo = i === PERGUNTAS.length - 1;
+  $app.innerHTML = `<main class="tela">${topo()}
+    <p class="passo">Pergunta ${i + 1} de ${PERGUNTAS.length}</p>
+    <h1 class="pergunta">${esc(p.titulo)}</h1>
+    <div class="opcoes" role="radiogroup">${p.opcoes.map(([v, l]) =>
+      `<button class="opcao ${r[p.chave] === v ? 'sel' : ''}" role="radio" aria-checked="${r[p.chave] === v}" data-v="${esc(v)}">${esc(l)}</button>`).join('')}</div>
+    <p class="erro" id="eOnb" role="alert"></p>
+    <div class="nav-onb">
+      ${i > 0 ? '<button class="btn btn-linha" id="voltar">Voltar</button>' : ''}
+      ${ultimo ? `<button class="btn btn-ouro" id="montar" ${r[p.chave] ? '' : 'disabled'}>Montar meu treino</button>` : ''}
+    </div></main>`;
+  ligarTopo();
+  onAll('.opcao','click',(e, el) => { r[p.chave] = el.dataset.v; if (!ultimo) st.onb.i++; renderOnb(); });
+  on('#voltar','click',() => { st.onb.i--; renderOnb(); });
+  on('#montar','click', async e => {
+    const b = e.currentTarget; b.disabled = true; b.textContent = 'Montando seu treino…';
+    try {
+      await api('salvar_questionario', r);
+      const s = sessao.get(); s.questionario = true; sessao.set(s);
+      toast('Treino montado'); telaAluno();
+    } catch(err){ msgErro('eOnb', err); b.disabled = false; b.textContent = 'Montar meu treino'; }
+  });
+}
+
+/* ---------- painel do aluno ---------- */
+async function telaAluno(){
+  pararTimer(); carregando('Buscando seu treino…');
+  try { st.aluno = await api('obter_treino', {}); renderAluno(); window.scrollTo(0,0); }
+  catch(e){ erroTela(e, telaAluno); }
+}
+function listaHist(arr){
+  if (!arr || !arr.length) return '<p class="sub">Nenhum treino registrado ainda.</p>';
+  return `<ul class="hist">${arr.map(h => `<li>
+    <div class="hist-top"><b>${fmtData(h.data)}</b><span>${h.tempo ? h.tempo + ' min' : ''}</span></div>
+    <p>${esc(h.treino)}</p>
+    ${h.cansaco ? `<p class="cans" aria-label="Cansaço ${h.cansaco} de 5">${'<i class="on"></i>'.repeat(h.cansaco)}${'<i></i>'.repeat(5 - h.cansaco)}<span>Cansaço ${h.cansaco}/5, ${NIVEIS[h.cansaco - 1].toLowerCase()}</span></p>` : ''}
+    ${h.comentario ? `<p class="coment">“${esc(h.comentario)}”</p>` : ''}</li>`).join('')}</ul>`;
+}
+function renderAluno(){
+  const d = st.aluno, t = d.treino, ehHoje = d.dia === d.hoje, min = d.perfil && d.perfil.tempo;
+  $app.innerHTML = `<main class="tela">${topo()}
+    <nav class="semana" aria-label="Dias da semana">${d.semana.map(s =>
+      `<button class="dia ${s.total ? 'tem' : ''} ${s.dia === d.hoje ? 'hoje' : ''} ${s.dia === d.dia ? 'ativo' : ''}" data-dia="${s.dia}" aria-pressed="${s.dia === d.dia}" aria-label="${s.dia}${s.total ? ', ' + s.total + ' exercícios' : ', descanso'}">
+        <span>${CURTO[s.dia]}</span><i class="ponto"></i></button>`).join('')}</nav>
+    <div class="hero-dia">
+      <h1 class="display">${esc(d.dia)}</h1>
+      <p class="sub">${t ? `${ehHoje ? 'Hoje, ' : ''}${t.exercicios.length} exercícios${min ? ` em cerca de ${min} minutos` : ''}.` : (ehHoje ? 'Hoje é dia de descanso.' : 'Dia de descanso.')}</p>
+    </div>
+    ${ehHoje && d.feito_hoje ? '<p class="aviso">Treino de hoje registrado. Se quiser, pode fazer de novo.</p>' : ''}
+    ${t ? `<ol class="lista-ex">${t.exercicios.map((x, i) => `<li><span class="n">${i + 1}</span>
+        <div><div class="nome">${esc(x.nome)}</div><div class="foco">${esc(x.foco)}</div></div>
+        <span class="sr">${esc(x.series)}×${esc(x.reps)}</span></li>`).join('')}</ol>`
+      : `<p class="desc" style="margin-top:14px">Descansar também faz parte do treino: é na recuperação que o músculo se reconstrói. Uma caminhada leve ou alongamento já ajudam.</p>`}
+    <section class="bloco"><h2>Recado da personal</h2>
+      ${d.ultima_mensagem ? `<div class="recado"><p>${esc(d.ultima_mensagem.texto)}</p><p class="sub" style="font-size:13px;margin-top:6px">${fmtData(d.ultima_mensagem.data)}</p></div>` : '<p class="sub">Nenhum recado ainda.</p>'}
+      <button class="btn btn-linha largo" id="abrirRecados" style="margin-top:12px">Abrir conversa</button>
+    </section>
+    <section class="bloco"><h2>Últimos treinos</h2>${listaHist(d.recentes)}</section>
+    ${t ? `<div class="rodape"><div><button class="btn btn-ouro largo" id="comecar">Começar treino de ${esc(d.dia.toLowerCase())}</button></div></div>` : ''}
+  </main>`;
+  ligarTopo();
+  onAll('.dia','click',(e, el) => { d.dia = el.dataset.dia; d.treino = d.treinos[d.dia] || null; renderAluno(); });
+  on('#comecar','click',iniciarTreino);
+  on('#abrirRecados','click',telaRecados);
+}
+
+/* ---------- execução do treino ---------- */
+function iniciarTreino(){ st.exec = {treino:st.aluno.treino, dia:st.aluno.dia, idx:0, inicio:Date.now(), feitas:{}}; renderExec(); }
+function renderExec(){
+  pararTimer();
+  const e = st.exec, lista = e.treino.exercicios, ex = lista[e.idx], n = lista.length, ultimo = e.idx === n - 1;
+  const total = Math.max(1, parseInt(ex.series) || 1), reps = String(ex.reps), img = imgUrl(ex.imagem);
+  $app.innerHTML = `<main class="tela">
+    <header class="topo"><p class="ola">Exercício ${e.idx + 1} de ${n}</p><button class="link" id="sairTreino">Sair do treino</button></header>
+    <div class="progresso" role="progressbar" aria-label="Progresso do treino" aria-valuemin="1" aria-valuemax="${n}" aria-valuenow="${e.idx + 1}"><i style="width:${(e.idx + 1) / n * 100}%"></i></div>
+    <div class="midia">${img ? `<img id="exImg" src="${esc(img)}" alt="Demonstração: ${esc(ex.nome)}">` : `<span class="ph" aria-hidden="true">${esc(ex.foco || 'Série')}</span>`}</div>
+    <h1 class="ex-nome">${esc(ex.nome)}</h1>
+    <div class="carga ${reps.length > 3 ? 'longa' : ''}" aria-hidden="true"><span>${esc(ex.series)}</span><span class="x">×</span><span>${esc(reps)}</span></div>
+    <p class="carga-leg">${esc(repsTxt(ex.series, reps))}</p>
+    <p class="sub">Toque em cada série ao terminar</p>
+    <div class="series">${Array.from({length:total}, (_, i) => `<button class="serie" data-i="${i}" aria-label="Série ${i + 1}">${i + 1}</button>`).join('')}</div>
+    <div id="descanso" aria-live="polite"></div>
+    ${ex.descricao ? `<h2 class="rot2">Como fazer</h2><p class="desc">${esc(ex.descricao)}</p>` : ''}
+    <div class="rodape"><div class="nav-exec">
+      <button class="btn btn-linha" id="ant" ${e.idx === 0 ? 'disabled' : ''}>Anterior</button>
+      <button class="btn btn-ouro" id="prox">${ultimo ? 'Concluir treino' : 'Próximo exercício'}</button>
+    </div></div></main>`;
+  const im = document.getElementById('exImg');
+  if (im) im.onerror = () => { im.outerHTML = `<span class="ph" aria-hidden="true">${esc(ex.foco || 'Série')}</span>`; };
+
+  const pintar = () => { const f = e.feitas[e.idx] || 0; document.querySelectorAll('.serie').forEach((b, i) => { b.classList.toggle('feita', i < f); b.setAttribute('aria-pressed', i < f); }); };
+  pintar();
+  onAll('.serie','click',(ev, el) => {
+    const i = +el.dataset.i, antes = e.feitas[e.idx] || 0;
+    e.feitas[e.idx] = i < antes ? i : i + 1;
+    pintar();
+    if (e.feitas[e.idx] > antes && e.feitas[e.idx] < total) iniciarDescanso(60); else pararTimer();
+  });
+  on('#ant','click',() => { e.idx--; renderExec(); window.scrollTo(0,0); });
+  on('#prox','click',() => { if (ultimo) return telaConclusao(); e.idx++; renderExec(); window.scrollTo(0,0); });
+  on('#sairTreino','click',() => { if (confirm('Sair do treino? O progresso deste treino não será salvo.')){ pararTimer(); st.exec = null; renderAluno(); } });
+}
+function iniciarDescanso(seg){
+  pararTimer();
+  const box = document.getElementById('descanso'); if (!box) return;
+  const fim = Date.now() + seg * 1000;
+  const tick = () => {
+    const r = Math.max(0, Math.round((fim - Date.now()) / 1000));
+    if (r <= 0){ pararTimer(); if (navigator.vibrate) navigator.vibrate(200); toast('Descanso encerrado. Bora pra próxima série.'); return; }
+    box.innerHTML = `<div class="descanso"><span>Descanso</span><b>${Math.floor(r / 60)}:${String(r % 60).padStart(2, '0')}</b><button class="link" id="pularDesc">Pular</button></div>`;
+    on('#pularDesc','click',pararTimer);
+  };
+  tick(); st.timer = setInterval(tick, 1000);
+}
+function pararTimer(){ clearInterval(st.timer); st.timer = null; const box = document.getElementById('descanso'); if (box) box.innerHTML = ''; }
+
+function telaConclusao(){
+  pararTimer();
+  const e = st.exec, min = Math.max(1, Math.round((Date.now() - e.inicio) / 60000));
+  let cansaco = null;
+  $app.innerHTML = `<main class="tela">
+    <header class="topo"><p class="ola">Treino de ${esc(e.dia.toLowerCase())}</p></header>
+    <h1 class="display fim">Feito.</h1>
+    <p class="sub" style="margin-bottom:28px;font-size:16px">${e.treino.exercicios.length} exercícios concluídos. Conte como foi para a sua personal.</p>
+    <label class="campo"><span>Tempo de treino, em minutos</span><input type="number" id="tMin" min="1" max="300" value="${min}" inputmode="numeric"></label>
+    <div class="campo"><span id="lCans">Quão cansado(a) você terminou?</span>
+      <div class="escala" role="radiogroup" aria-labelledby="lCans">${NIVEIS.map((r, i) => `<button role="radio" aria-checked="false" data-v="${i + 1}"><b>${i + 1}</b><small>${r}</small></button>`).join('')}</div></div>
+    <label class="campo"><span>Comentário (opcional)</span><textarea id="coment" rows="3" placeholder="Ex.: senti o joelho no afundo, a prancha ficou fácil"></textarea></label>
+    <p class="erro" id="eFim" role="alert"></p>
+    <button class="btn btn-ouro largo" id="salvarFim">Salvar treino</button>
+    <p style="text-align:center;margin-top:8px"><button class="link" id="descartar">Descartar sem salvar</button></p>
+  </main>`;
+  window.scrollTo(0,0);
+  onAll('.escala button','click',(ev, el) => {
+    cansaco = +el.dataset.v;
+    document.querySelectorAll('.escala button').forEach(b => b.setAttribute('aria-checked', b === el));
+  });
+  on('#descartar','click',() => { if (confirm('Descartar este treino?')){ st.exec = null; renderAluno(); } });
+  on('#salvarFim','click', async ev => {
+    if (!cansaco) return msgErro('eFim', new Error('Escolha o nível de cansaço de 1 a 5.'));
+    const b = ev.currentTarget; b.disabled = true; b.textContent = 'Salvando…';
+    try {
+      await api('registrar_conclusao', {
+        dia:e.dia, id_treino:e.treino.id_treino,
+        exercicios:e.treino.exercicios.map(x => x.nome),
+        tempo_min:document.getElementById('tMin').value, cansaco,
+        comentario:document.getElementById('coment').value
+      });
+      st.exec = null; toast('Treino salvo'); telaAluno();
+    } catch(err){ msgErro('eFim', err); b.disabled = false; b.textContent = 'Salvar treino'; }
+  });
+}
+
+/* ---------- recados ---------- */
+function htmlChat(msgs){
+  const eu = sessao.get().id;
+  return `<div class="chat" id="chat">${msgs.length ? msgs.map(m => `<div class="msg ${m.autor === eu ? 'minha' : ''}"><p>${esc(m.texto)}</p><time>${fmtHora(m.data)}</time></div>`).join('')
+    : '<p class="sub">Nenhuma mensagem ainda. Escreva a primeira.</p>'}</div>
+    <form class="enviar" id="fMsg"><label class="sr-only" for="txtMsg">Mensagem</label>
+      <textarea id="txtMsg" rows="2" placeholder="Escreva uma mensagem"></textarea>
+      <button class="btn btn-ouro" type="submit">Enviar</button></form>`;
+}
+function ligarChat(idAluno, depois){
+  on('#fMsg','submit', async e => {
+    e.preventDefault();
+    const tx = document.getElementById('txtMsg'), v = tx.value.trim(); if (!v) return;
+    const b = e.target.querySelector('button'); b.disabled = true; b.textContent = 'Enviando…';
+    try { depois(await api('enviar_mensagem', {id_usuario:idAluno, mensagem:v})); toast('Mensagem enviada'); }
+    catch(err){ if (!err.sessao) toast(err.message); b.disabled = false; b.textContent = 'Enviar'; }
+  });
+  const c = document.getElementById('chat');
+  if (c && c.lastElementChild) c.lastElementChild.scrollIntoView({block:'nearest'});
+}
+async function telaRecados(){
+  carregando('Abrindo conversa…');
+  try { renderRecados(await api('obter_mensagens', {})); }
+  catch(e){ erroTela(e, telaRecados); }
+}
+function renderRecados(msgs){
+  $app.innerHTML = `<main class="tela"><header class="topo"><button class="link" id="voltar">Voltar ao treino</button></header>
+    <h1 class="display titulo">Recados</h1><p class="sub" style="margin-bottom:22px">Conversa com a sua personal.</p>${htmlChat(msgs)}</main>`;
+  on('#voltar','click',() => st.aluno ? renderAluno() : telaAluno());
+  ligarChat(null, renderRecados);
+}
+
+/* ---------- painel da personal ---------- */
+async function telaPersonal(){
+  carregando('Carregando alunos…');
+  try { st.dash = await api('dashboard_personal'); renderPersonal(); }
+  catch(e){ erroTela(e, telaPersonal); }
+  if (!st.lib) api('listar_exercicios').then(l => st.lib = l).catch(() => {});
+}
+function renderPersonal(){
+  const d = st.dash;
+  $app.innerHTML = `<main class="tela">${topo()}<h1 class="display titulo">Alunos</h1>
+    ${d.alunos.length ? d.alunos.map(a => `<article class="aluno">
+      <h2>${esc(a.nome)}</h2>
+      <p class="perfil">${a.perfil ? esc(perfilTxt(a.perfil)) : 'Ainda não respondeu o questionário.'}</p>
+      <div class="numeros">
+        <div><b>${a.stats.treinos_7d}</b><span>dias treinados na semana</span></div>
+        <div><b>${a.stats.cansaco_medio != null ? String(a.stats.cansaco_medio).replace('.', ',') : '–'}</b><span>cansaço médio, de 1 a 5</span></div>
+        <div><b class="menor">${a.stats.ultimo ? fmtData(a.stats.ultimo) : '–'}</b><span>último treino</span></div>
+      </div>
+      <button class="btn btn-linha largo" data-id="${esc(a.id)}">Ver treino, histórico e recados</button></article>`).join('')
+    : '<p class="sub" style="margin-top:16px">Nenhum aluno ainda. Cadastre alunos pela função criarUsuario no Apps Script.</p>'}
+    <p style="text-align:center;margin-top:24px"><button class="link" id="atualizar">Atualizar dados</button></p>
+  </main>`;
+  ligarTopo();
+  onAll('[data-id]','click',(e, el) => abrirAluno(el.dataset.id));
+  on('#atualizar','click',telaPersonal);
+}
+const alunoAtual = () => st.dash.alunos.find(x => x.id === st.det.id);
+function rascunho(dia){
+  const det = st.det;
+  if (!det.rascunho[dia]){
+    const t = alunoAtual().treinos[dia];
+    det.rascunho[dia] = t ? t.exercicios.map(x => ({id:x.id, nome:x.nome, foco:x.foco, series:x.series, reps:x.reps})) : [];
+  }
+  return det.rascunho[dia];
+}
+function abrirAluno(id){ st.det = {id, aba:'treino', dia:diaHoje(), rascunho:{}, sujo:{}}; renderDetalhe(); window.scrollTo(0,0); }
+function renderDetalhe(){
+  const det = st.det, a = alunoAtual();
+  $app.innerHTML = `<main class="tela"><header class="topo"><button class="link" id="voltar">Voltar aos alunos</button></header>
+    <h1 class="display titulo">${esc(a.nome)}</h1><p class="sub">${a.perfil ? esc(perfilTxt(a.perfil)) : 'Questionário pendente'}</p>
+    <nav class="abas" role="tablist">${[['treino','Treino'],['historico','Histórico'],['recados','Recados']].map(([k, l]) =>
+      `<button class="aba ${det.aba === k ? 'ativa' : ''}" role="tab" aria-selected="${det.aba === k}" data-aba="${k}">${l}</button>`).join('')}</nav>
+    <div id="conteudo"></div></main>`;
+  on('#voltar','click',() => {
+    if (Object.values(det.sujo).some(Boolean) && !confirm('Há alterações não salvas. Sair mesmo assim?')) return;
+    st.det = null; renderPersonal();
+  });
+  onAll('.aba','click',(e, el) => { det.aba = el.dataset.aba; renderDetalhe(); });
+  const c = document.getElementById('conteudo');
+  if (det.aba === 'treino') renderEditor(c);
+  else if (det.aba === 'historico') c.innerHTML = listaHist(a.historico);
+  else renderChatPersonal(c);
+}
+function renderEditor(c){
+  const det = st.det, a = alunoAtual(), lista = rascunho(det.dia);
+  const temTreino = dd => (det.rascunho[dd] ? det.rascunho[dd].length : (a.treinos[dd] ? a.treinos[dd].exercicios.length : 0)) > 0;
+  c.innerHTML = `<div class="chips" aria-label="Dia da semana">${DIAS.map(dd =>
+      `<button class="chip ${dd === det.dia ? 'ativo' : ''} ${temTreino(dd) ? 'tem' : ''} ${det.sujo[dd] ? 'sujo' : ''}" data-dia="${dd}" aria-pressed="${dd === det.dia}">${CURTO[dd]}</button>`).join('')}</div>
+    <h2 class="rot2">${esc(det.dia)}<span class="pend" id="pend">${det.sujo[det.dia] ? 'alterações não salvas' : ''}</span></h2>
+    ${lista.length ? `<div class="edit-cab"><span>Exercício</span><span style="text-align:center">Séries</span><span style="text-align:center">Reps</span><span></span></div>
+      ${lista.map((x, i) => `<div class="edit-ex">
+        <div><div class="nome">${esc(x.nome)}</div><div class="foco">${esc(x.foco)}</div></div>
+        <input aria-label="Séries de ${esc(x.nome)}" data-i="${i}" data-campo="series" value="${esc(x.series)}" inputmode="numeric">
+        <input aria-label="Repetições de ${esc(x.nome)}" data-i="${i}" data-campo="reps" value="${esc(x.reps)}">
+        <button class="rm" aria-label="Remover ${esc(x.nome)}" data-rm="${i}">×</button></div>`).join('')}`
+    : '<p class="sub" style="margin:8px 0 4px">Dia de descanso. Adicione exercícios para montar um treino neste dia.</p>'}
+    <button class="btn btn-linha largo" id="add" style="margin-top:16px">Adicionar exercício da biblioteca</button>
+    <div class="acoes-edit">
+      <button class="btn btn-ouro largo" id="salvarTreino" ${det.sujo[det.dia] ? '' : 'disabled'}>Salvar treino de ${esc(det.dia.toLowerCase())}</button>
+      ${lista.length ? '<button class="link" id="descansoDia">Transformar em dia de descanso</button>' : ''}
+    </div>`;
+  const marcar = () => { det.sujo[det.dia] = true; document.getElementById('salvarTreino').disabled = false; document.getElementById('pend').textContent = 'alterações não salvas'; };
+  onAll('.chip[data-dia]','click',(e, el) => { det.dia = el.dataset.dia; renderEditor(c); }, c);
+  onAll('.edit-ex input','input',(e, el) => { lista[+el.dataset.i][el.dataset.campo] = el.value; marcar(); }, c);
+  onAll('[data-rm]','click',(e, el) => { lista.splice(+el.dataset.rm, 1); det.sujo[det.dia] = true; renderEditor(c); }, c);
+  on('#descansoDia','click',() => { det.rascunho[det.dia] = []; det.sujo[det.dia] = true; renderEditor(c); }, c);
+  on('#add','click',() => modalBiblioteca(c), c);
+  on('#salvarTreino','click', async e => {
+    const b = e.currentTarget, dia = det.dia; b.disabled = true; b.textContent = 'Salvando…';
+    try {
+      const r = await api('atualizar_treino', {id_usuario:det.id, dia, exercicios:rascunho(dia).map(x => ({id:x.id, series:x.series, reps:x.reps}))});
+      if (r.treino) a.treinos[dia] = r.treino; else delete a.treinos[dia];
+      det.rascunho[dia] = null; det.sujo[dia] = false;
+      toast(`Treino de ${dia.toLowerCase()} salvo`);
+      if (st.det === det && det.aba === 'treino') renderEditor(c);
+    } catch(err){ if (!err.sessao){ toast(err.message); b.disabled = false; b.textContent = `Salvar treino de ${dia.toLowerCase()}`; } }
+  }, c);
+}
+async function modalBiblioteca(c){
+  if (!st.lib){
+    toast('Carregando a biblioteca…');
+    try { st.lib = await api('listar_exercicios'); } catch(e){ if (!e.sessao) toast(e.message); return; }
+  }
+  const f = {q:'', local:'Todos', foco:'Todos'};
+  const focos = ['Todos', ...new Set(st.lib.map(e => e.foco).filter(Boolean))];
+  const fundo = document.createElement('div');
+  fundo.className = 'modal-fundo';
+  fundo.innerHTML = `<div class="modal" role="dialog" aria-modal="true" aria-labelledby="tLib">
+    <div class="modal-cab">
+      <div class="modal-linha"><h2 id="tLib">Biblioteca, ${esc(st.det.dia.toLowerCase())}</h2><button class="link" id="fechar">Concluir</button></div>
+      <label class="sr-only" for="busca">Buscar exercício</label><input type="search" id="busca" placeholder="Buscar por nome">
+      <div class="chips">${['Todos','Casa','Academia'].map(l => `<button class="chip ${l === 'Todos' ? 'ativo' : ''}" data-l="${l}">${l === 'Todos' ? 'Qualquer local' : l}</button>`).join('')}</div>
+      <label class="sr-only" for="fFoco">Foco muscular</label>
+      <select id="fFoco">${focos.map(x => `<option value="${esc(x)}">${x === 'Todos' ? 'Todos os grupos musculares' : esc(x)}</option>`).join('')}</select>
+    </div>
+    <div class="modal-corpo" id="libLista"></div></div>`;
+  document.body.appendChild(fundo);
+  const listaEl = fundo.querySelector('#libLista');
+  const teclado = ev => { if (ev.key === 'Escape') fechar(); };
+  const fechar = () => { fundo.remove(); document.removeEventListener('keydown', teclado); if (st.det) renderEditor(c); };
+  document.addEventListener('keydown', teclado);
+  fundo.addEventListener('click', ev => { if (ev.target === fundo) fechar(); });
+  fundo.querySelector('#fechar').addEventListener('click', fechar);
+
+  const desenhar = () => {
+    const doDia = rascunho(st.det.dia), ids = new Set(doDia.map(x => x.id)), q = f.q.toLowerCase();
+    const itens = st.lib.filter(e => (!q || e.nome.toLowerCase().includes(q))
+      && (f.local === 'Todos' || e.local === f.local || e.local === 'Ambos')
+      && (f.foco === 'Todos' || e.foco === f.foco));
+    listaEl.innerHTML = itens.length ? itens.map(e => `<div class="lib-ex">
+        <div class="info"><div class="nome">${esc(e.nome)}</div><div class="foco">${esc(e.foco)}, ${e.local === 'Ambos' ? 'casa ou academia' : esc(e.local.toLowerCase())}</div></div>
+        <button class="btn btn-p ${ids.has(e.id) ? 'btn-linha' : 'btn-ouro'}" data-add="${esc(e.id)}" ${ids.has(e.id) ? 'disabled' : ''}>${ids.has(e.id) ? 'No treino' : 'Adicionar'}</button></div>`).join('')
+      : '<p class="sub" style="padding:18px 0">Nenhum exercício com esses filtros. Tente outro grupo ou local.</p>';
+    onAll('[data-add]','click',(ev, el) => {
+      const e = st.lib.find(x => x.id === el.dataset.add), ref = doDia[doDia.length - 1];
+      doDia.push({id:e.id, nome:e.nome, foco:e.foco, series:ref ? ref.series : '3', reps:ref ? ref.reps : '12'});
+      st.det.sujo[st.det.dia] = true; toast(`${e.nome} adicionado`); desenhar();
+    }, listaEl);
+  };
+  fundo.querySelector('#busca').addEventListener('input', ev => { f.q = ev.target.value; desenhar(); });
+  fundo.querySelector('#fFoco').addEventListener('change', ev => { f.foco = ev.target.value; desenhar(); });
+  onAll('[data-l]','click',(ev, el) => { f.local = el.dataset.l; fundo.querySelectorAll('[data-l]').forEach(b => b.classList.toggle('ativo', b === el)); desenhar(); }, fundo);
+  desenhar();
+  fundo.querySelector('#busca').focus();
+}
+async function renderChatPersonal(c){
+  const id = st.det.id;
+  c.innerHTML = '<p class="sub">Carregando recados…</p>';
+  try {
+    const msgs = await api('obter_mensagens', {id_usuario:id});
+    if (!st.det || st.det.id !== id || st.det.aba !== 'recados') return;
+    const desenhar = m => { c.innerHTML = htmlChat(m); ligarChat(id, desenhar); };
+    desenhar(msgs);
+  } catch(e){ if (!e.sessao) c.innerHTML = `<p class="erro">${esc(e.message)}</p>`; }
+}
+
+/* ---------- trocar senha ---------- */
+function modalSenha(){
+  const fundo = document.createElement('div');
+  fundo.className = 'modal-fundo';
+  fundo.innerHTML = `<div class="modal" role="dialog" aria-modal="true" aria-labelledby="tSenha">
+    <div class="modal-cab"><div class="modal-linha" style="margin:0"><h2 id="tSenha">Trocar senha</h2><button class="link" id="fecharS">Cancelar</button></div></div>
+    <form class="modal-corpo" id="fSenha" style="padding-top:16px">
+      <label class="campo"><span>Senha atual</span><input type="password" name="atual" autocomplete="current-password" required></label>
+      <label class="campo"><span>Nova senha, com 6 caracteres ou mais</span><input type="password" name="nova" autocomplete="new-password" minlength="6" required></label>
+      <p class="erro" id="eSenha" role="alert"></p>
+      <button class="btn btn-ouro largo" type="submit">Salvar nova senha</button>
+    </form></div>`;
+  document.body.appendChild(fundo);
+  const fechar = () => fundo.remove();
+  fundo.addEventListener('click', ev => { if (ev.target === fundo) fechar(); });
+  fundo.querySelector('#fecharS').addEventListener('click', fechar);
+  fundo.querySelector('#fSenha').addEventListener('submit', async ev => {
+    ev.preventDefault();
+    const f = ev.target, b = f.querySelector('button');
+    b.disabled = true; b.textContent = 'Salvando…';
+    try { await api('alterar_senha', {atual:f.atual.value, nova:f.nova.value}); fechar(); toast('Senha alterada'); }
+    catch(err){ if (err.sessao) return fechar(); msgErro('eSenha', err); b.disabled = false; b.textContent = 'Salvar nova senha'; }
+  });
+  fundo.querySelector('input').focus();
+}
+
+iniciar();
+</script>
+</body>
+</html>
