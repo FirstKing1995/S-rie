@@ -4,8 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#141C33">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Série</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23141C33'/><text x='50' y='72' font-size='64' text-anchor='middle' fill='%23D9A441' font-family='Impact,sans-serif'>S</text></svg>">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -15,50 +19,76 @@
   --bone:#EEE7D7; --bone2:#C9C2B2; --muted:#8E98B3;
   --gold:#D9A441; --gold2:#F0C46A; --coral:#E3705F;
   --line:rgba(238,231,215,.12);
+  --nav-h:64px; --safe-b:env(safe-area-inset-bottom,0px);
   --display:'Big Shoulders Display',Impact,'Arial Narrow',sans-serif;
   --body:'Instrument Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
 }
 *{box-sizing:border-box;margin:0}
-html,body{background:var(--ink);color:var(--bone);font-family:var(--body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+html,body{background:var(--ink);color:var(--bone);font-family:var(--body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
 body{min-height:100dvh}
+a{color:inherit}
 button,input,textarea,select{font:inherit;color:inherit}
 button{cursor:pointer;background:none;border:0;padding:0}
 :focus-visible{outline:2px solid var(--gold2);outline-offset:3px;border-radius:8px}
-.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+svg.ic{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
 
-.tela{max-width:560px;margin:0 auto;padding:max(16px,env(safe-area-inset-top)) 20px 120px;min-height:100dvh}
+.tela{max-width:560px;margin:0 auto;padding:max(16px,env(safe-area-inset-top)) 20px calc(120px + var(--safe-b));min-height:100dvh}
+.tela.com-nav{padding-bottom:calc(var(--nav-h) + 130px + var(--safe-b))}
 .topo{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 0 18px}
 .ola{font-size:15px;color:var(--bone2)}
-.links{display:flex;gap:2px}
-.link{padding:8px 10px;color:var(--muted);font-size:14px;border-radius:8px}
+.link{padding:8px 10px;color:var(--muted);font-size:14px;border-radius:8px;text-decoration:none}
 .link:hover{color:var(--bone)}
+.voltar{display:inline-flex;align-items:center;gap:4px;min-height:44px;padding:0 14px 0 6px;margin:0 0 10px -6px;border-radius:999px;color:var(--bone2);text-decoration:none;font-weight:500;font-size:15px}
+.voltar:hover{background:var(--ink2);color:var(--bone)}
 .display{font-family:var(--display);font-weight:800;line-height:.88}
-.titulo{font-size:clamp(56px,16vw,88px);margin-bottom:6px}
+.titulo{font-size:clamp(54px,15vw,84px);margin-bottom:8px;overflow-wrap:anywhere}
 .sub{color:var(--muted);font-size:15px}
-.desc{color:var(--bone2);line-height:1.65;max-width:62ch}
-.rot2{font-size:15px;font-weight:600;color:var(--bone2);margin:22px 0 10px}
+.desc{color:var(--bone2);line-height:1.65;max-width:62ch;white-space:pre-line}
+.rot2{font-size:15px;font-weight:600;color:var(--bone2);margin:26px 0 10px}
+.vazio{padding:28px 0;color:var(--muted)}
+.vazio .btn{margin-top:14px}
 
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 22px;border-radius:999px;font-weight:600;font-size:16px;transition:transform .12s,background-color .15s,border-color .15s}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 22px;border-radius:999px;font-weight:600;font-size:16px;text-decoration:none;transition:transform .12s,background-color .15s,border-color .15s;cursor:pointer}
 .btn:active{transform:scale(.98)}
 .btn-ouro{background:var(--gold);color:var(--ink)}
 .btn-ouro:hover{background:var(--gold2)}
 .btn-linha{border:1.5px solid var(--line);color:var(--bone)}
 .btn-linha:hover{border-color:var(--bone2)}
-.btn[disabled]{opacity:.38;pointer-events:none}
-.btn-p{min-height:38px;padding:0 16px;font-size:14px}
+.btn-perigo{color:var(--coral);border:1.5px solid rgba(227,112,95,.35)}
+.btn[disabled],.btn.desativado{opacity:.38;pointer-events:none}
+.btn-p{min-height:40px;padding:0 16px;font-size:14px}
+.btn:focus-within{outline:2px solid var(--gold2);outline-offset:3px}
 .largo{width:100%}
+.linha-btns{display:flex;gap:8px;flex-wrap:wrap}
+.linha-btns .btn{flex:1}
 
 .campo{display:block;margin-bottom:16px}
-.campo>span{display:block;font-size:14px;color:var(--bone2);margin-bottom:6px}
-input,textarea,select{width:100%;background:var(--ink2);border:1.5px solid var(--line);border-radius:10px;padding:13px 14px;outline:none}
+.campo>span,.rotulo{display:block;font-size:14px;color:var(--bone2);margin-bottom:6px}
+.campo small{display:block;color:var(--muted);font-size:13px;margin-top:5px}
+input:not([type=checkbox]):not([type=file]),textarea,select{width:100%;background:var(--ink2);border:1.5px solid var(--line);border-radius:10px;padding:13px 14px;outline:none}
 input:focus,textarea:focus,select:focus{border-color:var(--gold)}
 textarea{resize:vertical}
+.duas{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tres{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.check{display:flex;gap:12px;align-items:flex-start;margin:6px 0 18px;font-size:15px;cursor:pointer}
+.check input{width:22px;height:22px;accent-color:var(--gold);flex:none;margin-top:1px}
 .erro{color:var(--coral);font-size:14px;min-height:20px;margin:6px 0}
+
+/* navegação inferior */
+.nav{position:fixed;left:0;right:0;bottom:0;height:calc(var(--nav-h) + var(--safe-b));padding-bottom:var(--safe-b);background:rgba(20,28,51,.96);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid var(--line);display:flex;justify-content:center;z-index:30}
+.nav a{flex:1;max-width:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--muted);text-decoration:none;font-size:11.5px;font-weight:500;position:relative}
+.nav a.ativo{color:var(--gold)}
+.badge{position:absolute;top:7px;left:calc(50% + 5px);min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--coral);color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center;line-height:1}
+.badge-inline{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 6px;border-radius:10px;background:var(--coral);color:#fff;font-size:12px;font-weight:700;margin-left:6px}
+body.digitando .nav{display:none}
 
 /* login */
 .login{display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:48px}
 .marca{font-size:clamp(110px,36vw,190px);color:var(--bone);margin-bottom:10px;letter-spacing:-.01em}
 .login .sub{max-width:30ch;margin-bottom:36px;font-size:16px}
+.alternar{text-align:center;margin-top:16px;color:var(--muted);font-size:15px}
+.alternar a{color:var(--gold);font-weight:600;text-decoration:none}
 
 /* onboarding */
 .passo{font-size:14px;color:var(--muted);margin:20px 0 10px}
@@ -67,33 +97,42 @@ textarea{resize:vertical}
 .opcao{text-align:left;padding:18px 20px;border-radius:14px;border:1.5px solid var(--line);font-size:17px;font-weight:500;transition:border-color .15s,background-color .15s}
 .opcao:hover{border-color:var(--bone2)}
 .opcao.sel{border-color:var(--gold);background:rgba(217,164,65,.1)}
-.nav-onb{display:flex;gap:10px;margin-top:20px}
+.nav-onb{display:flex;gap:10px;margin-top:22px}
 .nav-onb .btn-ouro{flex:1}
 
-/* semana */
-.semana{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:28px}
-.dia{display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 0 9px;border-radius:12px;color:var(--muted);font-size:13px;font-weight:500}
-.dia .ponto{width:5px;height:5px;border-radius:50%}
+/* treino do aluno */
+.semana{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:26px}
+.dia{display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 0 8px;border-radius:12px;color:var(--muted);font-size:13px;font-weight:500}
+.dia .marca-dia{height:14px;display:grid;place-items:center}
+.dia .ponto{width:5px;height:5px;border-radius:50%;background:transparent}
 .dia.tem .ponto{background:var(--muted)}
-.dia.hoje{color:var(--bone)}
-.dia.hoje span{box-shadow:0 2px 0 var(--gold)}
-.dia.ativo{background:var(--ink3);color:var(--bone)}
 .dia.ativo.tem .ponto{background:var(--gold)}
-
+.dia svg.ic{width:14px;height:14px;stroke:var(--gold);stroke-width:2.6}
+.dia.hoje{color:var(--bone)}
+.dia.hoje>span:first-child{box-shadow:0 2px 0 var(--gold)}
+.dia.ativo{background:var(--ink3);color:var(--bone)}
 .hero-dia h1{font-size:clamp(76px,23vw,128px);color:var(--bone)}
 .hero-dia .sub{margin-top:10px;font-size:16px}
 .aviso{background:var(--ink2);border-left:3px solid var(--gold);padding:12px 14px;border-radius:0 10px 10px 0;font-size:15px;margin:18px 0 0}
-
+.aviso .linha-btns{margin-top:10px}
 .lista-ex{list-style:none;padding:0;border-top:1px solid var(--line);margin:22px 0 8px}
-.lista-ex li{display:grid;grid-template-columns:26px 1fr auto;gap:12px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line)}
+.lista-ex li button{display:grid;grid-template-columns:26px 1fr auto;gap:12px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line);width:100%;text-align:left}
 .lista-ex .n{font-family:var(--display);font-weight:700;color:var(--muted);font-size:19px}
 .nome{font-weight:500}
 .foco{font-size:13px;color:var(--muted)}
 .lista-ex .sr{font-family:var(--display);font-weight:700;font-size:23px;color:var(--gold);white-space:nowrap}
-
-.bloco{margin-top:44px}
-.bloco h2{font-size:15px;font-weight:600;color:var(--bone2);margin-bottom:12px}
-.recado{background:var(--ink2);border-radius:14px;padding:16px 18px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.stats div,.numeros div{background:var(--ink2);border-radius:12px;padding:12px 14px}
+.stats b,.numeros b{display:block;font-family:var(--display);font-size:34px;font-weight:700;line-height:1;margin-bottom:4px}
+.stats span,.numeros span{font-size:12.5px;color:var(--muted);line-height:1.3;display:block}
+.numeros{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.numeros b.menor{font-size:24px;line-height:1.2}
+.bloco{margin-top:40px}
+.bloco>h2{font-size:15px;font-weight:600;color:var(--bone2);margin-bottom:12px}
+.recado{display:block;background:var(--ink2);border-radius:14px;padding:16px 18px;text-decoration:none}
+.recado-topo{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:14px;color:var(--bone2)}
+.personal-chip{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--bone2);font-size:14px}
+.personal-chip .avatar{width:32px;height:32px;font-size:12px}
 
 .hist{list-style:none;padding:0;border-top:1px solid var(--line)}
 .hist li{padding:14px 0;border-bottom:1px solid var(--line)}
@@ -106,27 +145,37 @@ textarea{resize:vertical}
 .cans span{font-size:13px;color:var(--muted);margin-left:6px}
 .coment{font-style:italic;margin-top:4px}
 
-.rodape{position:fixed;left:0;right:0;bottom:0;padding:24px 20px calc(14px + env(safe-area-inset-bottom));background:linear-gradient(to bottom,rgba(20,28,51,0),var(--ink) 38%);z-index:10}
+.rodape{position:fixed;left:0;right:0;bottom:0;padding:24px 20px calc(14px + var(--safe-b));background:linear-gradient(to bottom,rgba(20,28,51,0),var(--ink) 38%);z-index:20}
+.rodape.acima-nav{bottom:calc(var(--nav-h) + var(--safe-b));padding-bottom:12px}
 .rodape>div{max-width:520px;margin:0 auto}
+
+/* mídia protegida */
+.midia{position:relative;aspect-ratio:4/3;background:var(--ink2);border-radius:18px;overflow:hidden;display:grid;place-items:center;margin-bottom:22px}
+.img-prot{background-size:cover;background-position:center;background-repeat:no-repeat;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+.cobre{position:absolute;inset:0}
+.ph{font-family:var(--display);font-weight:800;font-size:clamp(52px,17vw,104px);color:transparent;-webkit-text-stroke:1.5px rgba(142,152,179,.45);padding:0 12px;text-align:center;line-height:.9}
+.play{position:absolute;left:14px;bottom:14px;display:inline-flex;align-items:center;gap:8px;background:rgba(20,28,51,.88);color:var(--bone);padding:10px 18px 10px 14px;border-radius:999px;font-weight:600;font-size:14px;z-index:2}
+.play svg{width:16px;height:16px;fill:var(--gold);stroke:none}
+.video{position:relative;aspect-ratio:1/1;max-height:72dvh;background:#000;border-radius:18px;overflow:hidden;margin:0 auto 22px}
+.video iframe,.video video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
+.video .tampa{position:absolute;top:0;right:0;width:72px;height:64px;z-index:2}
+.aviso-video{font-size:13px;color:var(--muted);margin:-12px 0 18px}
 
 /* execução */
 .progresso{height:3px;background:var(--line);border-radius:3px;overflow:hidden;margin:0 0 18px}
 .progresso i{display:block;height:100%;background:var(--gold);transition:width .3s}
-.midia{aspect-ratio:4/3;background:var(--ink2);border-radius:18px;overflow:hidden;display:grid;place-items:center;margin-bottom:22px}
-.midia img{width:100%;height:100%;object-fit:cover;display:block}
-.ph{font-family:var(--display);font-weight:800;font-size:clamp(52px,17vw,104px);color:transparent;-webkit-text-stroke:1.5px rgba(142,152,179,.45);padding:0 12px;text-align:center;line-height:.9}
 .ex-nome{font-size:24px;font-weight:600;line-height:1.2;margin-bottom:6px}
 .carga{display:flex;align-items:baseline;gap:.06em;font-family:var(--display);font-weight:800;color:var(--gold);line-height:.82;font-size:clamp(104px,34vw,176px);margin:6px 0 2px}
 .carga .x{font-size:.42em;color:var(--bone2);font-weight:600;padding:0 .04em}
 .carga.longa{font-size:clamp(64px,18vw,104px)}
 .carga-leg{color:var(--muted);font-size:15px;margin-bottom:22px}
-.series{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 18px}
+.series{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 14px}
 .serie{width:50px;height:50px;border-radius:50%;border:1.5px solid var(--line);font-family:var(--display);font-weight:700;font-size:21px;transition:background-color .15s,border-color .15s}
 .serie.feita{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.descanso-pref{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-bottom:16px}
 .descanso{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--ink2);border-radius:12px;padding:10px 12px 10px 16px;margin-bottom:16px}
 .descanso b{font-family:var(--display);font-size:32px;color:var(--gold2);line-height:1}
 .nav-exec{display:grid;grid-template-columns:auto 1fr;gap:10px}
-
 .fim{font-size:clamp(96px,30vw,160px);color:var(--gold);margin:10px 0 12px}
 .escala{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
 .escala button{padding:12px 0 9px;border-radius:12px;border:1.5px solid var(--line);display:flex;flex-direction:column;align-items:center;gap:2px}
@@ -134,62 +183,152 @@ textarea{resize:vertical}
 .escala small{font-size:11px;color:var(--muted)}
 .escala button[aria-checked="true"]{border-color:var(--coral);background:rgba(227,112,95,.14)}
 
-/* personal */
-.aluno{padding:26px 0;border-bottom:1px solid var(--line)}
-.aluno h2{font-family:var(--display);font-size:54px;font-weight:800;line-height:.9}
+/* avatar e cartão da personal */
+.avatar{position:relative;display:inline-grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--ink3);color:var(--bone2);font-weight:600;font-size:14px;overflow:hidden;flex:none}
+.avatar i{position:absolute;inset:0;background-size:cover;background-position:center;-webkit-touch-callout:none}
+.avatar.g{width:64px;height:64px;font-size:21px}
+.avatar.xg{width:120px;height:120px;font-size:36px}
+.pcard{display:block;width:100%;text-align:left;border:1.5px solid var(--line);border-radius:16px;padding:18px;margin-bottom:12px}
+button.pcard:hover{border-color:var(--bone2)}
+.pcard.sel{border-color:var(--gold);background:rgba(217,164,65,.08)}
+.pcard-topo{display:flex;gap:14px;align-items:center;margin-bottom:10px}
+.pcard h3{font-size:19px;font-weight:600;line-height:1.25}
+.pcard-desc{color:var(--bone2);font-size:15px;line-height:1.55;margin-bottom:10px;white-space:pre-line}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:12.5px;padding:4px 10px;border-radius:999px;background:var(--ink3);color:var(--bone2)}
+.pcard .linha-btns{margin-top:14px}
+
+/* painel da personal */
+.aluno{padding:24px 0;border-bottom:1px solid var(--line)}
+.aluno-topo{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.aluno h2{font-family:var(--display);font-size:52px;font-weight:800;line-height:.9}
+.aluno h2 a{text-decoration:none}
 .aluno .perfil{color:var(--muted);font-size:14px;margin:8px 0 16px}
-.numeros{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
-.numeros div{background:var(--ink2);border-radius:12px;padding:12px}
-.numeros b{display:block;font-family:var(--display);font-size:34px;font-weight:700;line-height:1;margin-bottom:4px}
-.numeros b.menor{font-size:24px;line-height:1.2}
-.numeros span{font-size:12px;color:var(--muted);line-height:1.3;display:block}
-
-.abas{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:18px 0 18px}
-.aba{padding:10px 12px;color:var(--muted);font-weight:500;border-bottom:2px solid transparent;margin-bottom:-1px}
+.grupo-titulo{font-size:15px;font-weight:600;color:var(--bone2);margin:34px 0 0;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.cab-aluno{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.abas{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:18px 0 18px;overflow-x:auto}
+.aba{padding:10px 12px;color:var(--muted);font-weight:500;border-bottom:2px solid transparent;margin-bottom:-1px;text-decoration:none;white-space:nowrap}
 .aba.ativa{color:var(--bone);border-color:var(--gold)}
-
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
-.chip{position:relative;padding:7px 13px;border-radius:999px;border:1.5px solid var(--line);font-size:14px;color:var(--bone2)}
-.chip.ativo{border-color:var(--gold);color:var(--bone);background:rgba(217,164,65,.12)}
+.chip{position:relative;padding:7px 13px;border-radius:999px;border:1.5px solid var(--line);font-size:14px;color:var(--bone2);white-space:nowrap}
+.chip.ativo,.chip[aria-pressed="true"]{border-color:var(--gold);color:var(--bone);background:rgba(217,164,65,.12)}
 .chip.tem::after{content:"";position:absolute;top:4px;right:5px;width:5px;height:5px;border-radius:50%;background:var(--gold)}
 .chip.sujo{border-style:dashed}
-.pend{font-size:13px;color:var(--coral);font-weight:500;margin-left:6px}
-.edit-cab,.edit-ex{display:grid;grid-template-columns:1fr 58px 88px 36px;gap:8px;align-items:center}
-.edit-cab{font-size:12px;color:var(--muted);padding-bottom:6px;border-bottom:1px solid var(--line)}
-.edit-ex{padding:11px 0;border-bottom:1px solid var(--line)}
-.edit-ex input{padding:10px 6px;text-align:center}
-.rm{width:36px;height:36px;border-radius:50%;color:var(--coral);font-size:22px;line-height:1}
-.rm:hover{background:rgba(227,112,95,.14)}
+.pend{font-size:13px;color:var(--coral);font-weight:500;margin-left:8px}
+.editor-topo{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:18px 0 8px}
+.editor-topo .rot2{margin:0}
+.editor-topo select{width:auto;max-width:52%;padding:8px 10px;font-size:14px}
+.edit-ex{padding:14px 0;border-bottom:1px solid var(--line)}
+.edit-info{display:flex;gap:10px;align-items:baseline;margin-bottom:10px}
+.edit-info .n{font-family:var(--display);font-weight:700;color:var(--muted);font-size:18px;width:20px;flex:none}
+.edit-ctrl{display:grid;grid-template-columns:72px 1fr auto auto;gap:8px;align-items:end;padding-left:30px}
+.edit-ctrl label{font-size:12px;color:var(--muted)}
+.edit-ctrl input{padding:9px 8px!important;text-align:center;margin-top:3px}
+.mover{display:flex;gap:4px}
+.ic-btn{width:40px;height:40px;border-radius:10px;border:1.5px solid var(--line);display:grid;place-items:center;color:var(--bone2)}
+.ic-btn:hover{border-color:var(--bone2)}
+.ic-btn[disabled]{opacity:.3;pointer-events:none}
+.ic-btn.rm{color:var(--coral);border-color:rgba(227,112,95,.3)}
+.ic-btn svg.ic{width:18px;height:18px}
 .acoes-edit{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:22px}
+
+/* evolução */
+.peso-hero{display:flex;align-items:baseline;gap:10px;margin-top:6px}
+.peso-num{font-size:clamp(100px,31vw,156px);color:var(--bone)}
+.peso-kg{font-family:var(--display);font-size:38px;color:var(--muted);font-weight:700}
+.peso-var{font-size:16px;color:var(--bone2);margin-top:8px}
+.peso-var b{color:var(--gold);font-weight:600}
+.meta{margin-top:18px}
+.meta-barra{height:8px;border-radius:4px;background:var(--line);overflow:hidden;margin:8px 0 6px}
+.meta-barra i{display:block;height:100%;background:var(--gold);border-radius:4px}
+.grafico{width:100%;height:auto;display:block;overflow:visible}
+.grafico text{fill:var(--muted);font-size:10px;font-family:var(--body)}
+.tabela{width:100%;border-collapse:collapse;font-size:15px}
+.tabela th{font-weight:500;color:var(--muted);font-size:13px;text-align:right;padding:0 0 8px}
+.tabela th:first-child,.tabela td:first-child{text-align:left}
+.tabela td{padding:11px 0;border-top:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums}
+.medida{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.medida p{font-size:14px;color:var(--bone2)}
+.medida .sub{font-size:13px}
+
+/* exercícios (gestão) */
+.busca-linha{display:grid;grid-template-columns:1fr auto;gap:8px;margin:14px 0 4px}
+.busca-linha select{width:auto}
+.ex-row{display:flex;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);text-decoration:none}
+.ex-row .info{flex:1;min-width:0}
+.thumb{position:relative;width:64px;height:64px;border-radius:12px;background:var(--ink2);flex:none;overflow:hidden;display:grid;place-items:center;color:var(--muted);font-family:var(--display);font-weight:700;font-size:13px;text-align:center;line-height:1;padding:4px}
+.thumb .img-prot{position:absolute;inset:0}
+.selo{display:inline-block;font-size:11.5px;padding:1px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted);margin:4px 4px 0 0}
+.selo.ouro{border-color:rgba(217,164,65,.5);color:var(--gold)}
+.selo.coral{border-color:rgba(227,112,95,.45);color:var(--coral)}
+.upl{border:1.5px dashed var(--line);border-radius:14px;padding:14px;margin-bottom:18px}
+.upl-prev{border-radius:10px;overflow:hidden;margin-bottom:12px;background:var(--ink2)}
+.upl-prev .img-prot{aspect-ratio:4/3}
+.upl-prev .video{margin:0;border-radius:10px}
+.upl-vazio{padding:22px 0;text-align:center;color:var(--muted);font-size:14px}
+.prog{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:12px 0 4px}
+.prog i{display:block;height:100%;width:0;background:var(--gold);transition:width .2s}
+.prog-txt{font-size:13px;color:var(--muted)}
+.upl-link{margin-top:12px}
+.upl-link input{font-size:14px;padding:10px 12px!important}
+.foto-perfil{display:flex;gap:18px;align-items:center;margin-bottom:22px}
+
+/* admin */
+.hub a{display:block;padding:22px 0;border-bottom:1px solid var(--line);text-decoration:none}
+.hub h2{font-family:var(--display);font-size:44px;font-weight:800;line-height:.9;margin-bottom:6px}
+.u-row{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line);width:100%;text-align:left}
+.u-row .sub{font-size:13.5px}
+
+/* chat */
+.chat-tela{padding-bottom:0}
+.chat-cab{display:flex;align-items:center;gap:10px;padding:4px 0 12px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--ink);z-index:5}
+.chat-cab .voltar{margin:0}
+.chat-cab .quem{flex:1;min-width:0}
+.chat-cab .quem b{display:block;font-weight:600;line-height:1.2}
+.chat-cab .quem span{font-size:13px;color:var(--muted)}
+.chat-lista{display:flex;flex-direction:column;gap:6px;padding:14px 0 calc(190px + var(--nav-h) + var(--safe-b))}
+.chat-tela.sem-nav .chat-lista{padding-bottom:calc(170px + var(--safe-b))}
+.dia-sep{align-self:center;font-size:12px;color:var(--muted);background:var(--ink2);padding:4px 12px;border-radius:999px;margin:14px 0 6px}
+.msg{max-width:84%;padding:10px 14px 8px;border-radius:18px 18px 18px 5px;background:var(--ink2);font-size:15.5px;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere;align-self:flex-start}
+.msg.minha{align-self:flex-end;background:var(--ink3);border-radius:18px 18px 5px 18px}
+.msg.seguida{margin-top:-3px}
+.msg.enviando{opacity:.55}
+.msg time{display:block;font-size:11px;color:var(--muted);margin-top:3px;text-align:right}
+.msg .autor{display:block;font-size:12px;color:var(--gold);font-weight:600;margin-bottom:2px}
+.lida{align-self:flex-end;font-size:11.5px;color:var(--muted);margin:0 4px}
+.chat-rodape{position:fixed;left:0;right:0;bottom:calc(var(--nav-h) + var(--safe-b));background:var(--ink);border-top:1px solid var(--line);padding:10px 16px 12px;z-index:25}
+.chat-tela.sem-nav .chat-rodape,body.digitando .chat-rodape{bottom:0;padding-bottom:calc(12px + var(--safe-b))}
+.chat-rodape>div{max-width:528px;margin:0 auto}
+.rapidas{display:flex;gap:6px;overflow-x:auto;padding-bottom:10px;scrollbar-width:none}
+.rapidas::-webkit-scrollbar{display:none}
+.enviar{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:end}
+.enviar textarea{max-height:140px;min-height:48px;border-radius:24px;padding:12px 18px;resize:none;line-height:1.4}
+.btn-enviar{width:48px;height:48px;border-radius:50%;background:var(--gold);color:var(--ink);display:grid;place-items:center}
+.btn-enviar[disabled]{opacity:.4}
+.btn-enviar svg.ic{width:20px;height:20px;stroke-width:2.2}
 
 /* modal */
 .modal-fundo{position:fixed;inset:0;background:rgba(9,13,26,.72);display:flex;align-items:flex-end;justify-content:center;z-index:50}
-.modal{background:var(--ink2);width:100%;max-width:560px;max-height:88dvh;border-radius:20px 20px 0 0;display:flex;flex-direction:column;animation:sobe .22s ease-out}
+.modal{background:var(--ink2);width:100%;max-width:560px;max-height:90dvh;border-radius:20px 20px 0 0;display:flex;flex-direction:column;animation:sobe .22s ease-out}
 .modal-cab{padding:18px 20px 12px;border-bottom:1px solid var(--line)}
 .modal-cab h2{font-size:18px;font-weight:600}
-.modal-linha{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.modal-corpo{overflow:auto;padding:4px 20px calc(20px + env(safe-area-inset-bottom))}
-.modal input,.modal select,.modal textarea{background:var(--ink)}
-.lib-ex{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.modal-linha{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.modal-linha+*{margin-top:12px}
+.modal-corpo{overflow:auto;padding:16px 20px calc(20px + var(--safe-b))}
+.modal input:not([type=checkbox]):not([type=file]),.modal select,.modal textarea{background:var(--ink)}
+.modal .midia,.modal .video{margin-bottom:16px}
+.lib-ex{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
 .lib-ex .info{flex:1;min-width:0}
+.lib-ex .thumb{width:52px;height:52px}
 @keyframes sobe{from{transform:translateY(28px);opacity:0}}
 @media (min-width:640px){.modal-fundo{align-items:center}.modal{border-radius:20px}}
-
-/* chat */
-.chat{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
-.msg{max-width:84%;padding:10px 14px;border-radius:16px 16px 16px 4px;background:var(--ink2);font-size:15px;white-space:pre-wrap;overflow-wrap:anywhere}
-.msg.minha{align-self:flex-end;background:var(--ink3);border-radius:16px 16px 4px 16px}
-.msg time{display:block;font-size:11px;color:var(--muted);margin-top:4px}
-.enviar{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:end}
 
 .carregando{display:grid;place-items:center;min-height:70dvh;color:var(--muted);text-align:center}
 .barra{width:64px;height:3px;background:var(--line);border-radius:3px;overflow:hidden;margin:0 auto 14px;position:relative}
 .barra::after{content:"";position:absolute;inset:0;width:40%;background:var(--gold);animation:vai 1s ease-in-out infinite alternate}
 @keyframes vai{to{transform:translateX(150%)}}
-
-#toast{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom));transform:translate(-50%,12px);background:var(--bone);color:var(--ink);padding:10px 18px;border-radius:999px;font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:60;max-width:88vw;text-align:center}
+#toast{position:fixed;left:50%;bottom:calc(var(--nav-h) + 96px + var(--safe-b));transform:translate(-50%,12px);background:var(--bone);color:var(--ink);padding:10px 18px;border-radius:999px;font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:60;max-width:88vw;text-align:center}
 #toast.on{opacity:1;transform:translate(-50%,0)}
-
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -199,233 +338,534 @@ textarea{resize:vertical}
 
 <script>
 /* =========================================================
-   CONFIGURAÇÃO — cole aqui a URL do App da Web do Apps Script
+   CONFIGURAÇÃO
    ========================================================= */
-const API_URL = 'https://script.google.com/macros/s/AKfycbyXtKtc0Ikscrhy4fGEmvdHtUoBt3my35zm18W-3ZVm_P_ZDwMcJmynggPg4tXUcCb-/exec';
+const API_URL = 'COLE_AQUI_A_URL_DO_WEB_APP';
+const VIDEO_SANDBOX = true; // bloqueia o botão "abrir no Drive" do player. Se o vídeo não tocar, troque para false.
 
+/* ---------- constantes ---------- */
 const DIAS = ['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
 const CURTO = {Segunda:'Seg',Terça:'Ter',Quarta:'Qua',Quinta:'Qui',Sexta:'Sex',Sábado:'Sáb',Domingo:'Dom'};
-const PERGUNTAS = [
-  {chave:'genero',   titulo:'Como você se identifica?',        opcoes:[['Feminino','Feminino'],['Masculino','Masculino'],['Prefiro não dizer','Prefiro não dizer']]},
-  {chave:'objetivo', titulo:'Qual seu objetivo principal?',    opcoes:[['Emagrecimento','Emagrecer'],['Hipertrofia','Ganhar massa muscular'],['Condicionamento','Ter mais fôlego e disposição'],['Saúde e bem-estar','Cuidar da saúde']]},
-  {chave:'local',    titulo:'Onde você vai treinar?',          opcoes:[['Casa','Em casa, sem aparelhos'],['Academia','Na academia']]},
-  {chave:'tempo',    titulo:'Quanto tempo você tem por dia?',  opcoes:[['30','30 minutos'],['45','45 minutos'],['60','1 hora']]}
-];
+const FOCOS = ['Pernas','Glúteos','Peito','Costas','Ombros','Braços','Core','Cardio'];
 const NIVEIS = ['Leve','Tranquilo','Moderado','Pesado','Exausto'];
+const OBJETIVOS = [['Emagrecimento','Emagrecer'],['Hipertrofia','Ganhar massa muscular'],['Condicionamento','Ter mais fôlego e disposição'],['Saúde e bem-estar','Cuidar da saúde']];
+const LOCAIS = [['Casa','Em casa, sem aparelhos'],['Academia','Na academia']];
+const TEMPOS = [['30','30 minutos'],['45','45 minutos'],['60','1 hora']];
+const GENEROS = [['Feminino','Feminino'],['Masculino','Masculino'],['Prefiro não dizer','Prefiro não dizer']];
+const PASSOS = [
+  {chave:'genero',   tipo:'opcoes', titulo:'Como você se identifica?', opcoes:GENEROS},
+  {chave:'objetivo', tipo:'opcoes', titulo:'Qual seu objetivo principal?', opcoes:OBJETIVOS},
+  {chave:'local',    tipo:'opcoes', titulo:'Onde você vai treinar?', opcoes:LOCAIS},
+  {chave:'tempo',    tipo:'opcoes', titulo:'Quanto tempo você tem por dia?', opcoes:TEMPOS},
+  {chave:'corpo',    tipo:'corpo',  titulo:'Seu ponto de partida'},
+  {chave:'personal', tipo:'personal', titulo:'Quem vai te acompanhar?'}
+];
+const RAPIDAS_PERSONAL = ['Ótimo treino! 💪','Como você está se sentindo?','Aumente a carga no próximo treino','Lembre de beber bastante água','Descanse bem hoje'];
+const RAPIDAS_ALUNO = ['Treino feito! ✅','Senti dor em um exercício','Posso trocar um exercício?','Estou sem tempo hoje'];
+const MEDIDAS = [['cintura','Cintura','cm'],['quadril','Quadril','cm'],['braco','Braço','cm'],['coxa','Coxa','cm'],['gordura','Gordura corporal','%']];
+
+const P = d => `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">${d}</svg>`;
+const ICON = {
+  treino: P('<path d="M6 7v10M3 9.5v5M18 7v10M21 9.5v5M6 12h12"/>'),
+  evolucao: P('<path d="M3 17l6-6 4 4 8-8M15 7h6v6"/>'),
+  chat: P('<path d="M20.5 12a8.5 8.5 0 0 1-12.3 7.6L3.5 20.5l1-4.4A8.5 8.5 0 1 1 20.5 12z"/>'),
+  perfil: P('<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>'),
+  admin: P('<path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/>'),
+  alunos: P('<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c1-3.5 3.6-5.5 6.5-5.5s5.5 2 6.5 5.5M16 4.8a3.5 3.5 0 0 1 0 6.4M18.5 14.8c1.6.8 2.6 2.4 3 5.2"/>'),
+  exercicios: P('<rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/>'),
+  usuarios: P('<circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/>'),
+  voltar: P('<path d="M15 5l-7 7 7 7"/>'),
+  enviar: P('<path d="M4.5 12L20 4.5 13.5 20l-2-6.5z"/>'),
+  play: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z"/></svg>',
+  check: P('<path d="M5 12.5l4.5 4.5L19 7.5"/>'),
+  cima: P('<path d="M6 15l6-6 6 6"/>'),
+  baixo: P('<path d="M6 9l6 6 6-6"/>'),
+  x: P('<path d="M6 6l12 12M18 6L6 18"/>')
+};
 
 const $app = document.getElementById('app');
-const st = {aluno:null, exec:null, dash:null, lib:null, det:null, onb:null, timer:null};
+const st = {aluno:null, diaSel:null, exec:null, dash:null, lib:null, exs:null, det:null, onb:null, timer:null, intervalos:[], naoLidas:0, guarda:null, hashAtual:'', enviando:0};
 
 /* ---------- utilidades ---------- */
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const diaHoje = () => DIAS[(new Date().getDay() + 6) % 7];
-function on(sel, ev, fn, root = document){ const el = root.querySelector(sel); if (el) el.addEventListener(ev, fn); }
+function on(sel, ev, fn, root = document){ const el = root.querySelector(sel); if (el) el.addEventListener(ev, fn); return el; }
 function onAll(sel, ev, fn, root = document){ root.querySelectorAll(sel).forEach(el => el.addEventListener(ev, e => fn(e, el))); }
+const fmtNum = (v, dec = 1) => Number(v).toLocaleString('pt-BR', {maximumFractionDigits:dec});
+const lerNum = v => String(v ?? '').trim().replace(',', '.');
+const plural = (n, um, varios) => `${n} ${n === 1 ? um : varios}`;
+function fmtData(iso){
+  if (!iso) return '';
+  const d = new Date(iso), h = new Date(), z = x => new Date(x.getFullYear(), x.getMonth(), x.getDate());
+  const diff = Math.round((z(h) - z(d)) / 864e5);
+  if (diff === 0) return 'Hoje';
+  if (diff === 1) return 'Ontem';
+  if (diff > 1 && diff < 7) return `Há ${diff} dias`;
+  return d.toLocaleDateString('pt-BR', {day:'2-digit', month:'short'});
+}
+const fmtLonga = iso => new Date(iso).toLocaleDateString('pt-BR', {day:'numeric', month:'long'});
+const fmtHoraCurta = iso => new Date(iso).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+const hojeIso = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; };
 
-const sessao = {
-  get(){ try { return JSON.parse(localStorage.getItem('serie_sessao')) || null; } catch(e){ return null; } },
-  set(v){ try { localStorage.setItem('serie_sessao', JSON.stringify(v)); } catch(e){} },
-  limpar(){ try { localStorage.removeItem('serie_sessao'); } catch(e){} }
-};
+const guardado = chave => ({
+  get(){ try { return JSON.parse(localStorage.getItem(chave)); } catch(e){ return null; } },
+  set(v){ try { localStorage.setItem(chave, JSON.stringify(v)); } catch(e){} },
+  limpar(){ try { localStorage.removeItem(chave); } catch(e){} }
+});
+const sessao = guardado('serie_sessao');
+const execSalvo = guardado('serie_exec');
+const prefDescanso = guardado('serie_descanso');
 
 async function api(action, dados = {}){
   if (API_URL.startsWith('COLE')) throw new Error('Configure a API_URL no topo do index.html com a URL do Apps Script.');
   const s = sessao.get();
   let r;
   try {
-    r = await fetch(API_URL, {
-      method:'POST',
-      headers:{'Content-Type':'text/plain;charset=utf-8'},   // evita preflight de CORS no Apps Script
-      body: JSON.stringify({action, token: s && s.token, dados})
-    });
+    r = await fetch(API_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify({action, token:s && s.token, dados})});
   } catch(e){ throw new Error('Sem conexão com o servidor. Verifique sua internet e tente de novo.'); }
   let j;
   try { j = await r.json(); } catch(e){ throw new Error('O servidor respondeu de um jeito inesperado. Confira se o App da Web está implantado com acesso para "Qualquer pessoa".'); }
   if (!j.ok){
-    if (j.codigo === 'SESSAO'){ pararTimer(); sessao.limpar(); telaLogin(); toast(j.erro); throw Object.assign(new Error(j.erro), {sessao:true}); }
+    if (j.codigo === 'SESSAO'){ sessao.limpar(); toast(j.erro); ir('#/entrar'); throw Object.assign(new Error(j.erro), {sessao:true}); }
     throw new Error(j.erro);
   }
   return j.data;
 }
-
-function toast(msg){ const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('on'), 2600); }
+async function tentar(fn, n = 3){
+  for (let i = 0; ; i++){
+    try { return await fn(); }
+    catch(e){ if (e.sessao || i >= n - 1) throw e; await new Promise(r => setTimeout(r, 1500 * (i + 1))); }
+  }
+}
+function toast(msg){ const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('on'), 2800); }
 function msgErro(id, e){ if (e.sessao) return; const el = document.getElementById(id); if (el) el.textContent = e.message; else toast(e.message); }
 function carregando(msg = 'Carregando…'){ $app.innerHTML = `<main class="tela"><div class="carregando"><div><div class="barra"></div><p>${esc(msg)}</p></div></div></main>`; }
-function erroTela(e, tentar){
+function erroTela(e, tentarDeNovo){
   if (e.sessao) return;
   $app.innerHTML = `<main class="tela"><div class="carregando"><div style="max-width:34ch">
     <p class="erro" style="font-size:16px;margin-bottom:18px">${esc(e.message)}</p>
-    <button class="btn btn-linha" id="tentar">Tentar de novo</button>
-    <p style="margin-top:10px"><button class="link" id="sairErro">Sair da conta</button></p></div></div></main>`;
-  on('#tentar','click',tentar); on('#sairErro','click',sair);
+    <button class="btn btn-linha" id="tentar">Tentar de novo</button></div></div></main>`;
+  on('#tentar','click',tentarDeNovo);
 }
-function fmtData(iso){
-  if (!iso) return '';
-  const d = new Date(iso), h = new Date();
-  const z = x => new Date(x.getFullYear(), x.getMonth(), x.getDate());
-  const diff = Math.round((z(h) - z(d)) / 864e5);
-  if (diff === 0) return 'Hoje';
-  if (diff === 1) return 'Ontem';
-  if (diff < 7) return `Há ${diff} dias`;
-  return d.toLocaleDateString('pt-BR', {day:'2-digit', month:'short'});
-}
-function fmtHora(iso){ const d = new Date(iso); return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}) + ' às ' + d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}); }
-function imgUrl(u){
-  if (!u) return '';
-  const m = String(u).match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=\w+&)?id=)([\w-]+)/);
-  return m ? `https://drive.google.com/thumbnail?id=${m[1]}&sz=w1000` : u;
-}
-function repsTxt(series, reps){
-  const r = String(reps), s = parseInt(series) || 1;
-  return `${s} ${s === 1 ? 'série' : 'séries'} de ${/^\d+$/.test(r) ? r + ' repetições' : r}`;
-}
-function perfilTxt(p){ return [p.objetivo, p.local === 'Casa' ? 'treina em casa' : 'treina na academia', p.tempo ? p.tempo + ' min por dia' : ''].filter(Boolean).join(', '); }
+const ocupado = (b, txt) => { b.disabled = true; b.dataset.txt = b.textContent; b.textContent = txt; };
+const livre = b => { b.disabled = false; if (b.dataset.txt) b.textContent = b.dataset.txt; };
 
-function topo(){
+/* ---------- mídia (Drive) ---------- */
+function driveId(v){
+  v = String(v || '').trim();
+  if (!v) return '';
+  if (!/^https?:/i.test(v)) return /^[\w-]{20,}$/.test(v) ? v : '';
+  const m = v.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=\w+&)?id=|thumbnail\?id=)([\w-]+)/);
+  return m ? m[1] : '';
+}
+function imgSrc(v, w = 1000){
+  const id = driveId(v);
+  if (id) return `https://drive.google.com/thumbnail?id=${id}&sz=w${w}`;
+  return /^https?:/i.test(String(v || '')) ? String(v) : '';
+}
+function htmlImg(v, alt, cls = 'cobre', w){
+  const src = imgSrc(v, w);
+  return src ? `<div class="img-prot ${cls}" role="img" aria-label="${esc(alt)}" style="background-image:url('${esc(src)}')"></div>` : '';
+}
+function youtubeId(v){ const m = String(v || '').match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/|embed\/))([\w-]{11})/); return m ? m[1] : ''; }
+function htmlVideo(v){
+  const id = driveId(v), yt = youtubeId(v);
+  const sb = VIDEO_SANDBOX ? 'sandbox="allow-scripts allow-same-origin allow-presentation"' : '';
+  if (id) return `<div class="video"><iframe src="https://drive.google.com/file/d/${id}/preview" ${sb} allow="autoplay; fullscreen" allowfullscreen title="Vídeo do exercício"></iframe><div class="tampa" aria-hidden="true"></div></div>`;
+  if (yt) return `<div class="video"><iframe src="https://www.youtube-nocookie.com/embed/${yt}?rel=0&modestbranding=1" allow="autoplay; fullscreen; encrypted-media" allowfullscreen title="Vídeo do exercício"></iframe></div>`;
+  if (/^https?:/i.test(String(v || ''))) return `<div class="video"><video src="${esc(v)}" controls playsinline preload="metadata" controlslist="nodownload noremoteplayback noplaybackrate" disablepictureinpicture></video></div>`;
+  return '';
+}
+function midiaExercicio(ex){
+  const temImg = !!imgSrc(ex.imagem), temVid = !!ex.video;
+  if (temVid && !temImg) return htmlVideo(ex.video);
+  return `<div class="midia"><span class="ph" aria-hidden="true">${esc(ex.foco || 'Série')}</span>${temImg ? htmlImg(ex.imagem, 'Demonstração: ' + ex.nome) : ''}${temVid ? `<button class="play" data-video>${ICON.play}<span>Ver vídeo</span></button>` : ''}</div>`;
+}
+function ligarPlay(root, ex){ onAll('[data-video]','click',(e, el) => { el.closest('.midia').outerHTML = htmlVideo(ex.video); }, root); }
+function avatar(foto, nome, tam = ''){
+  const src = imgSrc(foto, 400);
+  const ini = esc(String(nome || '?').trim().split(/\s+/).map(x => x[0]).slice(0, 2).join('').toUpperCase());
+  return `<span class="avatar ${tam}" aria-hidden="true"><span>${ini}</span>${src ? `<i style="background-image:url('${esc(src)}')"></i>` : ''}</span>`;
+}
+// dificulta salvar mídia (clique longo, arrastar, menu do botão direito)
+document.addEventListener('contextmenu', e => { if (e.target.closest('.img-prot,.video,.avatar,.midia,.thumb')) e.preventDefault(); });
+document.addEventListener('dragstart', e => { if (e.target.closest('.img-prot,.video,.midia')) e.preventDefault(); });
+
+/* ---------- envio de arquivos para o Drive ---------- */
+function paraBase64(blob){
+  return new Promise((ok, falha) => { const r = new FileReader(); r.onload = () => ok(String(r.result).split(',')[1] || ''); r.onerror = () => falha(new Error('Não foi possível ler o arquivo.')); r.readAsDataURL(blob); });
+}
+async function redimensionar(file, max){
+  try {
+    const bmp = await createImageBitmap(file);
+    const k = Math.min(1, max / Math.max(bmp.width, bmp.height));
+    const cv = document.createElement('canvas');
+    cv.width = Math.round(bmp.width * k); cv.height = Math.round(bmp.height * k);
+    const ctx = cv.getContext('2d');
+    ctx.fillStyle = '#1B2542'; ctx.fillRect(0, 0, cv.width, cv.height);
+    ctx.drawImage(bmp, 0, 0, cv.width, cv.height);
+    const blob = await new Promise(r => cv.toBlob(r, 'image/jpeg', .88));
+    if (blob) return {blob, mime:'image/jpeg'};
+  } catch(e){}
+  return {blob:file, mime:file.type || 'image/jpeg'};
+}
+async function enviarArquivo(file, tipo, aoProgredir){
+  let blob = file, mime = file.type || '';
+  if (tipo === 'video'){ if (!mime.startsWith('video/')) throw new Error('Escolha um arquivo de vídeo.'); }
+  else { if (mime && !mime.startsWith('image/')) throw new Error('Escolha um arquivo de imagem.'); ({blob, mime} = await redimensionar(file, tipo === 'foto' ? 800 : 1600)); }
+  st.enviando++;
+  try {
+    const ini = await api('upload_iniciar', {tipo, mime, tamanho:blob.size, nome:file.name});
+    let pos = 0, res = null;
+    aoProgredir && aoProgredir(0);
+    while (pos < blob.size){
+      const fatia = blob.slice(pos, pos + ini.tamanho_parte);
+      const dados = await paraBase64(fatia);
+      const inicio = pos;
+      res = await tentar(() => api('upload_parte', {upload_id:ini.upload_id, inicio, dados}));
+      pos += fatia.size;
+      aoProgredir && aoProgredir(pos / blob.size);
+    }
+    if (!res || !res.concluido) throw new Error('O envio não terminou. Tente de novo.');
+    return res.id;
+  } finally { st.enviando--; }
+}
+window.addEventListener('beforeunload', e => { if (st.enviando || (st.guarda && st.sujo)){ e.preventDefault(); e.returnValue = ''; } });
+
+/* ---------- modal ---------- */
+function modal(html, {rotulo = 'Janela', aoFechar} = {}){
+  const fundo = document.createElement('div');
+  fundo.className = 'modal-fundo';
+  fundo.innerHTML = `<div class="modal" role="dialog" aria-modal="true" aria-label="${esc(rotulo)}">${html}</div>`;
+  document.body.appendChild(fundo);
+  const tecla = e => { if (e.key === 'Escape') fechar(); };
+  function fechar(){ if (!fundo.isConnected) return; fundo.remove(); document.removeEventListener('keydown', tecla); aoFechar && aoFechar(); }
+  document.addEventListener('keydown', tecla);
+  fundo.addEventListener('click', e => { if (e.target === fundo) fechar(); });
+  onAll('[data-fechar]','click',fechar,fundo);
+  const foco = fundo.querySelector('input:not([type=checkbox]),textarea,select') || fundo.querySelector('button');
+  if (foco) setTimeout(() => foco.focus(), 40);
+  return {el:fundo, fechar};
+}
+const modalCab = (titulo, fecharTxt = 'Fechar') => `<div class="modal-cab"><div class="modal-linha"><h2>${esc(titulo)}</h2><button class="link" data-fechar>${fecharTxt}</button></div></div>`;
+
+/* =========================================================
+   ROTAS
+   ========================================================= */
+const ROTAS = [
+  [/^#\/entrar$/, telaEntrar, {publica:true}],
+  [/^#\/cadastro$/, telaCadastro, {publica:true}],
+  [/^#\/boas-vindas$/, telaOnboarding, {papel:'aluno'}],
+  [/^#\/treino$/, telaTreino, {papel:'aluno'}],
+  [/^#\/treino\/executar$/, telaExec, {papel:'aluno'}],
+  [/^#\/treino\/concluir$/, telaConclusao, {papel:'aluno'}],
+  [/^#\/evolucao$/, telaEvolucaoAluno, {papel:'aluno'}],
+  [/^#\/chat$/, () => telaChat(null), {papel:'aluno'}],
+  [/^#\/personais$/, telaPersonais, {papel:'aluno'}],
+  [/^#\/perfil$/, telaPerfil, {}],
+  [/^#\/admin$/, telaAdmin, {papel:'admin'}],
+  [/^#\/alunos$/, telaAlunos, {papel:'editor'}],
+  [/^#\/alunos\/([\w-]+)\/chat$/, m => telaChat(m[1]), {papel:'editor'}],
+  [/^#\/alunos\/([\w-]+)(?:\/(treino|evolucao|historico))?$/, m => telaAlunoDetalhe(m[1], m[2] || 'treino'), {papel:'editor'}],
+  [/^#\/exercicios$/, telaExercicios, {papel:'editor'}],
+  [/^#\/exercicios\/([\w-]+)$/, m => telaExercicioForm(m[1]), {papel:'editor'}],
+  [/^#\/usuarios$/, telaUsuarios, {papel:'admin'}]
+];
+function home(s){ if (!s) return '#/entrar'; if (s.tipo === 'Aluno') return s.questionario ? '#/treino' : '#/boas-vindas'; return '#/alunos'; }
+function temPapel(s, papel){
+  if (!papel) return true;
+  if (papel === 'aluno') return s.tipo === 'Aluno';
+  if (papel === 'admin') return !!s.admin;
+  if (papel === 'editor') return !!s.admin || s.tipo === 'Personal';
+  return false;
+}
+function ir(h){ if (location.hash === h) rota(); else location.hash = h; }
+function trocar(h){ if (location.hash === h) rota(); else location.replace(h); }
+let ignorarProxima = false;
+function limparTela(){
+  st.intervalos.forEach(clearInterval); st.intervalos = [];
+  pararTimer();
+  document.querySelectorAll('.modal-fundo').forEach(m => m.remove());
+  document.body.classList.remove('digitando');
+}
+function rota(){
+  if (ignorarProxima){ ignorarProxima = false; return; }
+  const h = location.hash || '';
+  if (st.guarda && h !== st.hashAtual && !st.guarda(h)){ ignorarProxima = true; location.hash = st.hashAtual; return; }
+  st.guarda = null; st.sujo = false;
+  limparTela();
   const s = sessao.get();
-  return `<header class="topo"><p class="ola">Oi, ${esc(String(s.nome).split(' ')[0])}</p>
-    <nav class="links"><button class="link" data-acao="senha">Trocar senha</button><button class="link" data-acao="sair">Sair</button></nav></header>`;
+  const achada = ROTAS.find(([re]) => re.test(h));
+  if (!achada) return trocar(home(s));
+  const [re, fn, op] = achada;
+  if (!op.publica && !s) return trocar('#/entrar');
+  if (op.publica && s) return trocar(home(s));
+  if (s && !temPapel(s, op.papel)) return trocar(home(s));
+  if (s && s.tipo === 'Aluno' && !s.questionario && h !== '#/boas-vindas') return trocar('#/boas-vindas');
+  st.hashAtual = h;
+  window.scrollTo(0, 0);
+  fn(h.match(re));
 }
-function ligarTopo(){ onAll('[data-acao="sair"]','click',sair); onAll('[data-acao="senha"]','click',modalSenha); }
-function sair(){ pararTimer(); sessao.limpar(); Object.keys(st).forEach(k => { if (k !== 'timer') st[k] = null; }); telaLogin(); }
+window.addEventListener('hashchange', rota);
 
-/* ---------- roteamento ---------- */
-function iniciar(){
-  const s = sessao.get();
-  if (!s) return telaLogin();
-  if (s.tipo === 'Personal') return telaPersonal();
-  if (!s.questionario) return telaOnboarding();
-  telaAluno();
+/* ---------- layout ---------- */
+function itensNav(s){
+  if (s.tipo === 'Aluno'){
+    const l = [
+      {href:'#/treino', rotulo:'Treino', icone:'treino', bases:['#/treino']},
+      {href:'#/evolucao', rotulo:'Evolução', icone:'evolucao'},
+      {href:'#/chat', rotulo:'Recados', icone:'chat', badge:st.naoLidas},
+      {href:'#/perfil', rotulo:'Perfil', icone:'perfil', bases:['#/perfil','#/personais']}
+    ];
+    if (s.admin) l.push({href:'#/admin', rotulo:'Admin', icone:'admin', bases:['#/admin','#/exercicios','#/usuarios','#/alunos']});
+    return l;
+  }
+  const l = [
+    {href:'#/alunos', rotulo:'Alunos', icone:'alunos', badge:st.naoLidas},
+    {href:'#/exercicios', rotulo:'Exercícios', icone:'exercicios'}
+  ];
+  if (s.admin) l.push({href:'#/usuarios', rotulo:'Usuários', icone:'usuarios'});
+  l.push({href:'#/perfil', rotulo:'Perfil', icone:'perfil'});
+  return l;
 }
+function navHtml(){
+  const s = sessao.get(), h = location.hash;
+  return `<nav class="nav" aria-label="Navegação principal">${itensNav(s).map(i => {
+    const ativo = (i.bases || [i.href]).some(b => h === b || h.startsWith(b + '/'));
+    return `<a href="${i.href}" class="${ativo ? 'ativo' : ''}" ${ativo ? 'aria-current="page"' : ''}>${ICON[i.icone]}<span>${i.rotulo}</span>${i.badge ? `<b class="badge" aria-label="${i.badge} não lidas">${i.badge > 9 ? '9+' : i.badge}</b>` : ''}</a>`;
+  }).join('')}</nav>`;
+}
+function atualizarNav(){ const n = document.querySelector('.nav'); if (n) n.outerHTML = navHtml(); }
+function pagina(html, {nav = true, classe = ''} = {}){
+  $app.innerHTML = `<main class="tela ${classe} ${nav ? 'com-nav' : ''}">${html}</main>${nav ? navHtml() : ''}`;
+}
+const voltarHtml = (href, rotulo = 'Voltar') => `<a class="voltar" href="${href}">${ICON.voltar}<span>${esc(rotulo)}</span></a>`;
+function sair(){ limparTela(); sessao.limpar(); execSalvo.limpar(); Object.assign(st, {aluno:null, diaSel:null, exec:null, dash:null, lib:null, exs:null, det:null, onb:null, naoLidas:0}); ir('#/entrar'); }
 
-/* ---------- login ---------- */
-function telaLogin(){
-  $app.innerHTML = `<main class="tela login">
-    <h1 class="display marca">Série</h1>
+/* =========================================================
+   ENTRAR / CADASTRO
+   ========================================================= */
+function entrarCom(r){
+  sessao.set({token:r.token, id:r.usuario.id, nome:r.usuario.nome, tipo:r.usuario.tipo, admin:!!r.usuario.admin, questionario:r.questionario_respondido});
+  execSalvo.limpar();
+  ir(home(sessao.get()));
+}
+function telaEntrar(){
+  pagina(`<h1 class="display marca">Série</h1>
     <p class="sub">Seu treino da semana, acompanhado de perto pela sua personal.</p>
     <form id="fLogin" novalidate>
       <label class="campo"><span>E-mail</span><input type="email" name="email" autocomplete="username" required></label>
       <label class="campo"><span>Senha</span><input type="password" name="senha" autocomplete="current-password" required></label>
       <p class="erro" id="eLogin" role="alert"></p>
       <button class="btn btn-ouro largo" type="submit">Entrar</button>
-    </form></main>`;
+    </form>
+    <p class="alternar">Ainda não tem conta? <a href="#/cadastro">Criar conta</a></p>`, {nav:false, classe:'login'});
   on('#fLogin','submit', async e => {
     e.preventDefault();
     const f = e.target, b = f.querySelector('button');
     document.getElementById('eLogin').textContent = '';
-    b.disabled = true; b.textContent = 'Entrando…';
-    try {
-      const r = await api('login', {email:f.email.value, senha:f.senha.value});
-      sessao.set({token:r.token, id:r.usuario.id, nome:r.usuario.nome, tipo:r.usuario.tipo, questionario:r.questionario_respondido});
-      iniciar();
-    } catch(err){ msgErro('eLogin', err); b.disabled = false; b.textContent = 'Entrar'; }
+    ocupado(b, 'Entrando…');
+    try { entrarCom(await api('login', {email:f.email.value, senha:f.senha.value})); }
+    catch(err){ msgErro('eLogin', err); livre(b); }
+  });
+}
+function telaCadastro(){
+  pagina(`${voltarHtml('#/entrar', 'Já tenho conta')}
+    <h1 class="display titulo">Criar conta</h1>
+    <p class="sub" style="margin-bottom:26px">Depois você responde quatro perguntas e escolhe sua personal.</p>
+    <form id="fCad" novalidate>
+      <label class="campo"><span>Seu nome</span><input name="nome" autocomplete="name" required></label>
+      <label class="campo"><span>E-mail</span><input type="email" name="email" autocomplete="email" required></label>
+      <label class="campo"><span>Senha</span><input type="password" name="senha" autocomplete="new-password" minlength="6" required><small>Pelo menos 6 caracteres.</small></label>
+      <p class="erro" id="eCad" role="alert"></p>
+      <button class="btn btn-ouro largo" type="submit">Criar conta</button>
+    </form>`, {nav:false});
+  on('#fCad','submit', async e => {
+    e.preventDefault();
+    const f = e.target, b = f.querySelector('button');
+    ocupado(b, 'Criando…');
+    try { entrarCom(await api('cadastrar', {nome:f.nome.value, email:f.email.value, senha:f.senha.value})); }
+    catch(err){ msgErro('eCad', err); livre(b); }
   });
 }
 
-/* ---------- onboarding ---------- */
-function telaOnboarding(){ st.onb = {i:0, r:{}}; renderOnb(); }
+/* =========================================================
+   ONBOARDING
+   ========================================================= */
+function telaOnboarding(){ st.onb = st.onb || {i:0, r:{}, personais:null}; renderOnb(); }
 function renderOnb(){
-  const {i, r} = st.onb, p = PERGUNTAS[i], ultimo = i === PERGUNTAS.length - 1;
-  $app.innerHTML = `<main class="tela">${topo()}
-    <p class="passo">Pergunta ${i + 1} de ${PERGUNTAS.length}</p>
-    <h1 class="pergunta">${esc(p.titulo)}</h1>
-    <div class="opcoes" role="radiogroup">${p.opcoes.map(([v, l]) =>
-      `<button class="opcao ${r[p.chave] === v ? 'sel' : ''}" role="radio" aria-checked="${r[p.chave] === v}" data-v="${esc(v)}">${esc(l)}</button>`).join('')}</div>
+  const o = st.onb, p = PASSOS[o.i], r = o.r, ultimo = o.i === PASSOS.length - 1;
+  let corpo = '';
+  if (p.tipo === 'opcoes'){
+    corpo = `<div class="opcoes" role="radiogroup">${p.opcoes.map(([v, l]) =>
+      `<button class="opcao ${r[p.chave] === v ? 'sel' : ''}" role="radio" aria-checked="${r[p.chave] === v}" data-v="${esc(v)}">${esc(l)}</button>`).join('')}</div>`;
+  } else if (p.tipo === 'corpo'){
+    corpo = `<p class="sub" style="margin:-14px 0 22px">Serve para acompanhar sua evolução. Pode pular e preencher depois.</p>
+      <div class="tres">
+        <label class="campo"><span>Altura (cm)</span><input id="oAlt" inputmode="numeric" placeholder="168" value="${esc(r.altura || '')}"></label>
+        <label class="campo"><span>Peso (kg)</span><input id="oPeso" inputmode="decimal" placeholder="72,5" value="${esc(r.peso || '')}"></label>
+        <label class="campo"><span>Meta (kg)</span><input id="oMeta" inputmode="decimal" placeholder="68" value="${esc(r.meta || '')}"></label>
+      </div>`;
+  } else {
+    corpo = o.personais === null ? '<p class="sub">Carregando personais…</p>'
+      : (o.personais.length ? o.personais.map(pp => cardPersonal(pp, {botao:true, sel:r.id_personal === pp.id})).join('') : '<p class="sub">Nenhuma personal disponível no momento.</p>')
+        + `<button class="opcao ${r.id_personal === '' ? 'sel' : ''}" data-sem style="width:100%">Decidir depois</button>`;
+  }
+  pagina(`<div class="topo"><p class="ola">Oi, ${esc(String(sessao.get().nome).split(' ')[0])}</p><button class="link" id="sairOnb">Sair</button></div>
+    <p class="passo">Passo ${o.i + 1} de ${PASSOS.length}</p>
+    <h1 class="pergunta">${esc(p.titulo)}</h1>${corpo}
     <p class="erro" id="eOnb" role="alert"></p>
     <div class="nav-onb">
-      ${i > 0 ? '<button class="btn btn-linha" id="voltar">Voltar</button>' : ''}
-      ${ultimo ? `<button class="btn btn-ouro" id="montar" ${r[p.chave] ? '' : 'disabled'}>Montar meu treino</button>` : ''}
-    </div></main>`;
-  ligarTopo();
-  onAll('.opcao','click',(e, el) => { r[p.chave] = el.dataset.v; if (!ultimo) st.onb.i++; renderOnb(); });
-  on('#voltar','click',() => { st.onb.i--; renderOnb(); });
+      ${o.i > 0 ? '<button class="btn btn-linha" id="oVoltar">Voltar</button>' : ''}
+      ${p.tipo === 'corpo' ? '<button class="btn btn-ouro" id="oCont">Continuar</button>' : ''}
+      ${ultimo ? `<button class="btn btn-ouro" id="montar" ${r.id_personal === undefined ? 'disabled' : ''}>Montar meu treino</button>` : ''}
+    </div>`, {nav:false});
+  on('#sairOnb','click',sair);
+  onAll('.opcao[data-v]','click',(e, el) => { r[p.chave] = el.dataset.v; o.i++; renderOnb(); });
+  onAll('[data-personal]','click',(e, el) => { r.id_personal = el.dataset.personal; renderOnb(); });
+  on('[data-sem]','click',() => { r.id_personal = ''; renderOnb(); });
+  on('#oVoltar','click',() => { guardarCorpo(); o.i--; renderOnb(); });
+  on('#oCont','click',() => { guardarCorpo(); o.i++; renderOnb(); });
+  if (p.tipo === 'personal' && o.personais === null){
+    api('listar_personais').then(l => { o.personais = l; if (st.onb === o) renderOnb(); }).catch(e => { o.personais = []; msgErro('eOnb', e); renderOnb(); });
+  }
   on('#montar','click', async e => {
-    const b = e.currentTarget; b.disabled = true; b.textContent = 'Montando seu treino…';
+    const b = e.currentTarget; ocupado(b, 'Montando seu treino…');
     try {
-      await api('salvar_questionario', r);
+      await api('salvar_questionario', {genero:r.genero, objetivo:r.objetivo, local:r.local, tempo:r.tempo, altura:lerNum(r.altura), peso:lerNum(r.peso), meta:lerNum(r.meta), id_personal:r.id_personal || ''});
       const s = sessao.get(); s.questionario = true; sessao.set(s);
-      toast('Treino montado'); telaAluno();
-    } catch(err){ msgErro('eOnb', err); b.disabled = false; b.textContent = 'Montar meu treino'; }
+      st.onb = null; toast('Treino montado'); ir('#/treino');
+    } catch(err){ msgErro('eOnb', err); livre(b); }
   });
+  function guardarCorpo(){ if (p.tipo !== 'corpo') return; r.altura = document.getElementById('oAlt').value; r.peso = document.getElementById('oPeso').value; r.meta = document.getElementById('oMeta').value; }
+}
+function cardPersonal(p, {botao = false, sel = false, acoes = ''} = {}){
+  const tags = String(p.especialidades || '').split(/[,;]/).map(t => t.trim()).filter(Boolean);
+  const meta = [p.registro, p.alunos ? plural(p.alunos, 'aluno', 'alunos') : ''].filter(Boolean).join(', ');
+  const tag = botao ? 'button' : 'article';
+  return `<${tag} class="pcard ${sel ? 'sel' : ''}" ${botao ? `data-personal="${esc(p.id)}" aria-pressed="${sel}"` : ''}>
+    <div class="pcard-topo">${avatar(p.foto, p.nome, 'g')}<div><h3>${esc(p.nome)}</h3>${meta ? `<p class="sub">${esc(meta)}</p>` : ''}</div></div>
+    ${p.descricao ? `<p class="pcard-desc">${esc(p.descricao)}</p>` : ''}
+    ${tags.length ? `<div class="tags">${tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div>` : ''}
+    ${acoes}</${tag}>`;
 }
 
-/* ---------- painel do aluno ---------- */
-async function telaAluno(){
-  pararTimer(); carregando('Buscando seu treino…');
-  try { st.aluno = await api('obter_treino', {}); renderAluno(); window.scrollTo(0,0); }
-  catch(e){ erroTela(e, telaAluno); }
+/* =========================================================
+   TREINO DO ALUNO
+   ========================================================= */
+async function telaTreino(){
+  if (st.aluno) renderTreino(); else carregando('Buscando seu treino…');
+  try {
+    const antes = JSON.stringify(st.aluno);
+    const novo = await api('obter_treino');
+    st.aluno = novo;
+    st.naoLidas = novo.nao_lidas || 0;
+    if (!st.diaSel) st.diaSel = novo.hoje;
+    if (location.hash === '#/treino' && JSON.stringify(novo) !== antes) renderTreino();
+  } catch(e){ if (!st.aluno) erroTela(e, telaTreino); else if (!e.sessao) toast(e.message); }
 }
-function listaHist(arr){
-  if (!arr || !arr.length) return '<p class="sub">Nenhum treino registrado ainda.</p>';
+function listaHist(arr, vazio = 'Nenhum treino registrado ainda.'){
+  if (!arr || !arr.length) return `<p class="sub">${vazio}</p>`;
   return `<ul class="hist">${arr.map(h => `<li>
     <div class="hist-top"><b>${fmtData(h.data)}</b><span>${h.tempo ? h.tempo + ' min' : ''}</span></div>
     <p>${esc(h.treino)}</p>
     ${h.cansaco ? `<p class="cans" aria-label="Cansaço ${h.cansaco} de 5">${'<i class="on"></i>'.repeat(h.cansaco)}${'<i></i>'.repeat(5 - h.cansaco)}<span>Cansaço ${h.cansaco}/5, ${NIVEIS[h.cansaco - 1].toLowerCase()}</span></p>` : ''}
     ${h.comentario ? `<p class="coment">“${esc(h.comentario)}”</p>` : ''}</li>`).join('')}</ul>`;
 }
-function renderAluno(){
-  const d = st.aluno, t = d.treino, ehHoje = d.dia === d.hoje, min = d.perfil && d.perfil.tempo;
-  $app.innerHTML = `<main class="tela">${topo()}
+function renderTreino(){
+  const d = st.aluno, dia = st.diaSel, t = d.treinos[dia] || null, ehHoje = dia === d.hoje, min = d.perfil && d.perfil.tempo;
+  const salvo = execSalvo.get();
+  const retomar = salvo && salvo.usuario === sessao.get().id ? salvo : null;
+  const semanaFeitos = d.semana.filter(s => s.feito).length;
+  pagina(`<div class="topo"><p class="ola">Oi, ${esc(String(sessao.get().nome).split(' ')[0])}</p>
+      ${d.personal ? `<a class="personal-chip" href="#/chat">${avatar(d.personal.foto, d.personal.nome)}<span>com ${esc(d.personal.nome.split(' ')[0])}</span></a>` : ''}</div>
     <nav class="semana" aria-label="Dias da semana">${d.semana.map(s =>
-      `<button class="dia ${s.total ? 'tem' : ''} ${s.dia === d.hoje ? 'hoje' : ''} ${s.dia === d.dia ? 'ativo' : ''}" data-dia="${s.dia}" aria-pressed="${s.dia === d.dia}" aria-label="${s.dia}${s.total ? ', ' + s.total + ' exercícios' : ', descanso'}">
-        <span>${CURTO[s.dia]}</span><i class="ponto"></i></button>`).join('')}</nav>
+      `<button class="dia ${s.total ? 'tem' : ''} ${s.dia === d.hoje ? 'hoje' : ''} ${s.dia === dia ? 'ativo' : ''}" data-dia="${s.dia}" aria-pressed="${s.dia === dia}" aria-label="${s.dia}${s.feito ? ', treino feito' : s.total ? ', ' + s.total + ' exercícios' : ', descanso'}">
+        <span>${CURTO[s.dia]}</span><span class="marca-dia">${s.feito ? ICON.check : '<i class="ponto"></i>'}</span></button>`).join('')}</nav>
+    ${retomar ? `<div class="aviso" style="margin:0 0 22px">Você parou no exercício ${retomar.idx + 1} de ${retomar.treino.exercicios.length} do treino de ${esc(retomar.dia.toLowerCase())}.
+      <div class="linha-btns"><a class="btn btn-ouro btn-p" href="#/treino/executar">Continuar treino</a><button class="btn btn-linha btn-p" id="descartarExec">Descartar</button></div></div>` : ''}
     <div class="hero-dia">
-      <h1 class="display">${esc(d.dia)}</h1>
-      <p class="sub">${t ? `${ehHoje ? 'Hoje, ' : ''}${t.exercicios.length} exercícios${min ? ` em cerca de ${min} minutos` : ''}.` : (ehHoje ? 'Hoje é dia de descanso.' : 'Dia de descanso.')}</p>
+      <h1 class="display">${esc(dia)}</h1>
+      <p class="sub">${t ? `${ehHoje ? 'Hoje, ' : ''}${plural(t.exercicios.length, 'exercício', 'exercícios')}${min ? ` em cerca de ${min} minutos` : ''}.` : (ehHoje ? 'Hoje é dia de descanso.' : 'Dia de descanso.')}</p>
     </div>
     ${ehHoje && d.feito_hoje ? '<p class="aviso">Treino de hoje registrado. Se quiser, pode fazer de novo.</p>' : ''}
-    ${t ? `<ol class="lista-ex">${t.exercicios.map((x, i) => `<li><span class="n">${i + 1}</span>
-        <div><div class="nome">${esc(x.nome)}</div><div class="foco">${esc(x.foco)}</div></div>
-        <span class="sr">${esc(x.series)}×${esc(x.reps)}</span></li>`).join('')}</ol>`
+    ${t ? `<ol class="lista-ex">${t.exercicios.map((x, i) => `<li><button data-ex="${i}" aria-label="Ver ${esc(x.nome)}"><span class="n">${i + 1}</span>
+        <span><span class="nome" style="display:block">${esc(x.nome)}</span><span class="foco">${esc(x.foco)}${x.video ? ', com vídeo' : ''}</span></span>
+        <span class="sr">${esc(x.series)}×${esc(x.reps)}</span></button></li>`).join('')}</ol>`
       : `<p class="desc" style="margin-top:14px">Descansar também faz parte do treino: é na recuperação que o músculo se reconstrói. Uma caminhada leve ou alongamento já ajudam.</p>`}
-    <section class="bloco"><h2>Recado da personal</h2>
-      ${d.ultima_mensagem ? `<div class="recado"><p>${esc(d.ultima_mensagem.texto)}</p><p class="sub" style="font-size:13px;margin-top:6px">${fmtData(d.ultima_mensagem.data)}</p></div>` : '<p class="sub">Nenhum recado ainda.</p>'}
-      <button class="btn btn-linha largo" id="abrirRecados" style="margin-top:12px">Abrir conversa</button>
+    ${!d.personal ? `<div class="aviso" style="margin-top:26px">Você ainda não tem uma personal acompanhando seus treinos.<div class="linha-btns"><a class="btn btn-linha btn-p" href="#/personais">Escolher personal</a></div></div>` : ''}
+    <section class="bloco"><h2>Sua constância</h2>
+      <div class="stats"><div><b>${semanaFeitos}</b><span>${semanaFeitos === 1 ? 'dia treinado' : 'dias treinados'} nesta semana</span></div>
+      <div><b>${d.frequencia.sequencia}</b><span>${d.frequencia.sequencia === 1 ? 'semana seguida' : 'semanas seguidas'} treinando</span></div></div>
     </section>
-    <section class="bloco"><h2>Últimos treinos</h2>${listaHist(d.recentes)}</section>
-    ${t ? `<div class="rodape"><div><button class="btn btn-ouro largo" id="comecar">Começar treino de ${esc(d.dia.toLowerCase())}</button></div></div>` : ''}
-  </main>`;
-  ligarTopo();
-  onAll('.dia','click',(e, el) => { d.dia = el.dataset.dia; d.treino = d.treinos[d.dia] || null; renderAluno(); });
-  on('#comecar','click',iniciarTreino);
-  on('#abrirRecados','click',telaRecados);
+    ${d.personal ? `<section class="bloco"><h2>Recados${d.nao_lidas ? `<span class="badge-inline">${d.nao_lidas}</span>` : ''}</h2>
+      ${d.ultima_mensagem ? `<a class="recado" href="#/chat"><div class="recado-topo">${avatar(d.personal.foto, d.personal.nome)}<span>${esc(d.personal.nome)}, ${fmtData(d.ultima_mensagem.data).toLowerCase()}</span></div><p>${esc(d.ultima_mensagem.texto)}</p></a>`
+        : `<a class="btn btn-linha largo" href="#/chat">Mandar mensagem para ${esc(d.personal.nome.split(' ')[0])}</a>`}
+    </section>` : ''}
+    ${d.recentes.length ? `<section class="bloco"><h2>Últimos treinos</h2>${listaHist(d.recentes)}<a class="btn btn-linha largo" href="#/evolucao" style="margin-top:14px">Ver evolução completa</a></section>` : ''}
+    ${t ? `<div class="rodape acima-nav"><div><button class="btn btn-ouro largo" id="comecar">Começar treino de ${esc(dia.toLowerCase())}</button></div></div>` : ''}`);
+  onAll('.dia','click',(e, el) => { st.diaSel = el.dataset.dia; renderTreino(); });
+  onAll('[data-ex]','click',(e, el) => previewExercicio(t.exercicios[+el.dataset.ex]));
+  on('#comecar','click',() => {
+    if (retomar && !confirm('Começar de novo? O treino em andamento será descartado.')) return;
+    const s = sessao.get();
+    st.exec = {usuario:s.id, treino:t, dia, idx:0, inicio:Date.now(), feitas:{}};
+    execSalvo.set(st.exec); ir('#/treino/executar');
+  });
+  on('#descartarExec','click',() => { execSalvo.limpar(); st.exec = null; renderTreino(); });
+}
+function previewExercicio(ex){
+  const m = modal(`${modalCab(ex.nome)}<div class="modal-corpo">${midiaExercicio(ex)}
+    <p style="margin:0 0 12px"><span style="font-family:var(--display);font-size:30px;color:var(--gold);font-weight:700">${esc(ex.series)}×${esc(ex.reps)}</span> <span class="sub">${esc(repsTxt(ex.series, ex.reps))}</span></p>
+    ${ex.descricao ? `<p class="desc">${esc(ex.descricao)}</p>` : '<p class="sub">Sem descrição para este exercício.</p>'}</div>`, {rotulo:ex.nome});
+  ligarPlay(m.el, ex);
+}
+function repsTxt(series, reps){
+  const r = String(reps), s = parseInt(series) || 1;
+  return `${plural(s, 'série', 'séries')} de ${/^\d+$/.test(r) ? r + ' repetições' : r}`;
 }
 
-/* ---------- execução do treino ---------- */
-function iniciarTreino(){ st.exec = {treino:st.aluno.treino, dia:st.aluno.dia, idx:0, inicio:Date.now(), feitas:{}}; renderExec(); }
+/* ---------- execução ---------- */
+function telaExec(){
+  const s = sessao.get();
+  st.exec = st.exec || execSalvo.get();
+  if (!st.exec || st.exec.usuario !== s.id){ st.exec = null; return trocar('#/treino'); }
+  renderExec();
+}
 function renderExec(){
   pararTimer();
   const e = st.exec, lista = e.treino.exercicios, ex = lista[e.idx], n = lista.length, ultimo = e.idx === n - 1;
-  const total = Math.max(1, parseInt(ex.series) || 1), reps = String(ex.reps), img = imgUrl(ex.imagem);
-  $app.innerHTML = `<main class="tela">
-    <header class="topo"><p class="ola">Exercício ${e.idx + 1} de ${n}</p><button class="link" id="sairTreino">Sair do treino</button></header>
+  const total = Math.max(1, parseInt(ex.series) || 1), reps = String(ex.reps);
+  const desc = prefDescanso.get() || 60;
+  pagina(`<div class="topo"><p class="ola">Exercício ${e.idx + 1} de ${n}</p><a class="link" href="#/treino">Pausar</a></div>
     <div class="progresso" role="progressbar" aria-label="Progresso do treino" aria-valuemin="1" aria-valuemax="${n}" aria-valuenow="${e.idx + 1}"><i style="width:${(e.idx + 1) / n * 100}%"></i></div>
-    <div class="midia">${img ? `<img id="exImg" src="${esc(img)}" alt="Demonstração: ${esc(ex.nome)}">` : `<span class="ph" aria-hidden="true">${esc(ex.foco || 'Série')}</span>`}</div>
+    ${midiaExercicio(ex)}
+    ${ex.video && driveId(ex.video) ? '<p class="aviso-video">Se o vídeo não carregar de primeira, espere alguns segundos e toque de novo.</p>' : ''}
     <h1 class="ex-nome">${esc(ex.nome)}</h1>
     <div class="carga ${reps.length > 3 ? 'longa' : ''}" aria-hidden="true"><span>${esc(ex.series)}</span><span class="x">×</span><span>${esc(reps)}</span></div>
     <p class="carga-leg">${esc(repsTxt(ex.series, reps))}</p>
     <p class="sub">Toque em cada série ao terminar</p>
     <div class="series">${Array.from({length:total}, (_, i) => `<button class="serie" data-i="${i}" aria-label="Série ${i + 1}">${i + 1}</button>`).join('')}</div>
+    <div class="descanso-pref"><span>Descanso entre séries:</span>${[30, 45, 60, 90].map(sg => `<button class="chip" data-desc="${sg}" aria-pressed="${sg === desc}">${sg}s</button>`).join('')}</div>
     <div id="descanso" aria-live="polite"></div>
     ${ex.descricao ? `<h2 class="rot2">Como fazer</h2><p class="desc">${esc(ex.descricao)}</p>` : ''}
     <div class="rodape"><div class="nav-exec">
       <button class="btn btn-linha" id="ant" ${e.idx === 0 ? 'disabled' : ''}>Anterior</button>
       <button class="btn btn-ouro" id="prox">${ultimo ? 'Concluir treino' : 'Próximo exercício'}</button>
-    </div></div></main>`;
-  const im = document.getElementById('exImg');
-  if (im) im.onerror = () => { im.outerHTML = `<span class="ph" aria-hidden="true">${esc(ex.foco || 'Série')}</span>`; };
-
+    </div></div>`, {nav:false});
+  ligarPlay($app, ex);
+  const salvar = () => execSalvo.set(e);
   const pintar = () => { const f = e.feitas[e.idx] || 0; document.querySelectorAll('.serie').forEach((b, i) => { b.classList.toggle('feita', i < f); b.setAttribute('aria-pressed', i < f); }); };
   pintar();
   onAll('.serie','click',(ev, el) => {
     const i = +el.dataset.i, antes = e.feitas[e.idx] || 0;
     e.feitas[e.idx] = i < antes ? i : i + 1;
-    pintar();
-    if (e.feitas[e.idx] > antes && e.feitas[e.idx] < total) iniciarDescanso(60); else pararTimer();
+    pintar(); salvar();
+    if (e.feitas[e.idx] > antes && e.feitas[e.idx] < total) iniciarDescanso(prefDescanso.get() || 60); else pararTimer();
   });
-  on('#ant','click',() => { e.idx--; renderExec(); window.scrollTo(0,0); });
-  on('#prox','click',() => { if (ultimo) return telaConclusao(); e.idx++; renderExec(); window.scrollTo(0,0); });
-  on('#sairTreino','click',() => { if (confirm('Sair do treino? O progresso deste treino não será salvo.')){ pararTimer(); st.exec = null; renderAluno(); } });
+  onAll('[data-desc]','click',(ev, el) => { prefDescanso.set(+el.dataset.desc); document.querySelectorAll('[data-desc]').forEach(b => b.setAttribute('aria-pressed', b === el)); });
+  on('#ant','click',() => { e.idx--; salvar(); renderExec(); window.scrollTo(0, 0); });
+  on('#prox','click',() => { if (ultimo) return ir('#/treino/concluir'); e.idx++; salvar(); renderExec(); window.scrollTo(0, 0); });
 }
 function iniciarDescanso(seg){
   pararTimer();
@@ -433,7 +873,7 @@ function iniciarDescanso(seg){
   const fim = Date.now() + seg * 1000;
   const tick = () => {
     const r = Math.max(0, Math.round((fim - Date.now()) / 1000));
-    if (r <= 0){ pararTimer(); if (navigator.vibrate) navigator.vibrate(200); toast('Descanso encerrado. Bora pra próxima série.'); return; }
+    if (r <= 0){ pararTimer(); if (navigator.vibrate) navigator.vibrate([150, 80, 150]); toast('Descanso encerrado. Bora pra próxima série.'); return; }
     box.innerHTML = `<div class="descanso"><span>Descanso</span><b>${Math.floor(r / 60)}:${String(r % 60).padStart(2, '0')}</b><button class="link" id="pularDesc">Pular</button></div>`;
     on('#pularDesc','click',pararTimer);
   };
@@ -442,160 +882,500 @@ function iniciarDescanso(seg){
 function pararTimer(){ clearInterval(st.timer); st.timer = null; const box = document.getElementById('descanso'); if (box) box.innerHTML = ''; }
 
 function telaConclusao(){
-  pararTimer();
-  const e = st.exec, min = Math.max(1, Math.round((Date.now() - e.inicio) / 60000));
+  const s = sessao.get();
+  st.exec = st.exec || execSalvo.get();
+  if (!st.exec || st.exec.usuario !== s.id) return trocar('#/treino');
+  const e = st.exec, min = Math.min(300, Math.max(1, Math.round((Date.now() - e.inicio) / 60000)));
   let cansaco = null;
-  $app.innerHTML = `<main class="tela">
-    <header class="topo"><p class="ola">Treino de ${esc(e.dia.toLowerCase())}</p></header>
+  pagina(`<div class="topo"><p class="ola">Treino de ${esc(e.dia.toLowerCase())}</p></div>
     <h1 class="display fim">Feito.</h1>
-    <p class="sub" style="margin-bottom:28px;font-size:16px">${e.treino.exercicios.length} exercícios concluídos. Conte como foi para a sua personal.</p>
+    <p class="sub" style="margin-bottom:28px;font-size:16px">${plural(e.treino.exercicios.length, 'exercício concluído', 'exercícios concluídos')}. Conte como foi para a sua personal.</p>
     <label class="campo"><span>Tempo de treino, em minutos</span><input type="number" id="tMin" min="1" max="300" value="${min}" inputmode="numeric"></label>
     <div class="campo"><span id="lCans">Quão cansado(a) você terminou?</span>
       <div class="escala" role="radiogroup" aria-labelledby="lCans">${NIVEIS.map((r, i) => `<button role="radio" aria-checked="false" data-v="${i + 1}"><b>${i + 1}</b><small>${r}</small></button>`).join('')}</div></div>
     <label class="campo"><span>Comentário (opcional)</span><textarea id="coment" rows="3" placeholder="Ex.: senti o joelho no afundo, a prancha ficou fácil"></textarea></label>
     <p class="erro" id="eFim" role="alert"></p>
     <button class="btn btn-ouro largo" id="salvarFim">Salvar treino</button>
-    <p style="text-align:center;margin-top:8px"><button class="link" id="descartar">Descartar sem salvar</button></p>
-  </main>`;
-  window.scrollTo(0,0);
-  onAll('.escala button','click',(ev, el) => {
-    cansaco = +el.dataset.v;
-    document.querySelectorAll('.escala button').forEach(b => b.setAttribute('aria-checked', b === el));
-  });
-  on('#descartar','click',() => { if (confirm('Descartar este treino?')){ st.exec = null; renderAluno(); } });
+    <p style="text-align:center;margin-top:8px"><button class="link" id="voltarExec">Voltar ao último exercício</button></p>`, {nav:false});
+  onAll('.escala button','click',(ev, el) => { cansaco = +el.dataset.v; document.querySelectorAll('.escala button').forEach(b => b.setAttribute('aria-checked', b === el)); });
+  on('#voltarExec','click',() => ir('#/treino/executar'));
   on('#salvarFim','click', async ev => {
     if (!cansaco) return msgErro('eFim', new Error('Escolha o nível de cansaço de 1 a 5.'));
-    const b = ev.currentTarget; b.disabled = true; b.textContent = 'Salvando…';
+    const b = ev.currentTarget; ocupado(b, 'Salvando…');
     try {
-      await api('registrar_conclusao', {
-        dia:e.dia, id_treino:e.treino.id_treino,
-        exercicios:e.treino.exercicios.map(x => x.nome),
-        tempo_min:document.getElementById('tMin').value, cansaco,
-        comentario:document.getElementById('coment').value
-      });
-      st.exec = null; toast('Treino salvo'); telaAluno();
-    } catch(err){ msgErro('eFim', err); b.disabled = false; b.textContent = 'Salvar treino'; }
+      await api('registrar_conclusao', {dia:e.dia, id_treino:e.treino.id_treino, exercicios:e.treino.exercicios.map(x => x.nome),
+        tempo_min:document.getElementById('tMin').value, cansaco, comentario:document.getElementById('coment').value});
+      execSalvo.limpar(); st.exec = null; toast('Treino salvo'); ir('#/treino');
+    } catch(err){ msgErro('eFim', err); livre(b); }
   });
 }
 
-/* ---------- recados ---------- */
-function htmlChat(msgs){
-  const eu = sessao.get().id;
-  return `<div class="chat" id="chat">${msgs.length ? msgs.map(m => `<div class="msg ${m.autor === eu ? 'minha' : ''}"><p>${esc(m.texto)}</p><time>${fmtHora(m.data)}</time></div>`).join('')
-    : '<p class="sub">Nenhuma mensagem ainda. Escreva a primeira.</p>'}</div>
-    <form class="enviar" id="fMsg"><label class="sr-only" for="txtMsg">Mensagem</label>
-      <textarea id="txtMsg" rows="2" placeholder="Escreva uma mensagem"></textarea>
-      <button class="btn btn-ouro" type="submit">Enviar</button></form>`;
+/* =========================================================
+   EVOLUÇÃO
+   ========================================================= */
+async function telaEvolucaoAluno(){
+  pagina(`<h1 class="display titulo">Evolução</h1><div id="evo"><p class="sub">Carregando…</p></div>`);
+  const el = document.getElementById('evo');
+  try { const d = await api('evolucao'); if (el.isConnected) montarEvolucao(el, d, null); }
+  catch(e){ if (!e.sessao) el.innerHTML = `<p class="erro">${esc(e.message)}</p>`; }
 }
-function ligarChat(idAluno, depois){
-  on('#fMsg','submit', async e => {
+function montarEvolucao(el, d, idAluno){
+  el.innerHTML = htmlEvolucao(d);
+  onAll('[data-registrar]','click',() => modalMedidas(el, idAluno), el);
+  onAll('[data-apagar]','click', async (e, b) => {
+    if (!confirm('Apagar este registro?')) return;
+    ocupado(b, '…');
+    try { montarEvolucao(el, await api('excluir_medida', {id:b.dataset.apagar}), idAluno); toast('Registro apagado'); }
+    catch(err){ if (!err.sessao) toast(err.message); livre(b); }
+  }, el);
+}
+function htmlEvolucao(d){
+  const regs = d.registros, pesos = regs.filter(r => r.peso != null);
+  const atual = pesos[pesos.length - 1], inicial = pesos[0];
+  const meta = d.perfil && d.perfil.meta, alt = d.perfil && d.perfil.altura;
+  let topo = '';
+  if (atual){
+    let variacao = '';
+    if (pesos.length > 1){
+      const dif = Math.round((atual.peso - inicial.peso) * 10) / 10;
+      const rumoMeta = meta && Math.abs(atual.peso - meta) < Math.abs(inicial.peso - meta);
+      const txt = dif === 0 ? 'Mesmo peso' : `${fmtNum(Math.abs(dif))} kg ${dif < 0 ? 'a menos' : 'a mais'}`;
+      variacao = `<p class="peso-var">${rumoMeta ? `<b>${txt}</b>` : txt} desde ${fmtLonga(inicial.data)}</p>`;
+    } else variacao = `<p class="peso-var">Registrado ${fmtData(atual.data).toLowerCase()}. Registre de novo daqui a uma semana para ver a evolução.</p>`;
+    let metaHtml = '';
+    if (meta && inicial && inicial.peso !== meta){
+      const pct = Math.max(0, Math.min(1, (inicial.peso - atual.peso) / (inicial.peso - meta)));
+      const falta = Math.round(Math.abs(atual.peso - meta) * 10) / 10;
+      metaHtml = `<div class="meta"><div class="meta-barra" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(pct * 100)}" aria-label="Progresso até a meta"><i style="width:${pct * 100}%"></i></div>
+        <p class="sub">${pct >= 1 || falta === 0 ? `Meta de ${fmtNum(meta)} kg alcançada.` : `Faltam ${fmtNum(falta)} kg para a meta de ${fmtNum(meta)} kg (${Math.round(pct * 100)}% do caminho).`}</p></div>`;
+    }
+    let imc = '';
+    if (alt){
+      const v = atual.peso / Math.pow(alt / 100, 2);
+      const faixa = v < 18.5 ? 'abaixo do peso' : v < 25 ? 'peso adequado' : v < 30 ? 'sobrepeso' : 'obesidade';
+      imc = `<p class="sub" style="margin-top:10px">IMC ${fmtNum(v)}, faixa de ${faixa}. O IMC é só uma referência e não considera massa muscular.</p>`;
+    }
+    topo = `<div class="peso-hero"><span class="display peso-num">${fmtNum(atual.peso)}</span><span class="peso-kg">kg</span></div>${variacao}${metaHtml}${imc}`;
+  } else {
+    topo = `<div class="vazio"><p>Registre seu peso e suas medidas para acompanhar a evolução ao longo das semanas.</p></div>`;
+  }
+  const medidasComDado = MEDIDAS.filter(([k]) => regs.some(r => r[k] != null));
+  const tabela = medidasComDado.length ? `<section class="bloco"><h2>Medidas</h2><table class="tabela"><thead><tr><th>Medida</th><th>Início</th><th>Atual</th><th>Diferença</th></tr></thead><tbody>
+    ${medidasComDado.map(([k, rot, un]) => {
+      const vals = regs.filter(r => r[k] != null), a = vals[0][k], b = vals[vals.length - 1][k], dif = Math.round((b - a) * 10) / 10;
+      return `<tr><td>${rot}</td><td>${fmtNum(a)} ${un}</td><td>${fmtNum(b)} ${un}</td><td>${vals.length > 1 ? (dif > 0 ? '+' : dif < 0 ? '−' : '') + fmtNum(Math.abs(dif)) + ' ' + un : '–'}</td></tr>`;
+    }).join('')}</tbody></table></section>` : '';
+  const f = d.frequencia;
+  return `${topo}
+    <button class="btn btn-ouro largo" data-registrar style="margin-top:22px">Registrar peso e medidas</button>
+    ${pesos.length > 1 ? `<section class="bloco"><h2>Peso ao longo do tempo</h2>${graficoPeso(pesos, meta)}</section>` : ''}
+    ${tabela}
+    <section class="bloco"><h2>Frequência nas últimas 8 semanas</h2>${graficoSemanas(f.semanas)}
+      <div class="stats" style="margin-top:14px"><div><b>${f.sequencia}</b><span>${f.sequencia === 1 ? 'semana seguida' : 'semanas seguidas'} treinando</span></div><div><b>${f.total}</b><span>${f.total === 1 ? 'treino registrado' : 'treinos registrados'} no total</span></div></div></section>
+    ${d.historico && d.historico.length ? `<section class="bloco"><h2>Treinos recentes</h2>${listaHist(d.historico.slice(0, 5))}</section>` : ''}
+    ${regs.length ? `<section class="bloco"><h2>Registros</h2>${regs.slice().reverse().map(r => `<div class="medida"><div>
+        <b>${fmtLonga(r.data)}</b>
+        <p>${[r.peso != null ? fmtNum(r.peso) + ' kg' : '', ...MEDIDAS.filter(([k]) => r[k] != null).map(([k, rot, un]) => `${rot.toLowerCase()} ${fmtNum(r[k])} ${un}`)].filter(Boolean).join(', ')}</p>
+        ${r.observacao ? `<p class="sub">${esc(r.observacao)}</p>` : ''}</div>
+        <button class="ic-btn rm" data-apagar="${esc(r.id)}" aria-label="Apagar registro de ${fmtLonga(r.data)}">${ICON.x}</button></div>`).join('')}</section>` : ''}`;
+}
+function graficoPeso(pts, meta){
+  const W = 340, H = 180, L = 34, R = 10, T = 12, B = 26;
+  const xs = pts.map(r => new Date(r.data).getTime()), ys = pts.map(r => r.peso).concat(meta ? [meta] : []);
+  let min = Math.min(...ys), max = Math.max(...ys);
+  if (max - min < 2){ min -= 1; max += 1; }
+  const pad = (max - min) * .12; min -= pad; max += pad;
+  const x0 = Math.min(...xs), x1 = Math.max(...xs);
+  const X = t => L + (x1 === x0 ? .5 : (t - x0) / (x1 - x0)) * (W - L - R);
+  const Y = v => T + (max - v) / (max - min) * (H - T - B);
+  const linha = pts.map((r, i) => (i ? 'L' : 'M') + X(xs[i]).toFixed(1) + ' ' + Y(r.peso).toFixed(1)).join(' ');
+  const ticks = [0, .5, 1].map(k => min + (max - min) * k);
+  const ult = pts[pts.length - 1];
+  return `<svg class="grafico" viewBox="0 0 ${W} ${H}" role="img" aria-label="Peso foi de ${fmtNum(pts[0].peso)} para ${fmtNum(ult.peso)} quilos">
+    ${ticks.map(v => `<line x1="${L}" x2="${W - R}" y1="${Y(v).toFixed(1)}" y2="${Y(v).toFixed(1)}" stroke="rgba(238,231,215,.08)"/><text x="${L - 6}" y="${(Y(v) + 3).toFixed(1)}" text-anchor="end">${fmtNum(v, 0)}</text>`).join('')}
+    ${meta ? `<line x1="${L}" x2="${W - R}" y1="${Y(meta).toFixed(1)}" y2="${Y(meta).toFixed(1)}" stroke="#D9A441" stroke-dasharray="4 4" opacity=".6"/><text x="${W - R}" y="${(Y(meta) - 5).toFixed(1)}" text-anchor="end" style="fill:#D9A441">meta ${fmtNum(meta)}</text>` : ''}
+    <path d="${linha}" fill="none" stroke="#EEE7D7" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    ${pts.map((r, i) => `<circle cx="${X(xs[i]).toFixed(1)}" cy="${Y(r.peso).toFixed(1)}" r="${i === pts.length - 1 ? 4.5 : 3}" fill="${i === pts.length - 1 ? '#D9A441' : '#EEE7D7'}"/>`).join('')}
+    <text x="${L}" y="${H - 6}">${new Date(x0).toLocaleDateString('pt-BR', {day:'2-digit', month:'short'})}</text>
+    <text x="${W - R}" y="${H - 6}" text-anchor="end">${new Date(x1).toLocaleDateString('pt-BR', {day:'2-digit', month:'short'})}</text>
+  </svg>`;
+}
+function graficoSemanas(sem){
+  const W = 340, H = 120, T = 16, B = 22, max = Math.max(4, ...sem.map(s => s.total)), bw = (W - 8 * 6) / 8;
+  return `<svg class="grafico" viewBox="0 0 ${W} ${H}" role="img" aria-label="Dias treinados por semana: ${sem.map(s => s.total).join(', ')}">
+    ${sem.map((s, i) => {
+      const h = s.total ? Math.max(4, (s.total / max) * (H - T - B)) : 2, x = i * (bw + 6), y = H - B - h, atual = i === sem.length - 1;
+      return `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="4" fill="${atual ? '#D9A441' : s.total ? '#8E98B3' : 'rgba(238,231,215,.12)'}"/>
+        ${s.total ? `<text x="${(x + bw / 2).toFixed(1)}" y="${(y - 4).toFixed(1)}" text-anchor="middle" style="fill:#EEE7D7">${s.total}</text>` : ''}
+        <text x="${(x + bw / 2).toFixed(1)}" y="${H - 6}" text-anchor="middle">${atual ? 'agora' : new Date(s.inicio).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'})}</text>`;
+    }).join('')}</svg>`;
+}
+function modalMedidas(el, idAluno){
+  const m = modal(`${modalCab('Registrar medidas', 'Cancelar')}<form class="modal-corpo" id="fMed">
+    <label class="campo"><span>Data</span><input type="date" name="data" value="${hojeIso()}" max="${hojeIso()}"></label>
+    <label class="campo"><span>Peso (kg)</span><input name="peso" inputmode="decimal" placeholder="72,5"><small>Pese-se no mesmo horário, de preferência de manhã e em jejum.</small></label>
+    <div class="duas">${MEDIDAS.map(([k, rot, un]) => `<label class="campo"><span>${rot} (${un})</span><input name="${k}" inputmode="decimal"></label>`).join('')}</div>
+    <label class="campo"><span>Observação (opcional)</span><input name="observacao" placeholder="Ex.: avaliação com adipômetro"></label>
+    <p class="erro" id="eMed" role="alert"></p>
+    <button class="btn btn-ouro largo" type="submit">Salvar registro</button></form>`, {rotulo:'Registrar medidas'});
+  on('#fMed','submit', async e => {
     e.preventDefault();
-    const tx = document.getElementById('txtMsg'), v = tx.value.trim(); if (!v) return;
-    const b = e.target.querySelector('button'); b.disabled = true; b.textContent = 'Enviando…';
-    try { depois(await api('enviar_mensagem', {id_usuario:idAluno, mensagem:v})); toast('Mensagem enviada'); }
-    catch(err){ if (!err.sessao) toast(err.message); b.disabled = false; b.textContent = 'Enviar'; }
-  });
-  const c = document.getElementById('chat');
-  if (c && c.lastElementChild) c.lastElementChild.scrollIntoView({block:'nearest'});
-}
-async function telaRecados(){
-  carregando('Abrindo conversa…');
-  try { renderRecados(await api('obter_mensagens', {})); }
-  catch(e){ erroTela(e, telaRecados); }
-}
-function renderRecados(msgs){
-  $app.innerHTML = `<main class="tela"><header class="topo"><button class="link" id="voltar">Voltar ao treino</button></header>
-    <h1 class="display titulo">Recados</h1><p class="sub" style="margin-bottom:22px">Conversa com a sua personal.</p>${htmlChat(msgs)}</main>`;
-  on('#voltar','click',() => st.aluno ? renderAluno() : telaAluno());
-  ligarChat(null, renderRecados);
+    const f = e.target, b = f.querySelector('button[type=submit]');
+    const dados = {id_usuario:idAluno || undefined, data:f.data.value, peso:lerNum(f.peso.value), observacao:f.observacao.value};
+    MEDIDAS.forEach(([k]) => dados[k] = lerNum(f[k].value));
+    ocupado(b, 'Salvando…');
+    try { const d = await api('registrar_medidas', dados); m.fechar(); montarEvolucao(el, d, idAluno); toast('Registro salvo'); }
+    catch(err){ msgErro('eMed', err); livre(b); }
+  }, m.el);
 }
 
-/* ---------- painel da personal ---------- */
-async function telaPersonal(){
-  carregando('Carregando alunos…');
-  try { st.dash = await api('dashboard_personal'); renderPersonal(); }
-  catch(e){ erroTela(e, telaPersonal); }
-  if (!st.lib) api('listar_exercicios').then(l => st.lib = l).catch(() => {});
+/* =========================================================
+   CHAT
+   ========================================================= */
+async function telaChat(idAluno){
+  const s = sessao.get(), ehAluno = !idAluno, comNav = ehAluno;
+  pagina(`<header class="chat-cab">${idAluno ? voltarHtml(`#/alunos/${idAluno}/treino`, 'Voltar') : ''}<div class="quem" id="chatQuem"><b>Recados</b><span>Carregando…</span></div></header>
+    <div class="chat-lista" id="chatLista" aria-live="polite"></div>
+    <div class="chat-rodape" id="chatRodape" hidden><div>
+      <div class="rapidas">${(ehAluno ? RAPIDAS_ALUNO : RAPIDAS_PERSONAL).map(t => `<button class="chip" data-rapida="${esc(t)}">${esc(t)}</button>`).join('')}</div>
+      <form class="enviar" id="fMsg"><label class="sr-only" for="txtMsg">Mensagem</label>
+        <textarea id="txtMsg" rows="1" placeholder="Escreva uma mensagem" enterkeyhint="send"></textarea>
+        <button class="btn-enviar" type="submit" aria-label="Enviar">${ICON.enviar}</button></form></div></div>`, {nav:comNav, classe:'chat-tela' + (comNav ? '' : ' sem-nav')});
+  const lista = document.getElementById('chatLista'), quem = document.getElementById('chatQuem');
+  const rodape = document.getElementById('chatRodape'), tx = document.getElementById('txtMsg');
+  let dados = null, assinatura = '';
+
+  const pertoDoFim = () => window.innerHeight + window.scrollY >= document.body.scrollHeight - 160;
+  const rolarFim = () => window.scrollTo(0, document.body.scrollHeight);
+  function desenhar(forcarFim){
+    const fim = forcarFim || pertoDoFim();
+    const msgs = dados.mensagens;
+    if (!msgs.length){ lista.innerHTML = `<div class="vazio" style="text-align:center">${ehAluno ? 'Tire dúvidas, conte como foi o treino ou avise se sentir alguma dor.' : 'Nenhuma mensagem ainda. Mande uma dica ou pergunte como foi o treino.'}</div>`; return; }
+    let html = '', diaAnt = '', autorAnt = '';
+    msgs.forEach((m, i) => {
+      const dia = new Date(m.data).toDateString();
+      if (dia !== diaAnt){ const f = fmtData(m.data); html += `<div class="dia-sep">${f === 'Hoje' || f === 'Ontem' ? f : fmtLonga(m.data)}</div>`; autorAnt = ''; }
+      const minha = m.autor === s.id;
+      const mostrarAutor = !minha && !ehAluno && m.autor !== idAluno && m.autor_nome && autorAnt !== m.autor;
+      html += `<div class="msg ${minha ? 'minha' : ''} ${autorAnt === m.autor ? 'seguida' : ''} ${m.enviando ? 'enviando' : ''}">${mostrarAutor ? `<span class="autor">${esc(m.autor_nome)}</span>` : ''}${esc(m.texto)}<time>${m.enviando ? 'enviando…' : fmtHoraCurta(m.data)}</time></div>`;
+      diaAnt = dia; autorAnt = m.autor;
+    });
+    const ultMinha = [...msgs].reverse().find(m => m.autor === s.id && !m.enviando);
+    if (ultMinha && ultMinha === msgs[msgs.length - 1] && ultMinha.lida) html += '<span class="lida">Lida</span>';
+    lista.innerHTML = html;
+    if (fim) rolarFim();
+  }
+  function cabecalho(){
+    if (ehAluno){
+      const p = dados.personal;
+      quem.outerHTML = p ? `<button class="quem" id="chatQuem" style="display:flex;gap:10px;align-items:center;text-align:left">${avatar(p.foto, p.nome)}<span><b>${esc(p.nome)}</b><span>Sua personal. Toque para ver o perfil</span></span></button>`
+        : `<div class="quem" id="chatQuem"><b>Recados</b></div>`;
+      on('#chatQuem','click',() => { if (p) modal(`${modalCab('Sua personal')}<div class="modal-corpo">${cardPersonal(p)}</div>`); });
+    } else {
+      quem.outerHTML = `<div class="quem" id="chatQuem" style="display:flex;gap:10px;align-items:center">${avatar('', dados.aluno.nome)}<span><b>${esc(dados.aluno.nome)}</b><span>${dados.personal ? 'Acompanhado(a) por ' + esc(dados.personal.nome) : 'Sem personal definida'}</span></span></div>`;
+    }
+  }
+  async function carregar(inicial){
+    try {
+      const d = await api('obter_mensagens', idAluno ? {id_usuario:idAluno} : {});
+      const nova = d.mensagens.map(m => m.id + (m.lida ? 'l' : '')).join();
+      if (!lista.isConnected) return;
+      if (inicial){
+        dados = d; cabecalho();
+        if (ehAluno && !d.personal){
+          lista.innerHTML = `<div class="vazio">Escolha uma personal para poder conversar sobre seus treinos.<br><a class="btn btn-ouro" href="#/personais">Escolher personal</a></div>`;
+          return;
+        }
+        rodape.hidden = false;
+        desenhar(true);
+      } else if (nova !== assinatura){ dados.mensagens = d.mensagens; desenhar(false); }
+      assinatura = nova;
+      if (ehAluno){ if (st.naoLidas){ st.naoLidas = 0; if (st.aluno) st.aluno.nao_lidas = 0; atualizarNav(); } }
+      else if (st.dash){ const a = st.dash.alunos.find(x => x.id === idAluno); if (a && a.nao_lidas){ a.nao_lidas = 0; st.naoLidas = st.dash.alunos.reduce((t, x) => t + (x.nao_lidas || 0), 0); } }
+    } catch(e){ if (inicial && !e.sessao) lista.innerHTML = `<p class="erro">${esc(e.message)}</p>`; }
+  }
+  await carregar(true);
+  st.intervalos.push(setInterval(() => { if (!document.hidden) carregar(false); }, 10000));
+
+  const crescer = () => { tx.style.height = 'auto'; tx.style.height = Math.min(140, tx.scrollHeight) + 'px'; };
+  tx.addEventListener('input', crescer);
+  tx.addEventListener('focus', () => { document.body.classList.add('digitando'); setTimeout(rolarFim, 300); });
+  tx.addEventListener('blur', () => setTimeout(() => document.body.classList.remove('digitando'), 150));
+  tx.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey && matchMedia('(pointer:fine)').matches){ e.preventDefault(); enviar(); } });
+  onAll('[data-rapida]','click',(e, b) => { tx.value = b.dataset.rapida; crescer(); tx.focus(); });
+  on('#fMsg','submit', e => { e.preventDefault(); enviar(); });
+
+  async function enviar(){
+    const texto = tx.value.trim();
+    if (!texto || !dados) return;
+    tx.value = ''; crescer();
+    const temp = {id:'tmp' + Date.now(), texto, autor:s.id, data:new Date().toISOString(), enviando:true};
+    dados.mensagens.push(temp); desenhar(true);
+    try {
+      const d = await api('enviar_mensagem', idAluno ? {id_usuario:idAluno, mensagem:texto} : {mensagem:texto});
+      if (!lista.isConnected) return;
+      dados.mensagens = d.mensagens; assinatura = d.mensagens.map(m => m.id + (m.lida ? 'l' : '')).join(); desenhar(true);
+    } catch(err){
+      dados.mensagens = dados.mensagens.filter(m => m !== temp); desenhar(false);
+      if (!err.sessao){ tx.value = texto; crescer(); toast(err.message); }
+    }
+  }
 }
-function renderPersonal(){
-  const d = st.dash;
-  $app.innerHTML = `<main class="tela">${topo()}<h1 class="display titulo">Alunos</h1>
-    ${d.alunos.length ? d.alunos.map(a => `<article class="aluno">
-      <h2>${esc(a.nome)}</h2>
-      <p class="perfil">${a.perfil ? esc(perfilTxt(a.perfil)) : 'Ainda não respondeu o questionário.'}</p>
-      <div class="numeros">
-        <div><b>${a.stats.treinos_7d}</b><span>dias treinados na semana</span></div>
-        <div><b>${a.stats.cansaco_medio != null ? String(a.stats.cansaco_medio).replace('.', ',') : '–'}</b><span>cansaço médio, de 1 a 5</span></div>
-        <div><b class="menor">${a.stats.ultimo ? fmtData(a.stats.ultimo) : '–'}</b><span>último treino</span></div>
-      </div>
-      <button class="btn btn-linha largo" data-id="${esc(a.id)}">Ver treino, histórico e recados</button></article>`).join('')
-    : '<p class="sub" style="margin-top:16px">Nenhum aluno ainda. Cadastre alunos pela função criarUsuario no Apps Script.</p>'}
-    <p style="text-align:center;margin-top:24px"><button class="link" id="atualizar">Atualizar dados</button></p>
-  </main>`;
-  ligarTopo();
-  onAll('[data-id]','click',(e, el) => abrirAluno(el.dataset.id));
-  on('#atualizar','click',telaPersonal);
+
+/* =========================================================
+   PERSONAIS E PERFIL
+   ========================================================= */
+async function telaPersonais(){
+  pagina(`${voltarHtml('#/perfil', 'Perfil')}<h1 class="display titulo">Personais</h1>
+    <p class="sub" style="margin-bottom:22px">Escolha quem vai acompanhar seus treinos, ajustar sua série e responder seus recados.</p><div id="lista"><p class="sub">Carregando…</p></div>`);
+  const el = document.getElementById('lista');
+  try {
+    const [lista, eu] = await Promise.all([api('listar_personais'), api('meu_perfil')]);
+    const atual = eu.perfil_aluno ? eu.perfil_aluno.id_personal : '';
+    if (!el.isConnected) return;
+    el.innerHTML = (lista.length ? lista.map(p => cardPersonal(p, {sel:p.id === atual,
+      acoes:`<div class="linha-btns">${p.id === atual ? '<span class="btn btn-linha btn-p desativado">Sua personal</span>' : `<button class="btn btn-ouro btn-p" data-escolher="${esc(p.id)}">Escolher ${esc(p.nome.split(' ')[0])}</button>`}</div>`})).join('')
+      : '<p class="vazio">Nenhuma personal disponível no momento.</p>')
+      + (atual ? '<p style="text-align:center;margin-top:10px"><button class="link" data-escolher="">Ficar sem personal</button></p>' : '');
+    onAll('[data-escolher]','click', async (e, b) => {
+      const id = b.dataset.escolher, p = lista.find(x => x.id === id);
+      if (!confirm(id ? `Escolher ${p.nome} como sua personal? Ela vai ver seus treinos, sua evolução e seus recados.` : 'Ficar sem personal? Ninguém vai acompanhar seus treinos.')) return;
+      ocupado(b, 'Salvando…');
+      try { await api('escolher_personal', {id_personal:id}); st.aluno = null; toast(id ? `${p.nome} agora acompanha você` : 'Pronto'); ir('#/perfil'); }
+      catch(err){ if (!err.sessao) toast(err.message); livre(b); }
+    }, el);
+  } catch(e){ if (!e.sessao) el.innerHTML = `<p class="erro">${esc(e.message)}</p>`; }
 }
-const alunoAtual = () => st.dash.alunos.find(x => x.id === st.det.id);
+
+async function telaPerfil(){
+  const s = sessao.get();
+  pagina(`<h1 class="display titulo">${esc(s.nome.split(' ')[0])}</h1><div id="perfil"><p class="sub">Carregando…</p></div>`);
+  const el = document.getElementById('perfil');
+  let d;
+  try { d = await api('meu_perfil'); } catch(e){ if (!e.sessao) el.innerHTML = `<p class="erro">${esc(e.message)}</p>`; return; }
+  if (!el.isConnected) return;
+  const conta = `<section class="bloco"><h2>Conta</h2><p class="sub" style="margin-bottom:14px">${esc(d.usuario.email)}${d.usuario.admin ? ', administrador' : ''}</p>
+    <div class="linha-btns"><button class="btn btn-linha" id="bSenha">Trocar senha</button><button class="btn btn-perigo" id="bSair">Sair</button></div></section>`;
+
+  if (s.tipo === 'Aluno'){
+    const p = d.perfil_aluno || {};
+    el.innerHTML = `<section class="bloco" style="margin-top:18px"><h2>Sua personal</h2>
+        ${d.personal ? cardPersonal(d.personal, {acoes:`<div class="linha-btns"><a class="btn btn-ouro btn-p" href="#/chat">Conversar</a><a class="btn btn-linha btn-p" href="#/personais">Trocar</a></div>`})
+          : `<p class="sub" style="margin-bottom:12px">Ninguém acompanha seus treinos ainda.</p><a class="btn btn-ouro largo" href="#/personais">Escolher personal</a>`}</section>
+      <section class="bloco"><h2>Seu plano</h2><form id="fPlano">
+        <label class="campo"><span>Objetivo</span><select name="objetivo">${OBJETIVOS.map(([v, l]) => `<option value="${v}" ${p.objetivo === v ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
+        <div class="duas">
+          <label class="campo"><span>Onde treina</span><select name="local">${LOCAIS.map(([v]) => `<option ${p.local === v ? 'selected' : ''}>${v}</option>`).join('')}</select></label>
+          <label class="campo"><span>Tempo por dia</span><select name="tempo">${TEMPOS.map(([v, l]) => `<option value="${v}" ${String(p.tempo) === v ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
+          <label class="campo"><span>Altura (cm)</span><input name="altura" inputmode="numeric" value="${esc(p.altura || '')}"></label>
+          <label class="campo"><span>Peso meta (kg)</span><input name="meta" inputmode="decimal" value="${p.meta ? fmtNum(p.meta) : ''}"></label>
+        </div>
+        <label class="campo"><span>Como você se identifica</span><select name="genero">${GENEROS.map(([v]) => `<option ${p.genero === v ? 'selected' : ''}>${v}</option>`).join('')}</select></label>
+        <label class="check"><input type="checkbox" name="regenerar"><span>Montar um treino novo com essas respostas. Isso substitui a semana atual, inclusive ajustes da sua personal.</span></label>
+        <p class="erro" id="ePlano" role="alert"></p>
+        <button class="btn btn-ouro largo" type="submit">Salvar plano</button></form></section>${conta}`;
+    on('#fPlano','submit', async e => {
+      e.preventDefault();
+      const f = e.target, b = f.querySelector('button[type=submit]');
+      if (f.regenerar.checked && !confirm('Substituir o treino da semana por um novo?')) return;
+      ocupado(b, 'Salvando…');
+      try {
+        await api('salvar_perfil_aluno', {objetivo:f.objetivo.value, local:f.local.value, tempo:f.tempo.value, altura:lerNum(f.altura.value), meta:lerNum(f.meta.value), genero:f.genero.value, regenerar:f.regenerar.checked});
+        st.aluno = null; toast(f.regenerar.checked ? 'Plano salvo e treino novo montado' : 'Plano salvo'); livre(b); f.regenerar.checked = false;
+      } catch(err){ msgErro('ePlano', err); livre(b); }
+    });
+  } else if (s.tipo === 'Personal'){
+    const pp = d.perfil_personal || {};
+    const f = {foto:pp.foto || '', descricao:pp.descricao || '', especialidades:pp.especialidades || '', registro:pp.registro || '', aceita:pp.aceita !== false};
+    el.innerHTML = `<section class="bloco" style="margin-top:18px"><h2>Seu perfil público</h2>
+      <div class="foto-perfil"><span id="fotoAv">${avatar(f.foto, s.nome, 'xg')}</span><div>
+        <label class="btn btn-linha btn-p"><input type="file" accept="image/*" id="fFoto" class="sr-only">${f.foto ? 'Trocar foto' : 'Enviar foto'}</label>
+        <p class="prog-txt" id="fotoTxt" style="margin-top:8px">JPG ou PNG. A foto é reduzida antes de enviar.</p></div></div>
+      <form id="fPer">
+        <label class="campo"><span>Sobre você</span><textarea name="descricao" rows="5" maxlength="1200" placeholder="Sua formação, como você trabalha e para quem seu acompanhamento é ideal.">${esc(f.descricao)}</textarea></label>
+        <label class="campo"><span>Especialidades</span><input name="especialidades" value="${esc(f.especialidades)}" placeholder="Emagrecimento, hipertrofia, treino em casa"><small>Separe por vírgula.</small></label>
+        <label class="campo"><span>Registro profissional</span><input name="registro" value="${esc(f.registro)}" placeholder="CREF 000000-G/CE"></label>
+        <label class="check"><input type="checkbox" name="aceita" ${f.aceita ? 'checked' : ''}><span>Aceitando novos alunos. Desmarque para sumir da lista de escolha.</span></label>
+        <p class="erro" id="ePer" role="alert"></p>
+        <button class="btn btn-ouro largo" type="submit">Salvar perfil</button></form></section>
+      <section class="bloco"><h2>Como os alunos veem você</h2><div id="previa"></div></section>${conta}`;
+    const form = document.getElementById('fPer');
+    const previa = () => { document.getElementById('previa').innerHTML = cardPersonal({nome:s.nome, foto:f.foto, descricao:form.descricao.value, especialidades:form.especialidades.value, registro:form.registro.value, alunos:pp.alunos}); };
+    previa();
+    form.addEventListener('input', previa);
+    on('#fFoto','change', async e => {
+      const file = e.target.files[0]; e.target.value = ''; if (!file) return;
+      const txt = document.getElementById('fotoTxt');
+      try {
+        txt.textContent = 'Enviando…';
+        const id = await enviarArquivo(file, 'foto', p => txt.textContent = `Enviando… ${Math.round(p * 100)}%`);
+        await api('salvar_perfil_personal', {foto:id, descricao:form.descricao.value, especialidades:form.especialidades.value, registro:form.registro.value, aceita:form.aceita.checked});
+        f.foto = id; document.getElementById('fotoAv').innerHTML = avatar(id, s.nome, 'xg'); previa();
+        txt.textContent = 'Foto atualizada. Pode levar alguns segundos para aparecer.';
+      } catch(err){ if (!err.sessao) txt.textContent = err.message; }
+    });
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const b = form.querySelector('button[type=submit]'); ocupado(b, 'Salvando…');
+      try { await api('salvar_perfil_personal', {descricao:form.descricao.value, especialidades:form.especialidades.value, registro:form.registro.value, aceita:form.aceita.checked}); toast('Perfil salvo'); }
+      catch(err){ msgErro('ePer', err); }
+      livre(b);
+    });
+  } else {
+    el.innerHTML = conta;
+  }
+  on('#bSenha','click',modalSenha);
+  on('#bSair','click',() => { if (confirm('Sair da sua conta neste aparelho?')) sair(); });
+}
+function modalSenha(){
+  const m = modal(`${modalCab('Trocar senha', 'Cancelar')}<form class="modal-corpo" id="fSenha">
+    <label class="campo"><span>Senha atual</span><input type="password" name="atual" autocomplete="current-password" required></label>
+    <label class="campo"><span>Nova senha, com 6 caracteres ou mais</span><input type="password" name="nova" autocomplete="new-password" minlength="6" required></label>
+    <p class="erro" id="eSenha" role="alert"></p>
+    <button class="btn btn-ouro largo" type="submit">Salvar nova senha</button></form>`, {rotulo:'Trocar senha'});
+  on('#fSenha','submit', async ev => {
+    ev.preventDefault();
+    const f = ev.target, b = f.querySelector('button');
+    ocupado(b, 'Salvando…');
+    try { await api('alterar_senha', {atual:f.atual.value, nova:f.nova.value}); m.fechar(); toast('Senha alterada'); }
+    catch(err){ if (err.sessao) return m.fechar(); msgErro('eSenha', err); livre(b); }
+  }, m.el);
+}
+
+/* =========================================================
+   ADMIN (atalho para quem é aluno e administrador)
+   ========================================================= */
+function telaAdmin(){
+  pagina(`<h1 class="display titulo">Admin</h1><p class="sub" style="margin-bottom:10px">Gerencie a biblioteca, as contas e acompanhe todos os alunos.</p>
+    <div class="hub">
+      <a href="#/exercicios"><h2>Exercícios</h2><p class="sub">Cadastre exercícios e envie fotos e vídeos de demonstração para o seu Drive.</p></a>
+      <a href="#/usuarios"><h2>Usuários</h2><p class="sub">Crie contas de alunos e personais, defina quem é administrador e redefina senhas.</p></a>
+      <a href="#/alunos"><h2>Todos os alunos</h2><p class="sub">Veja o progresso e edite o treino de qualquer aluno.</p></a>
+    </div>`);
+}
+
+/* =========================================================
+   PAINEL DE ALUNOS (personal e admin)
+   ========================================================= */
+async function carregarDash(){
+  st.dash = await api('dashboard_personal');
+  const eu = sessao.get();
+  st.naoLidas = st.dash.alunos.filter(a => a.meu || eu.tipo !== 'Personal').reduce((t, a) => t + (a.nao_lidas || 0), 0);
+  return st.dash;
+}
+async function telaAlunos(){
+  const s = sessao.get();
+  if (!st.dash) carregando('Carregando alunos…');
+  else renderAlunos();
+  try { const antes = JSON.stringify(st.dash); await carregarDash(); if (location.hash === '#/alunos' && JSON.stringify(st.dash) !== antes) renderAlunos(); }
+  catch(e){ if (!st.dash) erroTela(e, telaAlunos); else if (!e.sessao) toast(e.message); }
+}
+function cardAluno(a){
+  const st7 = a.stats;
+  const peso = st7.peso_variacao != null ? `${st7.peso_variacao > 0 ? '+' : st7.peso_variacao < 0 ? '−' : ''}${fmtNum(Math.abs(st7.peso_variacao))}` : (st7.peso_atual != null ? fmtNum(st7.peso_atual) : '–');
+  return `<article class="aluno">
+    <div class="aluno-topo"><h2><a href="#/alunos/${esc(a.id)}/treino">${esc(a.nome)}</a></h2>
+      <a class="btn btn-linha btn-p" href="#/alunos/${esc(a.id)}/chat">Recados${a.nao_lidas ? `<span class="badge-inline">${a.nao_lidas}</span>` : ''}</a></div>
+    <p class="perfil">${a.perfil ? esc(perfilTxt(a.perfil)) : 'Ainda não respondeu o questionário.'}${!a.meu ? (a.personal_nome ? `. Personal: ${esc(a.personal_nome)}` : '. Sem personal') : ''}</p>
+    <div class="numeros">
+      <div><b>${st7.treinos_7d}</b><span>dias treinados na semana</span></div>
+      <div><b>${peso}</b><span>${st7.peso_variacao != null ? 'kg desde o início' : 'kg, peso atual'}</span></div>
+      <div><b class="menor">${st7.ultimo ? fmtData(st7.ultimo) : '–'}</b><span>último treino${st7.cansaco_medio != null ? `, cansaço ${String(st7.cansaco_medio).replace('.', ',')}` : ''}</span></div>
+    </div>
+    <a class="btn btn-linha largo" href="#/alunos/${esc(a.id)}/treino">Ver treino e evolução</a></article>`;
+}
+function renderAlunos(){
+  const s = sessao.get(), d = st.dash;
+  const meus = d.alunos.filter(a => a.meu), outros = d.alunos.filter(a => !a.meu);
+  pagina(`<h1 class="display titulo">Alunos</h1>
+    ${!d.alunos.length ? `<p class="vazio">${s.tipo === 'Personal' ? 'Nenhum aluno escolheu você ainda. Complete seu perfil com foto e descrição para aparecer bem na lista de personais.' : 'Nenhum aluno cadastrado.'}${s.tipo === 'Personal' ? '<br><a class="btn btn-ouro" href="#/perfil">Completar meu perfil</a>' : ''}</p>` : ''}
+    ${meus.map(cardAluno).join('')}
+    ${outros.length ? `<h2 class="grupo-titulo">${s.tipo === 'Personal' ? 'Outros alunos (você vê como administrador)' : 'Todos os alunos'}</h2>${outros.map(cardAluno).join('')}` : ''}
+    <p style="text-align:center;margin-top:24px"><button class="link" id="atualizar">Atualizar dados</button></p>`);
+  on('#atualizar','click',() => { st.dash = null; telaAlunos(); });
+}
+function perfilTxt(p){ return [p.objetivo, p.local === 'Casa' ? 'treina em casa' : p.local === 'Academia' ? 'treina na academia' : '', p.tempo ? p.tempo + ' min por dia' : ''].filter(Boolean).join(', '); }
+
+const alunoAtual = () => st.dash && st.det && st.dash.alunos.find(x => x.id === st.det.id);
 function rascunho(dia){
   const det = st.det;
   if (!det.rascunho[dia]){
     const t = alunoAtual().treinos[dia];
-    det.rascunho[dia] = t ? t.exercicios.map(x => ({id:x.id, nome:x.nome, foco:x.foco, series:x.series, reps:x.reps})) : [];
+    det.rascunho[dia] = t ? t.exercicios.map(x => ({id:x.id, nome:x.nome, foco:x.foco, imagem:x.imagem, series:x.series, reps:x.reps})) : [];
   }
   return det.rascunho[dia];
 }
-function abrirAluno(id){ st.det = {id, aba:'treino', dia:diaHoje(), rascunho:{}, sujo:{}}; renderDetalhe(); window.scrollTo(0,0); }
-function renderDetalhe(){
-  const det = st.det, a = alunoAtual();
-  $app.innerHTML = `<main class="tela"><header class="topo"><button class="link" id="voltar">Voltar aos alunos</button></header>
-    <h1 class="display titulo">${esc(a.nome)}</h1><p class="sub">${a.perfil ? esc(perfilTxt(a.perfil)) : 'Questionário pendente'}</p>
-    <nav class="abas" role="tablist">${[['treino','Treino'],['historico','Histórico'],['recados','Recados']].map(([k, l]) =>
-      `<button class="aba ${det.aba === k ? 'ativa' : ''}" role="tab" aria-selected="${det.aba === k}" data-aba="${k}">${l}</button>`).join('')}</nav>
-    <div id="conteudo"></div></main>`;
-  on('#voltar','click',() => {
-    if (Object.values(det.sujo).some(Boolean) && !confirm('Há alterações não salvas. Sair mesmo assim?')) return;
-    st.det = null; renderPersonal();
-  });
-  onAll('.aba','click',(e, el) => { det.aba = el.dataset.aba; renderDetalhe(); });
+const algumSujo = () => st.det && Object.values(st.det.sujo).some(Boolean);
+async function telaAlunoDetalhe(id, aba){
+  if (!st.dash || !st.dash.alunos.some(a => a.id === id)){
+    carregando('Carregando aluno…');
+    try { await carregarDash(); } catch(e){ return erroTela(e, () => telaAlunoDetalhe(id, aba)); }
+    if (!st.dash.alunos.some(a => a.id === id)){ toast('Aluno não encontrado.'); return trocar('#/alunos'); }
+  }
+  if (!st.det || st.det.id !== id) st.det = {id, dia:diaHoje(), rascunho:{}, sujo:{}};
+  st.guarda = h => h.startsWith(`#/alunos/${id}`) || !algumSujo() || confirm('Há alterações no treino que não foram salvas. Sair mesmo assim?');
+  const a = alunoAtual();
+  pagina(`${voltarHtml('#/alunos', 'Alunos')}
+    <div class="cab-aluno"><h1 class="display titulo" style="margin:0">${esc(a.nome)}</h1>
+      <a class="btn btn-linha btn-p" href="#/alunos/${esc(id)}/chat">Recados${a.nao_lidas ? `<span class="badge-inline">${a.nao_lidas}</span>` : ''}</a></div>
+    <p class="sub" style="margin-top:8px">${a.perfil ? esc(perfilTxt(a.perfil)) : 'Questionário pendente'}${!a.meu && a.personal_nome ? `. Personal: ${esc(a.personal_nome)}` : ''}</p>
+    <nav class="abas" aria-label="Seções do aluno">${[['treino','Treino'],['evolucao','Evolução'],['historico','Histórico']].map(([k, l]) =>
+      `<a class="aba ${aba === k ? 'ativa' : ''}" href="#/alunos/${esc(id)}/${k}" data-aba="${k}" ${aba === k ? 'aria-current="page"' : ''}>${l}</a>`).join('')}</nav>
+    <div id="conteudo"></div>`);
+  onAll('[data-aba]','click',(e, el) => { e.preventDefault(); trocar(el.getAttribute('href')); });
   const c = document.getElementById('conteudo');
-  if (det.aba === 'treino') renderEditor(c);
-  else if (det.aba === 'historico') c.innerHTML = listaHist(a.historico);
-  else renderChatPersonal(c);
+  if (aba === 'treino') renderEditor(c);
+  else if (aba === 'historico') c.innerHTML = listaHist(a.historico);
+  else {
+    c.innerHTML = '<p class="sub">Carregando evolução…</p>';
+    try { const d = await api('evolucao', {id_usuario:id}); if (c.isConnected) montarEvolucao(c, d, id); }
+    catch(e){ if (!e.sessao && c.isConnected) c.innerHTML = `<p class="erro">${esc(e.message)}</p>`; }
+  }
 }
 function renderEditor(c){
   const det = st.det, a = alunoAtual(), lista = rascunho(det.dia);
-  const temTreino = dd => (det.rascunho[dd] ? det.rascunho[dd].length : (a.treinos[dd] ? a.treinos[dd].exercicios.length : 0)) > 0;
+  const tem = dd => (det.rascunho[dd] ? det.rascunho[dd].length : (a.treinos[dd] ? a.treinos[dd].exercicios.length : 0)) > 0;
+  st.sujo = algumSujo();
   c.innerHTML = `<div class="chips" aria-label="Dia da semana">${DIAS.map(dd =>
-      `<button class="chip ${dd === det.dia ? 'ativo' : ''} ${temTreino(dd) ? 'tem' : ''} ${det.sujo[dd] ? 'sujo' : ''}" data-dia="${dd}" aria-pressed="${dd === det.dia}">${CURTO[dd]}</button>`).join('')}</div>
-    <h2 class="rot2">${esc(det.dia)}<span class="pend" id="pend">${det.sujo[det.dia] ? 'alterações não salvas' : ''}</span></h2>
-    ${lista.length ? `<div class="edit-cab"><span>Exercício</span><span style="text-align:center">Séries</span><span style="text-align:center">Reps</span><span></span></div>
-      ${lista.map((x, i) => `<div class="edit-ex">
-        <div><div class="nome">${esc(x.nome)}</div><div class="foco">${esc(x.foco)}</div></div>
-        <input aria-label="Séries de ${esc(x.nome)}" data-i="${i}" data-campo="series" value="${esc(x.series)}" inputmode="numeric">
-        <input aria-label="Repetições de ${esc(x.nome)}" data-i="${i}" data-campo="reps" value="${esc(x.reps)}">
-        <button class="rm" aria-label="Remover ${esc(x.nome)}" data-rm="${i}">×</button></div>`).join('')}`
-    : '<p class="sub" style="margin:8px 0 4px">Dia de descanso. Adicione exercícios para montar um treino neste dia.</p>'}
+      `<button class="chip ${tem(dd) ? 'tem' : ''} ${det.sujo[dd] ? 'sujo' : ''}" data-dia="${dd}" aria-pressed="${dd === det.dia}">${CURTO[dd]}</button>`).join('')}</div>
+    <div class="editor-topo"><h2 class="rot2">${esc(det.dia)}<span class="pend" id="pend">${det.sujo[det.dia] ? 'não salvo' : ''}</span></h2>
+      ${DIAS.some(dd => dd !== det.dia && tem(dd)) ? `<select id="copiar" aria-label="Copiar treino de outro dia"><option value="">Copiar de…</option>${DIAS.filter(dd => dd !== det.dia && tem(dd)).map(dd => `<option>${dd}</option>`).join('')}</select>` : ''}</div>
+    ${lista.length ? lista.map((x, i) => `<div class="edit-ex">
+        <div class="edit-info"><span class="n">${i + 1}</span><div><div class="nome">${esc(x.nome)}</div><div class="foco">${esc(x.foco)}</div></div></div>
+        <div class="edit-ctrl">
+          <label>Séries<input data-i="${i}" data-campo="series" value="${esc(x.series)}" inputmode="numeric"></label>
+          <label>Repetições<input data-i="${i}" data-campo="reps" value="${esc(x.reps)}"></label>
+          <div class="mover"><button class="ic-btn" data-mover="${i}" data-dir="-1" aria-label="Subir ${esc(x.nome)}" ${i === 0 ? 'disabled' : ''}>${ICON.cima}</button><button class="ic-btn" data-mover="${i}" data-dir="1" aria-label="Descer ${esc(x.nome)}" ${i === lista.length - 1 ? 'disabled' : ''}>${ICON.baixo}</button></div>
+          <button class="ic-btn rm" data-rm="${i}" aria-label="Remover ${esc(x.nome)}">${ICON.x}</button>
+        </div></div>`).join('')
+      : '<p class="sub" style="margin:8px 0 4px">Dia de descanso. Adicione exercícios para montar um treino neste dia.</p>'}
     <button class="btn btn-linha largo" id="add" style="margin-top:16px">Adicionar exercício da biblioteca</button>
     <div class="acoes-edit">
       <button class="btn btn-ouro largo" id="salvarTreino" ${det.sujo[det.dia] ? '' : 'disabled'}>Salvar treino de ${esc(det.dia.toLowerCase())}</button>
       ${lista.length ? '<button class="link" id="descansoDia">Transformar em dia de descanso</button>' : ''}
     </div>`;
-  const marcar = () => { det.sujo[det.dia] = true; document.getElementById('salvarTreino').disabled = false; document.getElementById('pend').textContent = 'alterações não salvas'; };
-  onAll('.chip[data-dia]','click',(e, el) => { det.dia = el.dataset.dia; renderEditor(c); }, c);
-  onAll('.edit-ex input','input',(e, el) => { lista[+el.dataset.i][el.dataset.campo] = el.value; marcar(); }, c);
-  onAll('[data-rm]','click',(e, el) => { lista.splice(+el.dataset.rm, 1); det.sujo[det.dia] = true; renderEditor(c); }, c);
-  on('#descansoDia','click',() => { det.rascunho[det.dia] = []; det.sujo[det.dia] = true; renderEditor(c); }, c);
+  const marcar = () => { det.sujo[det.dia] = true; st.sujo = true; document.getElementById('salvarTreino').disabled = false; document.getElementById('pend').textContent = 'não salvo'; };
+  const mudou = () => { det.sujo[det.dia] = true; renderEditor(c); };
+  onAll('[data-dia]','click',(e, el) => { det.dia = el.dataset.dia; renderEditor(c); }, c);
+  onAll('.edit-ctrl input','input',(e, el) => { lista[+el.dataset.i][el.dataset.campo] = el.value; marcar(); }, c);
+  onAll('[data-rm]','click',(e, el) => { lista.splice(+el.dataset.rm, 1); mudou(); }, c);
+  onAll('[data-mover]','click',(e, el) => { const i = +el.dataset.mover, j = i + +el.dataset.dir; [lista[i], lista[j]] = [lista[j], lista[i]]; mudou(); }, c);
+  on('#copiar','change', e => {
+    const src = e.target.value; if (!src) return;
+    if (lista.length && !confirm(`Substituir o treino de ${det.dia.toLowerCase()} pelo de ${src.toLowerCase()}?`)){ e.target.value = ''; return; }
+    det.rascunho[det.dia] = rascunho(src).map(x => Object.assign({}, x)); mudou();
+  }, c);
+  on('#descansoDia','click',() => { det.rascunho[det.dia] = []; mudou(); }, c);
   on('#add','click',() => modalBiblioteca(c), c);
   on('#salvarTreino','click', async e => {
-    const b = e.currentTarget, dia = det.dia; b.disabled = true; b.textContent = 'Salvando…';
+    const b = e.currentTarget, dia = det.dia; ocupado(b, 'Salvando…');
     try {
       const r = await api('atualizar_treino', {id_usuario:det.id, dia, exercicios:rascunho(dia).map(x => ({id:x.id, series:x.series, reps:x.reps}))});
       if (r.treino) a.treinos[dia] = r.treino; else delete a.treinos[dia];
       det.rascunho[dia] = null; det.sujo[dia] = false;
       toast(`Treino de ${dia.toLowerCase()} salvo`);
-      if (st.det === det && det.aba === 'treino') renderEditor(c);
-    } catch(err){ if (!err.sessao){ toast(err.message); b.disabled = false; b.textContent = `Salvar treino de ${dia.toLowerCase()}`; } }
+      if (c.isConnected) renderEditor(c);
+    } catch(err){ if (!err.sessao) toast(err.message); livre(b); }
   }, c);
 }
 async function modalBiblioteca(c){
@@ -605,84 +1385,206 @@ async function modalBiblioteca(c){
   }
   const f = {q:'', local:'Todos', foco:'Todos'};
   const focos = ['Todos', ...new Set(st.lib.map(e => e.foco).filter(Boolean))];
-  const fundo = document.createElement('div');
-  fundo.className = 'modal-fundo';
-  fundo.innerHTML = `<div class="modal" role="dialog" aria-modal="true" aria-labelledby="tLib">
-    <div class="modal-cab">
-      <div class="modal-linha"><h2 id="tLib">Biblioteca, ${esc(st.det.dia.toLowerCase())}</h2><button class="link" id="fechar">Concluir</button></div>
+  const m = modal(`<div class="modal-cab">
+      <div class="modal-linha"><h2>Biblioteca, ${esc(st.det.dia.toLowerCase())}</h2><button class="link" data-fechar>Concluir</button></div>
       <label class="sr-only" for="busca">Buscar exercício</label><input type="search" id="busca" placeholder="Buscar por nome">
-      <div class="chips">${['Todos','Casa','Academia'].map(l => `<button class="chip ${l === 'Todos' ? 'ativo' : ''}" data-l="${l}">${l === 'Todos' ? 'Qualquer local' : l}</button>`).join('')}</div>
-      <label class="sr-only" for="fFoco">Foco muscular</label>
-      <select id="fFoco">${focos.map(x => `<option value="${esc(x)}">${x === 'Todos' ? 'Todos os grupos musculares' : esc(x)}</option>`).join('')}</select>
-    </div>
-    <div class="modal-corpo" id="libLista"></div></div>`;
-  document.body.appendChild(fundo);
-  const listaEl = fundo.querySelector('#libLista');
-  const teclado = ev => { if (ev.key === 'Escape') fechar(); };
-  const fechar = () => { fundo.remove(); document.removeEventListener('keydown', teclado); if (st.det) renderEditor(c); };
-  document.addEventListener('keydown', teclado);
-  fundo.addEventListener('click', ev => { if (ev.target === fundo) fechar(); });
-  fundo.querySelector('#fechar').addEventListener('click', fechar);
-
+      <div class="busca-linha" style="grid-template-columns:1fr 1fr"><select id="fLocal" aria-label="Local"><option value="Todos">Qualquer local</option><option>Casa</option><option>Academia</option></select>
+      <select id="fFoco" aria-label="Grupo muscular">${focos.map(x => `<option value="${esc(x)}">${x === 'Todos' ? 'Todos os grupos' : esc(x)}</option>`).join('')}</select></div>
+    </div><div class="modal-corpo" id="libLista" style="padding-top:4px"></div>`, {rotulo:'Biblioteca de exercícios', aoFechar:() => { if (c.isConnected && st.det) renderEditor(c); }});
+  const listaEl = m.el.querySelector('#libLista');
   const desenhar = () => {
     const doDia = rascunho(st.det.dia), ids = new Set(doDia.map(x => x.id)), q = f.q.toLowerCase();
-    const itens = st.lib.filter(e => (!q || e.nome.toLowerCase().includes(q))
-      && (f.local === 'Todos' || e.local === f.local || e.local === 'Ambos')
-      && (f.foco === 'Todos' || e.foco === f.foco));
+    const itens = st.lib.filter(e => (!q || e.nome.toLowerCase().includes(q)) && (f.local === 'Todos' || e.local === f.local || e.local === 'Ambos') && (f.foco === 'Todos' || e.foco === f.foco));
     listaEl.innerHTML = itens.length ? itens.map(e => `<div class="lib-ex">
-        <div class="info"><div class="nome">${esc(e.nome)}</div><div class="foco">${esc(e.foco)}, ${e.local === 'Ambos' ? 'casa ou academia' : esc(e.local.toLowerCase())}</div></div>
+        <span class="thumb">${esc(e.foco)}${htmlImg(e.imagem, e.nome, '', 200)}</span>
+        <div class="info"><div class="nome">${esc(e.nome)}</div><div class="foco">${e.local === 'Ambos' ? 'Casa ou academia' : esc(e.local)}${e.video ? ', com vídeo' : ''}</div></div>
         <button class="btn btn-p ${ids.has(e.id) ? 'btn-linha' : 'btn-ouro'}" data-add="${esc(e.id)}" ${ids.has(e.id) ? 'disabled' : ''}>${ids.has(e.id) ? 'No treino' : 'Adicionar'}</button></div>`).join('')
-      : '<p class="sub" style="padding:18px 0">Nenhum exercício com esses filtros. Tente outro grupo ou local.</p>';
+      : '<p class="sub" style="padding:18px 0">Nenhum exercício com esses filtros. Você pode cadastrar novos na aba Exercícios.</p>';
     onAll('[data-add]','click',(ev, el) => {
       const e = st.lib.find(x => x.id === el.dataset.add), ref = doDia[doDia.length - 1];
-      doDia.push({id:e.id, nome:e.nome, foco:e.foco, series:ref ? ref.series : '3', reps:ref ? ref.reps : '12'});
-      st.det.sujo[st.det.dia] = true; toast(`${e.nome} adicionado`); desenhar();
+      doDia.push({id:e.id, nome:e.nome, foco:e.foco, imagem:e.imagem, series:ref ? ref.series : '3', reps:ref ? ref.reps : '12'});
+      st.det.sujo[st.det.dia] = true; st.sujo = true; toast(`${e.nome} adicionado`); desenhar();
     }, listaEl);
   };
-  fundo.querySelector('#busca').addEventListener('input', ev => { f.q = ev.target.value; desenhar(); });
-  fundo.querySelector('#fFoco').addEventListener('change', ev => { f.foco = ev.target.value; desenhar(); });
-  onAll('[data-l]','click',(ev, el) => { f.local = el.dataset.l; fundo.querySelectorAll('[data-l]').forEach(b => b.classList.toggle('ativo', b === el)); desenhar(); }, fundo);
+  m.el.querySelector('#busca').addEventListener('input', ev => { f.q = ev.target.value; desenhar(); });
+  m.el.querySelector('#fLocal').addEventListener('change', ev => { f.local = ev.target.value; desenhar(); });
+  m.el.querySelector('#fFoco').addEventListener('change', ev => { f.foco = ev.target.value; desenhar(); });
   desenhar();
-  fundo.querySelector('#busca').focus();
-}
-async function renderChatPersonal(c){
-  const id = st.det.id;
-  c.innerHTML = '<p class="sub">Carregando recados…</p>';
-  try {
-    const msgs = await api('obter_mensagens', {id_usuario:id});
-    if (!st.det || st.det.id !== id || st.det.aba !== 'recados') return;
-    const desenhar = m => { c.innerHTML = htmlChat(m); ligarChat(id, desenhar); };
-    desenhar(msgs);
-  } catch(e){ if (!e.sessao) c.innerHTML = `<p class="erro">${esc(e.message)}</p>`; }
 }
 
-/* ---------- trocar senha ---------- */
-function modalSenha(){
-  const fundo = document.createElement('div');
-  fundo.className = 'modal-fundo';
-  fundo.innerHTML = `<div class="modal" role="dialog" aria-modal="true" aria-labelledby="tSenha">
-    <div class="modal-cab"><div class="modal-linha" style="margin:0"><h2 id="tSenha">Trocar senha</h2><button class="link" id="fecharS">Cancelar</button></div></div>
-    <form class="modal-corpo" id="fSenha" style="padding-top:16px">
-      <label class="campo"><span>Senha atual</span><input type="password" name="atual" autocomplete="current-password" required></label>
-      <label class="campo"><span>Nova senha, com 6 caracteres ou mais</span><input type="password" name="nova" autocomplete="new-password" minlength="6" required></label>
-      <p class="erro" id="eSenha" role="alert"></p>
-      <button class="btn btn-ouro largo" type="submit">Salvar nova senha</button>
-    </form></div>`;
-  document.body.appendChild(fundo);
-  const fechar = () => fundo.remove();
-  fundo.addEventListener('click', ev => { if (ev.target === fundo) fechar(); });
-  fundo.querySelector('#fecharS').addEventListener('click', fechar);
-  fundo.querySelector('#fSenha').addEventListener('submit', async ev => {
-    ev.preventDefault();
-    const f = ev.target, b = f.querySelector('button');
-    b.disabled = true; b.textContent = 'Salvando…';
-    try { await api('alterar_senha', {atual:f.atual.value, nova:f.nova.value}); fechar(); toast('Senha alterada'); }
-    catch(err){ if (err.sessao) return fechar(); msgErro('eSenha', err); b.disabled = false; b.textContent = 'Salvar nova senha'; }
-  });
-  fundo.querySelector('input').focus();
+/* =========================================================
+   EXERCÍCIOS (gestão: personal e admin)
+   ========================================================= */
+async function telaExercicios(){
+  const f = st.filtroEx = st.filtroEx || {q:'', foco:'Todos', arquivados:false};
+  pagina(`<div class="cab-aluno"><h1 class="display titulo" style="margin:0">Exercícios</h1><a class="btn btn-ouro btn-p" href="#/exercicios/novo">Novo</a></div>
+    <div class="busca-linha"><input type="search" id="bEx" placeholder="Buscar por nome" value="${esc(f.q)}" aria-label="Buscar exercício">
+      <select id="fEx" aria-label="Grupo muscular"><option value="Todos">Todos</option>${FOCOS.map(x => `<option ${f.foco === x ? 'selected' : ''}>${x}</option>`).join('')}</select></div>
+    <label class="check" style="margin:10px 0 6px"><input type="checkbox" id="arqEx" ${f.arquivados ? 'checked' : ''}><span>Mostrar arquivados</span></label>
+    <div id="listaEx"><p class="sub">Carregando…</p></div>`);
+  const el = document.getElementById('listaEx');
+  const desenhar = () => {
+    const q = f.q.toLowerCase();
+    const itens = st.exs.filter(e => (f.arquivados || e.ativo) && (!q || e.nome.toLowerCase().includes(q)) && (f.foco === 'Todos' || e.foco === f.foco));
+    const semMidia = st.exs.filter(e => e.ativo && !e.imagem && !e.video).length;
+    el.innerHTML = (semMidia ? `<p class="sub" style="margin-bottom:6px">${plural(semMidia, 'exercício ativo ainda está', 'exercícios ativos ainda estão')} sem foto ou vídeo.</p>` : '')
+      + (itens.length ? itens.map(e => `<a class="ex-row" href="#/exercicios/${esc(e.id)}">
+        <span class="thumb">${esc(e.foco)}${htmlImg(e.imagem, e.nome, '', 200)}</span>
+        <span class="info"><span class="nome" style="display:block">${esc(e.nome)}</span>
+          <span class="foco">${esc(e.foco)}, ${e.local === 'Ambos' ? 'casa ou academia' : esc(e.local.toLowerCase())}</span><br>
+          ${e.video ? '<span class="selo ouro">vídeo</span>' : ''}${e.imagem ? '<span class="selo">foto</span>' : ''}${!e.ativo ? '<span class="selo coral">arquivado</span>' : ''}</span></a>`).join('')
+      : '<p class="vazio">Nenhum exercício encontrado.</p>');
+  };
+  on('#bEx','input', e => { f.q = e.target.value; if (st.exs) desenhar(); });
+  on('#fEx','change', e => { f.foco = e.target.value; if (st.exs) desenhar(); });
+  on('#arqEx','change', e => { f.arquivados = e.target.checked; if (st.exs) desenhar(); });
+  try { if (!st.exs) st.exs = await api('listar_exercicios', {todos:true}); if (el.isConnected) desenhar(); }
+  catch(e){ if (!e.sessao) el.innerHTML = `<p class="erro">${esc(e.message)}</p>`; }
+}
+async function telaExercicioForm(id){
+  const novo = id === 'novo';
+  if (!novo && !st.exs){
+    carregando('Carregando exercício…');
+    try { st.exs = await api('listar_exercicios', {todos:true}); } catch(e){ return erroTela(e, () => telaExercicioForm(id)); }
+  }
+  const ex = novo ? null : st.exs.find(e => e.id === id);
+  if (!novo && !ex){ toast('Exercício não encontrado.'); return trocar('#/exercicios'); }
+  const f = ex ? Object.assign({}, ex) : {nome:'', descricao:'', local:'Ambos', foco:'', imagem:'', video:''};
+  let sujo = false;
+  st.guarda = () => st.enviando ? (alert('Espere o envio do arquivo terminar.'), false) : (!sujo || confirm('Sair sem salvar as alterações deste exercício?'));
+  const marcar = () => { sujo = true; st.sujo = true; };
+  const focos = [...new Set([...FOCOS, ...(st.exs || []).map(e => e.foco).filter(Boolean)])];
+
+  function render(){
+    const outroFoco = f.foco && !focos.includes(f.foco);
+    pagina(`${voltarHtml('#/exercicios', 'Exercícios')}
+      <h1 class="display titulo">${novo ? 'Novo exercício' : 'Editar'}</h1>
+      <form id="fEx" novalidate style="margin-top:18px">
+        <label class="campo"><span>Nome</span><input name="nome" value="${esc(f.nome)}" required></label>
+        <label class="campo"><span>Como fazer</span><textarea name="descricao" rows="5" placeholder="Posição inicial, movimento e o que evitar.">${esc(f.descricao)}</textarea></label>
+        <span class="rotulo">Onde dá para fazer</span>
+        <div class="chips" style="margin:0 0 16px">${[['Casa','Em casa'],['Academia','Na academia'],['Ambos','Nos dois']].map(([v, l]) => `<button type="button" class="chip" data-local="${v}" aria-pressed="${f.local === v}">${l}</button>`).join('')}</div>
+        <label class="campo"><span>Grupo muscular</span><select name="foco"><option value="">Escolha</option>${focos.map(x => `<option ${f.foco === x ? 'selected' : ''}>${esc(x)}</option>`).join('')}<option value="__outro" ${outroFoco ? 'selected' : ''}>Outro…</option></select></label>
+        <label class="campo" id="campoOutro" ${outroFoco ? '' : 'hidden'}><span>Nome do grupo</span><input name="outro" value="${outroFoco ? esc(f.foco) : ''}"></label>
+
+        <span class="rotulo">Foto de demonstração</span>
+        <div class="upl">
+          <div class="upl-prev">${imgSrc(f.imagem) ? htmlImg(f.imagem, f.nome, '', 1000) : '<div class="upl-vazio">Sem foto</div>'}</div>
+          <div class="upl-acoes"><label class="btn btn-linha btn-p"><input type="file" accept="image/*" id="upImg" class="sr-only">${f.imagem ? 'Trocar foto' : 'Enviar foto'}</label>${f.imagem ? '<button type="button" class="btn btn-perigo btn-p" id="rmImg">Remover</button>' : ''}</div>
+          <div id="progImg"></div>
+          <label class="upl-link"><span class="sr-only">Link da imagem</span><input name="linkImg" placeholder="Ou cole um link (Imgur, Drive)" value="${/^https?:/i.test(f.imagem) ? esc(f.imagem) : ''}"></label>
+        </div>
+
+        <span class="rotulo">Vídeo de demonstração</span>
+        <div class="upl">
+          <div class="upl-prev">${f.video ? htmlVideo(f.video) : '<div class="upl-vazio">Sem vídeo</div>'}</div>
+          <div class="upl-acoes"><label class="btn btn-linha btn-p"><input type="file" accept="video/*" id="upVid" class="sr-only">${f.video ? 'Trocar vídeo' : 'Enviar vídeo'}</label>${f.video ? '<button type="button" class="btn btn-perigo btn-p" id="rmVid">Remover</button>' : ''}</div>
+          <div id="progVid"></div>
+          <p class="prog-txt" style="margin-top:10px">Até 300 MB. Vídeos curtos, de 10 a 30 segundos, carregam mais rápido. O Drive leva alguns minutos para processar o vídeo depois do envio.</p>
+          <label class="upl-link"><span class="sr-only">Link do vídeo</span><input name="linkVid" placeholder="Ou cole um link (YouTube, Drive)" value="${/^https?:/i.test(f.video) ? esc(f.video) : ''}"></label>
+        </div>
+
+        <p class="erro" id="eEx" role="alert"></p>
+        <button class="btn btn-ouro largo" type="submit">${novo ? 'Criar exercício' : 'Salvar alterações'}</button>
+        ${!novo ? `<p style="text-align:center;margin-top:10px"><button type="button" class="link" id="arquivar">${ex.ativo ? 'Arquivar exercício' : 'Reativar exercício'}</button></p>
+          <p class="sub" style="text-align:center;font-size:13px">${ex.ativo ? 'Arquivado some da biblioteca, mas continua nos treinos em que já está.' : 'Este exercício está arquivado.'}</p>` : ''}
+      </form>`);
+    const form = document.getElementById('fEx');
+    const sync = () => {
+      f.nome = form.nome.value; f.descricao = form.descricao.value;
+      f.foco = form.foco.value === '__outro' ? form.outro.value.trim() : form.foco.value;
+      if (form.linkImg.value.trim() !== (/^https?:/i.test(f.imagem) ? f.imagem : '')) f.imagem = form.linkImg.value.trim() || (/^https?:/i.test(f.imagem) ? '' : f.imagem);
+      if (form.linkVid.value.trim() !== (/^https?:/i.test(f.video) ? f.video : '')) f.video = form.linkVid.value.trim() || (/^https?:/i.test(f.video) ? '' : f.video);
+    };
+    form.addEventListener('input', () => { marcar(); });
+    form.foco.addEventListener('change', () => { document.getElementById('campoOutro').hidden = form.foco.value !== '__outro'; });
+    onAll('[data-local]','click',(e, b) => { f.local = b.dataset.local; marcar(); document.querySelectorAll('[data-local]').forEach(x => x.setAttribute('aria-pressed', x === b)); });
+    ['linkImg', 'linkVid'].forEach(n => form[n].addEventListener('change', () => { sync(); render(); }));
+    on('#rmImg','click',() => { sync(); f.imagem = ''; marcar(); render(); });
+    on('#rmVid','click',() => { sync(); f.video = ''; marcar(); render(); });
+    const subir = (inputSel, tipo, progSel, campo) => on(inputSel,'change', async e => {
+      const file = e.target.files[0]; e.target.value = ''; if (!file) return;
+      sync();
+      const prog = document.getElementById(progSel);
+      prog.innerHTML = '<div class="prog"><i></i></div><p class="prog-txt">Preparando…</p>';
+      const barra = prog.querySelector('i'), txt = prog.querySelector('.prog-txt');
+      form.querySelectorAll('button,input[type=file]').forEach(x => x.disabled = true);
+      try {
+        const idArq = await enviarArquivo(file, tipo, p => { barra.style.width = (p * 100) + '%'; txt.textContent = `Enviando… ${Math.round(p * 100)}%`; });
+        f[campo] = idArq; marcar(); render();
+        toast(tipo === 'video' ? 'Vídeo enviado. Salve o exercício para aplicar.' : 'Foto enviada. Salve o exercício para aplicar.');
+      } catch(err){
+        if (err.sessao) return;
+        form.querySelectorAll('button,input[type=file]').forEach(x => x.disabled = false);
+        txt.textContent = err.message; txt.style.color = 'var(--coral)';
+      }
+    });
+    subir('#upImg', 'imagem', 'progImg', 'imagem');
+    subir('#upVid', 'video', 'progVid', 'video');
+    form.addEventListener('submit', async e => {
+      e.preventDefault(); sync();
+      const b = form.querySelector('button[type=submit]'); ocupado(b, 'Salvando…');
+      try {
+        const salvo = await api('salvar_exercicio', {id:novo ? '' : ex.id, nome:f.nome, descricao:f.descricao, local:f.local, foco:f.foco, imagem:f.imagem, video:f.video});
+        sujo = false; st.sujo = false; st.exs = null; st.lib = null;
+        toast(novo ? 'Exercício criado' : 'Alterações salvas');
+        ir(novo ? '#/exercicios' : '#/exercicios/' + salvo.id);
+      } catch(err){ msgErro('eEx', err); livre(b); }
+    });
+    on('#arquivar','click', async e => {
+      const b = e.currentTarget; ocupado(b, 'Salvando…');
+      try { await api('arquivar_exercicio', {id:ex.id, ativo:!ex.ativo}); ex.ativo = !ex.ativo; st.lib = null; sujo = false; toast(ex.ativo ? 'Exercício reativado' : 'Exercício arquivado'); ir('#/exercicios'); }
+      catch(err){ if (!err.sessao) toast(err.message); livre(b); }
+    });
+  }
+  render();
 }
 
-iniciar();
+/* =========================================================
+   USUÁRIOS (admin)
+   ========================================================= */
+async function telaUsuarios(){
+  pagina(`<div class="cab-aluno"><h1 class="display titulo" style="margin:0">Usuários</h1><button class="btn btn-ouro btn-p" id="novoU">Novo</button></div>
+    <div id="listaU" style="margin-top:14px"><p class="sub">Carregando…</p></div>`);
+  const el = document.getElementById('listaU');
+  let lista = [];
+  const desenhar = () => {
+    const grupos = [['Personal','Personais'],['Aluno','Alunos'],['Admin','Administradores']];
+    el.innerHTML = grupos.map(([t, rot]) => {
+      const us = lista.filter(u => u.tipo === t);
+      return us.length ? `<h2 class="grupo-titulo">${rot}</h2>${us.map(u => `<button class="u-row" data-u="${esc(u.id)}">
+        <span><span class="nome" style="display:block">${esc(u.nome)}${u.admin && t !== 'Admin' ? ' <span class="selo ouro">admin</span>' : ''}</span>
+        <span class="sub">${esc(u.email)}${u.personal_nome ? `, com ${esc(u.personal_nome)}` : ''}</span></span><span class="link">Editar</span></button>`).join('')}` : '';
+    }).join('');
+    onAll('[data-u]','click',(e, b) => modalUsuario(lista.find(u => u.id === b.dataset.u)), el);
+  };
+  function modalUsuario(u){
+    const s = sessao.get();
+    const m = modal(`${modalCab(u ? 'Editar usuário' : 'Novo usuário', 'Cancelar')}<form class="modal-corpo" id="fU">
+      <label class="campo"><span>Nome</span><input name="nome" value="${esc(u ? u.nome : '')}" required></label>
+      <label class="campo"><span>E-mail</span><input type="email" name="email" value="${esc(u ? u.email : '')}" required></label>
+      <label class="campo"><span>Tipo de conta</span><select name="tipo">${[['Aluno','Aluno'],['Personal','Personal'],['Admin','Só administrador (não treina nem atende)']].map(([v, l]) => `<option value="${v}" ${(u ? u.tipo : 'Aluno') === v ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
+      <label class="check"><input type="checkbox" name="admin" ${u && u.admin ? 'checked' : ''}><span>Administrador: acessa usuários, todos os alunos e a biblioteca.</span></label>
+      <label class="campo"><span>${u ? 'Nova senha (deixe em branco para manter)' : 'Senha inicial'}</span><input type="text" name="senha" autocomplete="off" minlength="6" ${u ? '' : 'required'}><small>Passe a senha para a pessoa e peça para ela trocar no primeiro acesso.</small></label>
+      <p class="erro" id="eU" role="alert"></p>
+      <button class="btn btn-ouro largo" type="submit">${u ? 'Salvar' : 'Criar conta'}</button>
+      ${u && u.id === s.id ? '<p class="sub" style="margin-top:10px;font-size:13px">Mudanças no seu próprio tipo de conta valem a partir do próximo login.</p>' : ''}</form>`, {rotulo:'Usuário'});
+    on('#fU','submit', async e => {
+      e.preventDefault();
+      const f = e.target, b = f.querySelector('button[type=submit]'); ocupado(b, 'Salvando…');
+      try {
+        lista = await api('salvar_usuario', {id:u ? u.id : '', nome:f.nome.value, email:f.email.value, tipo:f.tipo.value, admin:f.admin.checked, senha:f.senha.value});
+        m.fechar(); desenhar(); st.dash = null; toast(u ? 'Usuário atualizado' : 'Conta criada');
+      } catch(err){ msgErro('eU', err); livre(b); }
+    }, m.el);
+  }
+  on('#novoU','click',() => modalUsuario(null));
+  try { lista = await api('listar_usuarios'); if (el.isConnected) desenhar(); }
+  catch(e){ if (!e.sessao) el.innerHTML = `<p class="erro">${esc(e.message)}</p>`; }
+}
+
+/* ---------- início ---------- */
+rota();
 </script>
 </body>
 </html>
