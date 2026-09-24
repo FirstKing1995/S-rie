@@ -10,6 +10,8 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://script.google.com">
+<link rel="preconnect" href="https://drive.google.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -329,6 +331,103 @@ button.pcard:hover{border-color:var(--bone2)}
 @keyframes vai{to{transform:translateX(150%)}}
 #toast{position:fixed;left:50%;bottom:calc(var(--nav-h) + 96px + var(--safe-b));transform:translate(-50%,12px);background:var(--bone);color:var(--ink);padding:10px 18px;border-radius:999px;font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:60;max-width:88vw;text-align:center}
 #toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* cartões, plano e ranking */
+.cartao{background:var(--ink2);border-radius:16px;padding:18px;margin-bottom:12px}
+.cartao h3{font-size:17px;font-weight:600;margin-bottom:6px}
+.cartao p{font-size:15px;color:var(--bone2);line-height:1.5}
+.cartao.ouro{background:linear-gradient(140deg,rgba(217,164,65,.16),rgba(217,164,65,.04));border:1.5px solid rgba(217,164,65,.35)}
+.tag-pro{display:inline-block;font-family:var(--display);font-weight:800;font-size:14px;letter-spacing:.06em;padding:3px 9px;border-radius:6px;background:var(--gold);color:var(--ink);vertical-align:middle}
+.tag-free{display:inline-block;font-size:12px;padding:3px 9px;border-radius:6px;border:1px solid var(--line);color:var(--muted);vertical-align:middle}
+.rk-premio{display:flex;gap:12px;align-items:center;background:linear-gradient(140deg,rgba(217,164,65,.18),rgba(217,164,65,.03));border:1.5px solid rgba(217,164,65,.3);border-radius:16px;padding:16px 18px;margin-bottom:18px}
+.rk-premio svg{width:28px;height:28px;stroke:var(--gold);flex:none}
+.rk-premio b{display:block;font-size:15px;margin-bottom:2px}
+.rk-premio span{font-size:13.5px;color:var(--muted)}
+.podio{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:8px;align-items:end;margin:6px 0 20px}
+.podio .lugar{background:var(--ink2);border-radius:14px 14px 0 0;padding:14px 8px 12px;text-align:center;position:relative}
+.podio .lugar.p1{background:linear-gradient(180deg,rgba(217,164,65,.26),var(--ink2));padding-top:22px}
+.podio .med{font-family:var(--display);font-weight:800;font-size:22px;line-height:1;color:var(--muted)}
+.podio .p1 .med{color:var(--gold);font-size:28px}
+.podio .nome{font-size:13.5px;font-weight:600;margin:8px 0 2px;overflow-wrap:anywhere}
+.podio .pts{font-family:var(--display);font-weight:700;font-size:26px;color:var(--gold2);line-height:1}
+.rk-linha{display:grid;grid-template-columns:32px 1fr auto;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.rk-linha .pos{font-family:var(--display);font-weight:700;font-size:20px;color:var(--muted);text-align:center}
+.rk-linha .pts{font-family:var(--display);font-weight:700;font-size:22px;color:var(--bone)}
+.rk-linha.eu{background:rgba(217,164,65,.09);border-radius:10px;padding:12px 10px;border-bottom:0}
+.rk-linha.eu .pos,.rk-linha.eu .pts{color:var(--gold)}
+.pix-box{background:var(--ink2);border-radius:14px;padding:16px;margin:14px 0}
+.pix-linha{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.pix-linha:last-child{border-bottom:0}
+.pix-linha span{font-size:13px;color:var(--muted)}
+.pix-linha b{font-size:16px;font-weight:600;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.pix-codigo{font-family:var(--display);font-weight:800;font-size:30px;letter-spacing:.04em;color:var(--gold)}
+.passos{list-style:none;padding:0;counter-reset:passo}
+.passos li{counter-increment:passo;display:grid;grid-template-columns:26px 1fr;gap:10px;padding:8px 0;font-size:15px;color:var(--bone2)}
+.passos li::before{content:counter(passo);font-family:var(--display);font-weight:700;color:var(--gold);font-size:19px;line-height:1.2}
+.aviso-espera{background:var(--ink2);border-left:3px solid var(--gold);padding:14px 16px;border-radius:0 12px 12px 0;font-size:15px;margin-top:14px}
+.at-linha{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}
+.at-linha b{font-weight:600}
+.at-linha .sub{font-size:13px}
+.toggle{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.toggle span{font-size:15px}
+.toggle small{display:block;color:var(--muted);font-size:13px}
+.chave{width:44px;height:26px;border-radius:999px;background:var(--ink3);position:relative;flex:none;transition:background-color .15s}
+.chave::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--bone2);transition:transform .15s,background-color .15s}
+.chave[aria-pressed="true"]{background:var(--gold)}
+.chave[aria-pressed="true"]::after{transform:translateX(18px);background:var(--ink)}
+.pg-linha{padding:16px 0;border-bottom:1px solid var(--line)}
+.pg-topo{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.pg-topo b{font-size:17px;font-weight:600}
+.status{font-size:12px;padding:3px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.status.espera{border-color:rgba(217,164,65,.5);color:var(--gold)}
+.status.ok{border-color:rgba(120,190,140,.45);color:#8FCF9F}
+.status.nao{border-color:rgba(227,112,95,.45);color:var(--coral)}
+.cfg-grupo{margin-top:26px}
+.cfg-grupo h2{font-size:15px;font-weight:600;color:var(--bone2);margin-bottom:12px}
+
+.sequencia{display:flex;gap:12px;align-items:center;background:var(--ink2);border-radius:16px;padding:14px 18px;margin-top:16px}
+.sequencia svg{width:26px;height:26px;stroke:var(--coral);flex:none}
+.sequencia b{display:block;font-family:var(--display);font-weight:800;font-size:26px;line-height:1.05}
+.sequencia span{font-size:13.5px;color:var(--muted)}
+.medalhas{display:grid;grid-template-columns:repeat(auto-fill,minmax(108px,1fr));gap:10px}
+.medalha{background:var(--ink2);border-radius:14px;padding:14px 10px;text-align:center;opacity:.42}
+.medalha.tem{opacity:1;background:linear-gradient(160deg,rgba(217,164,65,.2),var(--ink2))}
+.medalha svg{width:30px;height:30px;stroke:var(--muted);margin-bottom:6px}
+.medalha.tem svg{stroke:var(--gold)}
+.medalha b{display:block;font-size:13px;font-weight:600;line-height:1.25}
+.medalha span{display:block;font-size:11.5px;color:var(--muted);margin-top:3px}
+.medalha .vezes{color:var(--gold);font-weight:600}
+.fotos{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:10px}
+.foto{position:relative;aspect-ratio:3/4;border-radius:12px;overflow:hidden;background:var(--ink2);display:grid;place-items:center;width:100%}
+.foto .rot{position:absolute;left:0;right:0;bottom:0;padding:16px 8px 6px;background:linear-gradient(to top,rgba(9,13,26,.9),transparent);font-size:12px;text-align:left}
+.foto .img-prot{position:absolute;inset:0}
+.foto.vazia{border:1.5px dashed var(--line);color:var(--muted);font-size:13px;text-align:center;padding:10px}
+.af-link{display:flex;gap:8px;align-items:center;background:var(--ink2);border-radius:12px;padding:12px 14px;margin:12px 0;overflow-wrap:anywhere;font-size:14px}
+.af-link b{flex:1;font-weight:500;overflow-wrap:anywhere}
+.com-linha{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+
+.anuncio{position:relative;display:block;width:100%;text-align:left;border-radius:16px;overflow:hidden;text-decoration:none;margin:16px 0;background:var(--ink2)}
+.anuncio.faixa{display:flex;gap:12px;align-items:center;padding:14px 16px;border-left:3px solid var(--gold)}
+.anuncio.faixa .txt{flex:1;min-width:0}
+.anuncio.faixa b{display:block;font-size:15px;font-weight:600;line-height:1.3}
+.anuncio.faixa span{font-size:13.5px;color:var(--muted)}
+.anuncio.faixa .seta{color:var(--gold);font-size:22px;line-height:1}
+.anuncio.cartao-an{padding:0;border:1.5px solid var(--line)}
+.anuncio .capa{aspect-ratio:16/9;background:var(--ink3)}
+.anuncio .capa .img-prot{width:100%;height:100%}
+.anuncio .corpo{padding:16px 18px 18px}
+.anuncio .corpo h3{font-size:19px;font-weight:600;line-height:1.25;margin-bottom:6px}
+.anuncio .corpo p{font-size:15px;color:var(--bone2);line-height:1.55}
+.anuncio .preco{font-family:var(--display);font-weight:800;font-size:30px;color:var(--gold);margin:10px 0 2px;line-height:1}
+.rotulo-ad{position:absolute;top:10px;right:10px;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;background:rgba(9,13,26,.78);color:var(--bone2);padding:3px 8px;border-radius:6px;z-index:2}
+.anuncio.faixa .rotulo-ad{position:static;align-self:flex-start}
+.aviso-ad{font-size:12px;color:var(--muted);line-height:1.45;margin-top:10px}
+.modal .anuncio{margin:0}
+.fechar-x{position:absolute;top:8px;left:8px;width:34px;height:34px;border-radius:50%;background:rgba(9,13,26,.7);color:var(--bone);display:grid;place-items:center;z-index:3}
+.fechar-x svg{width:18px;height:18px}
+.ad-row{display:flex;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line);width:100%;text-align:left}
+.ad-row .info{flex:1;min-width:0}
+.ad-row .thumb{width:56px;height:56px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -340,7 +439,7 @@ button.pcard:hover{border-color:var(--bone2)}
 /* =========================================================
    CONFIGURAÇÃO
    ========================================================= */
-const API_URL = 'https://script.google.com/macros/s/AKfycbyXtKtc0Ikscrhy4fGEmvdHtUoBt3my35zm18W-3ZVm_P_ZDwMcJmynggPg4tXUcCb-/exec';
+const API_URL = 'COLE_AQUI_A_URL_DO_WEB_APP';
 const VIDEO_SANDBOX = true; // bloqueia o botão "abrir no Drive" do player. Se o vídeo não tocar, troque para false.
 
 /* ---------- constantes ---------- */
@@ -358,11 +457,13 @@ const PASSOS = [
   {chave:'local',    tipo:'opcoes', titulo:'Onde você vai treinar?', opcoes:LOCAIS},
   {chave:'tempo',    tipo:'opcoes', titulo:'Quanto tempo você tem por dia?', opcoes:TEMPOS},
   {chave:'corpo',    tipo:'corpo',  titulo:'Seu ponto de partida'},
-  {chave:'personal', tipo:'personal', titulo:'Quem vai te acompanhar?'}
+  {chave:'plano', tipo:'opcoes', titulo:'Quer uma personal acompanhando?', opcoes:[['sim','Sim, quero conhecer o plano'],['nao','Por enquanto só o treino automático']]}
 ];
 const RAPIDAS_PERSONAL = ['Ótimo treino! 💪','Como você está se sentindo?','Aumente a carga no próximo treino','Lembre de beber bastante água','Descanse bem hoje'];
 const RAPIDAS_ALUNO = ['Treino feito! ✅','Senti dor em um exercício','Posso trocar um exercício?','Estou sem tempo hoje'];
 const MEDIDAS = [['cintura','Cintura','cm'],['quadril','Quadril','cm'],['braco','Braço','cm'],['coxa','Coxa','cm'],['gordura','Gordura corporal','%']];
+const TIPOS_ATIVIDADE = ['Caminhada','Corrida','Esteira','Bicicleta','Outro'];
+const ABAS_PROGRESSO = [['#/evolucao','Evolução'],['#/atividades','Atividades'],['#/ranking','Ranking']];
 
 const P = d => `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">${d}</svg>`;
 const ICON = {
@@ -380,11 +481,20 @@ const ICON = {
   check: P('<path d="M5 12.5l4.5 4.5L19 7.5"/>'),
   cima: P('<path d="M6 15l6-6 6 6"/>'),
   baixo: P('<path d="M6 9l6 6 6-6"/>'),
-  x: P('<path d="M6 6l12 12M18 6L6 18"/>')
+  x: P('<path d="M6 6l12 12M18 6L6 18"/>'),
+  progresso: P('<path d="M3 17l6-6 4 4 8-8M15 7h6v6"/>'),
+  trofeu: P('<path d="M7 4h10v5a5 5 0 0 1-10 0zM7 5.5H4.5V7a3 3 0 0 0 3 3M17 5.5h2.5V7a3 3 0 0 1-3 3M9.5 20h5M12 14v6"/>'),
+  copiar: P('<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/>'),
+  som: P('<path d="M11 5L6.5 9H3v6h3.5L11 19zM15.5 9.5a4 4 0 0 1 0 5M18.5 7a7.5 7.5 0 0 1 0 10"/>'),
+  indique: P('<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c1-3.5 3.6-5.5 6.5-5.5s5.5 2 6.5 5.5M18 7v6M15 10h6"/>'),
+  fogo: P('<path d="M12 3c.6 3 2.2 4 3.6 5.6A7 7 0 1 1 6 13.5C6 10 9 9 9.5 6c1.4.8 2.2 2 2.5 3 .3-2.4 0-4.4 0-6z"/>'),
+  medalha: P('<circle cx="12" cy="14.5" r="5.5"/><path d="M8.5 9L6 2.5h12L15.5 9M12 12.2l.9 1.9 2 .3-1.5 1.4.4 2-1.8-1-1.8 1 .4-2-1.5-1.4 2-.3z"/>'),
+  pdf: P('<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M9 13h6M9 17h4"/>'),
+  megafone: P('<path d="M4 10v4a1 1 0 0 0 1 1h3l6 4V5L8 9H5a1 1 0 0 0-1 1zM18 9.5a4 4 0 0 1 0 5"/>')
 };
 
 const $app = document.getElementById('app');
-const st = {aluno:null, diaSel:null, exec:null, dash:null, lib:null, exs:null, det:null, onb:null, timer:null, intervalos:[], naoLidas:0, guarda:null, hashAtual:'', enviando:0};
+const st = {cfg:null, aluno:null, diaSel:null, exec:null, dash:null, lib:null, exs:null, det:null, onb:null, timer:null, intervalos:[], naoLidas:0, guarda:null, hashAtual:'', enviando:0};
 
 /* ---------- utilidades ---------- */
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -392,6 +502,7 @@ const diaHoje = () => DIAS[(new Date().getDay() + 6) % 7];
 function on(sel, ev, fn, root = document){ const el = root.querySelector(sel); if (el) el.addEventListener(ev, fn); return el; }
 function onAll(sel, ev, fn, root = document){ root.querySelectorAll(sel).forEach(el => el.addEventListener(ev, e => fn(e, el))); }
 const fmtNum = (v, dec = 1) => Number(v).toLocaleString('pt-BR', {maximumFractionDigits:dec});
+const fmtDin = v => Number(v || 0).toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
 const lerNum = v => String(v ?? '').trim().replace(',', '.');
 const plural = (n, um, varios) => `${n} ${n === 1 ? um : varios}`;
 function fmtData(iso){
@@ -413,8 +524,67 @@ const guardado = chave => ({
   limpar(){ try { localStorage.removeItem(chave); } catch(e){} }
 });
 const sessao = guardado('serie_sessao');
+const refGuardado = guardado('serie_ref');
+(() => { const r = new URLSearchParams(location.search).get('ref'); if (r) refGuardado.set(String(r).toUpperCase().slice(0, 16)); })();
 const execSalvo = guardado('serie_exec');
 const prefDescanso = guardado('serie_descanso');
+
+/* som curto gerado na hora, sem arquivos */
+const prefSom = guardado('serie_som');
+const som = (() => {
+  let ctx = null;
+  const seqs = {
+    serie:[[660,0,.11]], descanso:[[880,0,.13],[660,.15,.22]],
+    fim:[[523,0,.13],[659,.12,.13],[784,.24,.13],[1047,.36,.42]],
+    ponto:[[784,0,.09],[1175,.08,.17]], toque:[[440,0,.07]]
+  };
+  function nota(f, atraso, dur){
+    const o = ctx.createOscillator(), g = ctx.createGain(), t = ctx.currentTime + atraso;
+    o.type = 'sine'; o.frequency.setValueAtTime(f, t);
+    g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(.075, t + .012); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+    o.connect(g); g.connect(ctx.destination); o.start(t); o.stop(t + dur + .03);
+  }
+  return {
+    ligado: () => prefSom.get() !== false,
+    alternar(v){ prefSom.set(v); if (v) this.tocar('ponto'); },
+    tocar(nome){
+      if (!this.ligado() || !seqs[nome]) return;
+      try {
+        ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
+        if (ctx.state === 'suspended') ctx.resume();
+        seqs[nome].forEach(a => nota(a[0], a[1], a[2]));
+      } catch(e){}
+    }
+  };
+})();
+
+/* cache local: mostra a tela na hora e atualiza em segundo plano */
+const cacheLocal = {
+  chave(k){ return 'serie_c_' + k; },
+  get(k){ try { const v = JSON.parse(localStorage.getItem(this.chave(k))); const s = sessao.get(); return v && s && v.u === s.id ? v.d : null; } catch(e){ return null; } },
+  set(k, d){ try { const s = sessao.get(); if (s) localStorage.setItem(this.chave(k), JSON.stringify({u:s.id, t:Date.now(), d})); } catch(e){} },
+  limpar(){ try { Object.keys(localStorage).filter(k => k.indexOf('serie_c_') === 0).forEach(k => localStorage.removeItem(k)); } catch(e){} }
+};
+
+/* imagens só carregam quando chegam perto da tela */
+let observador = null;
+function lazy(){
+  const alvos = document.querySelectorAll('[data-bg]');
+  if (!alvos.length) return;
+  if (!('IntersectionObserver' in window)){
+    alvos.forEach(el => { el.style.backgroundImage = `url('${el.dataset.bg}')`; el.removeAttribute('data-bg'); });
+    return;
+  }
+  observador = observador || new IntersectionObserver((itens, obs) => itens.forEach(i => {
+    if (!i.isIntersecting) return;
+    i.target.style.backgroundImage = `url('${i.target.dataset.bg}')`;
+    i.target.removeAttribute('data-bg');
+    obs.unobserve(i.target);
+  }), {rootMargin:'250px'});
+  alvos.forEach(el => observador.observe(el));
+}
+let lazyAgendado = null;
+new MutationObserver(() => { clearTimeout(lazyAgendado); lazyAgendado = setTimeout(lazy, 30); }).observe(document.body, {childList:true, subtree:true});
 
 async function api(action, dados = {}){
   if (API_URL.startsWith('COLE')) throw new Error('Configure a API_URL no topo do index.html com a URL do Apps Script.');
@@ -427,6 +597,7 @@ async function api(action, dados = {}){
   try { j = await r.json(); } catch(e){ throw new Error('O servidor respondeu de um jeito inesperado. Confira se o App da Web está implantado com acesso para "Qualquer pessoa".'); }
   if (!j.ok){
     if (j.codigo === 'SESSAO'){ sessao.limpar(); toast(j.erro); ir('#/entrar'); throw Object.assign(new Error(j.erro), {sessao:true}); }
+    if (j.codigo === 'ACESSO'){ st.semAcesso = true; st.aluno = null; cacheLocal.limpar(); if (location.hash !== '#/plano'){ toast(j.erro); ir('#/plano'); } throw Object.assign(new Error(j.erro), {sessao:true}); }
     throw new Error(j.erro);
   }
   return j.data;
@@ -465,7 +636,7 @@ function imgSrc(v, w = 1000){
 }
 function htmlImg(v, alt, cls = 'cobre', w){
   const src = imgSrc(v, w);
-  return src ? `<div class="img-prot ${cls}" role="img" aria-label="${esc(alt)}" style="background-image:url('${esc(src)}')"></div>` : '';
+  return src ? `<div class="img-prot ${cls}" role="img" aria-label="${esc(alt)}" data-bg="${esc(src)}"></div>` : '';
 }
 function youtubeId(v){ const m = String(v || '').match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/|embed\/))([\w-]{11})/); return m ? m[1] : ''; }
 function htmlVideo(v){
@@ -560,6 +731,10 @@ const ROTAS = [
   [/^#\/treino\/executar$/, telaExec, {papel:'aluno'}],
   [/^#\/treino\/concluir$/, telaConclusao, {papel:'aluno'}],
   [/^#\/evolucao$/, telaEvolucaoAluno, {papel:'aluno'}],
+  [/^#\/atividades$/, telaAtividades, {papel:'aluno'}],
+  [/^#\/ranking$/, telaRanking, {papel:'aluno'}],
+  [/^#\/plano$/, telaPlano, {papel:'aluno'}],
+  [/^#\/afiliado$/, telaAfiliado, {}],
   [/^#\/chat$/, () => telaChat(null), {papel:'aluno'}],
   [/^#\/personais$/, telaPersonais, {papel:'aluno'}],
   [/^#\/perfil$/, telaPerfil, {}],
@@ -569,7 +744,11 @@ const ROTAS = [
   [/^#\/alunos\/([\w-]+)(?:\/(treino|evolucao|historico))?$/, m => telaAlunoDetalhe(m[1], m[2] || 'treino'), {papel:'editor'}],
   [/^#\/exercicios$/, telaExercicios, {papel:'editor'}],
   [/^#\/exercicios\/([\w-]+)$/, m => telaExercicioForm(m[1]), {papel:'editor'}],
-  [/^#\/usuarios$/, telaUsuarios, {papel:'admin'}]
+  [/^#\/usuarios$/, telaUsuarios, {papel:'admin'}],
+  [/^#\/pagamentos$/, telaPagamentos, {papel:'admin'}],
+  [/^#\/config$/, telaConfig, {papel:'admin'}],
+  [/^#\/comissoes$/, telaComissoes, {papel:'admin'}],
+  [/^#\/anuncios$/, telaAnuncios, {papel:'admin'}]
 ];
 function home(s){ if (!s) return '#/entrar'; if (s.tipo === 'Aluno') return s.questionario ? '#/treino' : '#/boas-vindas'; return '#/alunos'; }
 function temPapel(s, papel){
@@ -601,7 +780,9 @@ function rota(){
   if (!op.publica && !s) return trocar('#/entrar');
   if (op.publica && s) return trocar(home(s));
   if (s && !temPapel(s, op.papel)) return trocar(home(s));
-  if (s && s.tipo === 'Aluno' && !s.questionario && h !== '#/boas-vindas') return trocar('#/boas-vindas');
+  if (s && s.tipo === 'Aluno' && !s.questionario && h !== '#/boas-vindas' && !st.semAcesso) return trocar('#/boas-vindas');
+  const liberadas = ['#/plano', '#/perfil', '#/afiliado'];
+  if (s && st.semAcesso && liberadas.indexOf(h) < 0) return trocar('#/plano');
   st.hashAtual = h;
   window.scrollTo(0, 0);
   fn(h.match(re));
@@ -613,20 +794,19 @@ function itensNav(s){
   if (s.tipo === 'Aluno'){
     const l = [
       {href:'#/treino', rotulo:'Treino', icone:'treino', bases:['#/treino']},
-      {href:'#/evolucao', rotulo:'Evolução', icone:'evolucao'},
+      {href:'#/evolucao', rotulo:'Progresso', icone:'progresso', bases:['#/evolucao','#/atividades','#/ranking']},
       {href:'#/chat', rotulo:'Recados', icone:'chat', badge:st.naoLidas},
-      {href:'#/perfil', rotulo:'Perfil', icone:'perfil', bases:['#/perfil','#/personais']}
+      {href:'#/afiliado', rotulo:'Indique', icone:'indique'},
+      {href:'#/perfil', rotulo:'Perfil', icone:'perfil', bases:['#/perfil','#/personais','#/plano','#/admin','#/exercicios','#/usuarios','#/pagamentos','#/config','#/comissoes','#/alunos']}
     ];
-    if (s.admin) l.push({href:'#/admin', rotulo:'Admin', icone:'admin', bases:['#/admin','#/exercicios','#/usuarios','#/alunos']});
     return l;
   }
-  const l = [
+  return [
     {href:'#/alunos', rotulo:'Alunos', icone:'alunos', badge:st.naoLidas},
-    {href:'#/exercicios', rotulo:'Exercícios', icone:'exercicios'}
+    {href:'#/exercicios', rotulo:'Exercícios', icone:'exercicios'},
+    {href:'#/afiliado', rotulo:'Indique', icone:'indique'},
+    {href:'#/perfil', rotulo:'Perfil', icone:'perfil', bases:['#/perfil','#/plano','#/admin','#/usuarios','#/pagamentos','#/config','#/comissoes']}
   ];
-  if (s.admin) l.push({href:'#/usuarios', rotulo:'Usuários', icone:'usuarios'});
-  l.push({href:'#/perfil', rotulo:'Perfil', icone:'perfil'});
-  return l;
 }
 function navHtml(){
   const s = sessao.get(), h = location.hash;
@@ -640,13 +820,17 @@ function pagina(html, {nav = true, classe = ''} = {}){
   $app.innerHTML = `<main class="tela ${classe} ${nav ? 'com-nav' : ''}">${html}</main>${nav ? navHtml() : ''}`;
 }
 const voltarHtml = (href, rotulo = 'Voltar') => `<a class="voltar" href="${href}">${ICON.voltar}<span>${esc(rotulo)}</span></a>`;
-function sair(){ limparTela(); sessao.limpar(); execSalvo.limpar(); Object.assign(st, {aluno:null, diaSel:null, exec:null, dash:null, lib:null, exs:null, det:null, onb:null, naoLidas:0}); ir('#/entrar'); }
+function sair(){ limparTela(); sessao.limpar(); execSalvo.limpar(); cacheLocal.limpar(); st.semAcesso = false; adsCache = null; adsSessao = 0; Object.assign(st, {aluno:null, diaSel:null, exec:null, dash:null, lib:null, exs:null, det:null, onb:null, naoLidas:0}); ir('#/entrar'); }
 
 /* =========================================================
    ENTRAR / CADASTRO
    ========================================================= */
 function entrarCom(r){
-  sessao.set({token:r.token, id:r.usuario.id, nome:r.usuario.nome, tipo:r.usuario.tipo, admin:!!r.usuario.admin, questionario:r.questionario_respondido});
+  cacheLocal.limpar();
+  st.cfg = r.config || null;
+  st.semAcesso = r.usuario.plano ? !r.usuario.plano.acesso : false;
+  adsCache = null; adsSessao = 0;
+  sessao.set({token:r.token, id:r.usuario.id, nome:r.usuario.nome, apelido:r.usuario.apelido, tipo:r.usuario.tipo, admin:!!r.usuario.admin, questionario:r.questionario_respondido});
   execSalvo.limpar();
   ir(home(sessao.get()));
 }
@@ -672,19 +856,29 @@ function telaEntrar(){
 function telaCadastro(){
   pagina(`${voltarHtml('#/entrar', 'Já tenho conta')}
     <h1 class="display titulo">Criar conta</h1>
-    <p class="sub" style="margin-bottom:26px">Depois você responde quatro perguntas e escolhe sua personal.</p>
+    <p class="sub" style="margin-bottom:26px">Primeiro mês grátis. Você responde algumas perguntas e já recebe seu treino da semana. A cobrança só começa no fim do teste, e você decide se continua.</p>
+    ${refGuardado.get() ? `<p class="aviso" style="margin:0 0 20px">Você chegou pelo convite <b>${esc(refGuardado.get())}</b>.</p>` : ''}
     <form id="fCad" novalidate>
-      <label class="campo"><span>Seu nome</span><input name="nome" autocomplete="name" required></label>
+      <label class="campo"><span>Nome completo</span><input name="nome" autocomplete="name" required></label>
+      <label class="campo"><span>Como quer ser chamado(a)</span><input name="apelido" autocomplete="nickname" maxlength="20" placeholder="Aparece no ranking"></label>
       <label class="campo"><span>E-mail</span><input type="email" name="email" autocomplete="email" required></label>
+      <label class="campo"><span>WhatsApp</span><input name="telefone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(88) 99999-8888" required></label>
       <label class="campo"><span>Senha</span><input type="password" name="senha" autocomplete="new-password" minlength="6" required><small>Pelo menos 6 caracteres.</small></label>
       <p class="erro" id="eCad" role="alert"></p>
-      <button class="btn btn-ouro largo" type="submit">Criar conta</button>
+      <button class="btn btn-ouro largo" type="submit">Criar conta grátis</button>
     </form>`, {nav:false});
+  const tel = document.querySelector('#fCad [name=telefone]');
+  tel.addEventListener('input', () => {
+    const n = tel.value.replace(/\D/g, '').slice(0, 11);
+    tel.value = n.length > 10 ? `(${n.slice(0,2)}) ${n.slice(2,7)}-${n.slice(7)}`
+      : n.length > 6 ? `(${n.slice(0,2)}) ${n.slice(2,6)}-${n.slice(6)}`
+      : n.length > 2 ? `(${n.slice(0,2)}) ${n.slice(2)}` : n;
+  });
   on('#fCad','submit', async e => {
     e.preventDefault();
     const f = e.target, b = f.querySelector('button');
     ocupado(b, 'Criando…');
-    try { entrarCom(await api('cadastrar', {nome:f.nome.value, email:f.email.value, senha:f.senha.value})); }
+    try { entrarCom(await api('cadastrar', {nome:f.nome.value, apelido:f.apelido.value, email:f.email.value, telefone:f.telefone.value, senha:f.senha.value, ref:refGuardado.get() || ''})); }
     catch(err){ msgErro('eCad', err); livre(b); }
   });
 }
@@ -706,11 +900,8 @@ function renderOnb(){
         <label class="campo"><span>Peso (kg)</span><input id="oPeso" inputmode="decimal" placeholder="72,5" value="${esc(r.peso || '')}"></label>
         <label class="campo"><span>Meta (kg)</span><input id="oMeta" inputmode="decimal" placeholder="68" value="${esc(r.meta || '')}"></label>
       </div>`;
-  } else {
-    corpo = o.personais === null ? '<p class="sub">Carregando personais…</p>'
-      : (o.personais.length ? o.personais.map(pp => cardPersonal(pp, {botao:true, sel:r.id_personal === pp.id})).join('') : '<p class="sub">Nenhuma personal disponível no momento.</p>')
-        + `<button class="opcao ${r.id_personal === '' ? 'sel' : ''}" data-sem style="width:100%">Decidir depois</button>`;
   }
+  if (p.chave === 'plano') corpo = '<p class="sub" style="margin:-16px 0 20px">O treino automático é seu de graça, para sempre. No plano Pro, uma personal ajusta o treino para você e conversa pelo app.</p>' + corpo;
   pagina(`<div class="topo"><p class="ola">Oi, ${esc(String(sessao.get().nome).split(' ')[0])}</p><button class="link" id="sairOnb">Sair</button></div>
     <p class="passo">Passo ${o.i + 1} de ${PASSOS.length}</p>
     <h1 class="pergunta">${esc(p.titulo)}</h1>${corpo}
@@ -718,23 +909,20 @@ function renderOnb(){
     <div class="nav-onb">
       ${o.i > 0 ? '<button class="btn btn-linha" id="oVoltar">Voltar</button>' : ''}
       ${p.tipo === 'corpo' ? '<button class="btn btn-ouro" id="oCont">Continuar</button>' : ''}
-      ${ultimo ? `<button class="btn btn-ouro" id="montar" ${r.id_personal === undefined ? 'disabled' : ''}>Montar meu treino</button>` : ''}
+      ${ultimo ? `<button class="btn btn-ouro" id="montar" ${r.plano === undefined ? 'disabled' : ''}>Montar meu treino</button>` : ''}
     </div>`, {nav:false});
   on('#sairOnb','click',sair);
-  onAll('.opcao[data-v]','click',(e, el) => { r[p.chave] = el.dataset.v; o.i++; renderOnb(); });
-  onAll('[data-personal]','click',(e, el) => { r.id_personal = el.dataset.personal; renderOnb(); });
-  on('[data-sem]','click',() => { r.id_personal = ''; renderOnb(); });
+  onAll('.opcao[data-v]','click',(e, el) => { r[p.chave] = el.dataset.v; if (!ultimo) o.i++; renderOnb(); });
   on('#oVoltar','click',() => { guardarCorpo(); o.i--; renderOnb(); });
   on('#oCont','click',() => { guardarCorpo(); o.i++; renderOnb(); });
-  if (p.tipo === 'personal' && o.personais === null){
-    api('listar_personais').then(l => { o.personais = l; if (st.onb === o) renderOnb(); }).catch(e => { o.personais = []; msgErro('eOnb', e); renderOnb(); });
-  }
   on('#montar','click', async e => {
     const b = e.currentTarget; ocupado(b, 'Montando seu treino…');
     try {
-      await api('salvar_questionario', {genero:r.genero, objetivo:r.objetivo, local:r.local, tempo:r.tempo, altura:lerNum(r.altura), peso:lerNum(r.peso), meta:lerNum(r.meta), id_personal:r.id_personal || ''});
+      await api('salvar_questionario', {genero:r.genero, objetivo:r.objetivo, local:r.local, tempo:r.tempo, altura:lerNum(r.altura), peso:lerNum(r.peso), meta:lerNum(r.meta)});
       const s = sessao.get(); s.questionario = true; sessao.set(s);
-      st.onb = null; toast('Treino montado'); ir('#/treino');
+      const queriaPersonal = r.plano === 'sim';
+      st.onb = null; st.aluno = null; toast('Treino montado');
+      ir(queriaPersonal ? '#/plano' : '#/treino');
     } catch(err){ msgErro('eOnb', err); livre(b); }
   });
   function guardarCorpo(){ if (p.tipo !== 'corpo') return; r.altura = document.getElementById('oAlt').value; r.peso = document.getElementById('oPeso').value; r.meta = document.getElementById('oMeta').value; }
@@ -754,12 +942,15 @@ function cardPersonal(p, {botao = false, sel = false, acoes = ''} = {}){
    TREINO DO ALUNO
    ========================================================= */
 async function telaTreino(){
-  if (st.aluno) renderTreino(); else carregando('Buscando seu treino…');
+  if (!st.aluno) st.aluno = cacheLocal.get('treino');
+  if (st.aluno){ if (!st.diaSel) st.diaSel = st.aluno.hoje; renderTreino(); } else carregando('Buscando seu treino…');
   try {
     const antes = JSON.stringify(st.aluno);
     const novo = await api('obter_treino');
     st.aluno = novo;
+    st.cfg = novo.config || st.cfg;
     st.naoLidas = novo.nao_lidas || 0;
+    cacheLocal.set('treino', novo);
     if (!st.diaSel) st.diaSel = novo.hoje;
     if (location.hash === '#/treino' && JSON.stringify(novo) !== antes) renderTreino();
   } catch(e){ if (!st.aluno) erroTela(e, telaTreino); else if (!e.sessao) toast(e.message); }
@@ -794,14 +985,28 @@ function renderTreino(){
         <span class="sr">${esc(x.series)}×${esc(x.reps)}</span></button></li>`).join('')}</ol>`
       : `<p class="desc" style="margin-top:14px">Descansar também faz parte do treino: é na recuperação que o músculo se reconstrói. Uma caminhada leve ou alongamento já ajudam.</p>`}
     ${!d.personal ? `<div class="aviso" style="margin-top:26px">Você ainda não tem uma personal acompanhando seus treinos.<div class="linha-btns"><a class="btn btn-linha btn-p" href="#/personais">Escolher personal</a></div></div>` : ''}
+    <div id="adTreino"></div>
     <section class="bloco"><h2>Sua constância</h2>
       <div class="stats"><div><b>${semanaFeitos}</b><span>${semanaFeitos === 1 ? 'dia treinado' : 'dias treinados'} nesta semana</span></div>
       <div><b>${d.frequencia.sequencia}</b><span>${d.frequencia.sequencia === 1 ? 'semana seguida' : 'semanas seguidas'} treinando</span></div></div>
     </section>
+    ${d.sequencia ? `<div class="sequencia">${ICON.fogo}<div><b>${plural(d.sequencia, 'dia seguido', 'dias seguidos')}</b>
+        <span>${d.sequencia >= d.recorde ? 'É o seu recorde. Não deixe cair.' : `Seu recorde é de ${plural(d.recorde, 'dia', 'dias')}.`}</span></div></div>` : ''}
+    ${d.ranking && d.ranking.ativo ? `<a class="cartao ouro" href="#/ranking" style="text-decoration:none;margin-top:16px">
+        <h3>${d.ranking.posicao ? `${d.ranking.posicao}º lugar no ranking do mês` : 'Ranking do mês'}</h3>
+        <p>${d.ranking.pontos ? `${plural(d.ranking.pontos, 'ponto', 'pontos')} até agora, de ${plural(d.ranking.total, 'pessoa', 'pessoas')} na disputa.` : 'Cada exercício e cada caminhada valem pontos. Comece a pontuar hoje.'}
+        ${d.ranking.premio ? ' ' + esc(d.ranking.premio) + '.' : ''} Faltam ${plural(d.ranking.dias_restantes, 'dia', 'dias')} para zerar.</p></a>` : ''}
+    ${d.plano && d.plano.teste && d.plano.dias <= 10 ? `<a class="cartao ouro" href="#/plano" style="text-decoration:none;margin-top:12px">
+        <h3>Seu mês grátis termina ${d.plano.dias <= 0 ? 'hoje' : 'em ' + plural(d.plano.dias, 'dia', 'dias')}</h3>
+        <p>Para continuar treinando, a mensalidade é de R$ ${fmtDin((d.config && d.config.basico) || 19.99)} no Pix. Com personal acompanhando, R$ ${fmtDin((d.config && d.config.valor) || 147)}.</p></a>` : ''}
+    ${!(d.plano && d.plano.pro) ? `<a class="cartao" href="#/plano" style="text-decoration:none;margin-top:12px">
+        <h3>Treinar com uma personal <span class="tag-pro">PRO</span></h3>
+        <p>${esc((d.config && d.config.plano_texto) || 'Acompanhamento online com personal.')} Por R$ ${fmtNum((d.config && d.config.valor) || 67, 2)} no Pix.</p></a>` : ''}
     ${d.personal ? `<section class="bloco"><h2>Recados${d.nao_lidas ? `<span class="badge-inline">${d.nao_lidas}</span>` : ''}</h2>
       ${d.ultima_mensagem ? `<a class="recado" href="#/chat"><div class="recado-topo">${avatar(d.personal.foto, d.personal.nome)}<span>${esc(d.personal.nome)}, ${fmtData(d.ultima_mensagem.data).toLowerCase()}</span></div><p>${esc(d.ultima_mensagem.texto)}</p></a>`
         : `<a class="btn btn-linha largo" href="#/chat">Mandar mensagem para ${esc(d.personal.nome.split(' ')[0])}</a>`}
     </section>` : ''}
+    <p style="text-align:center;margin-top:26px"><button class="link" id="baixarPdf">Baixar a semana em PDF</button></p>
     ${d.recentes.length ? `<section class="bloco"><h2>Últimos treinos</h2>${listaHist(d.recentes)}<a class="btn btn-linha largo" href="#/evolucao" style="margin-top:14px">Ver evolução completa</a></section>` : ''}
     ${t ? `<div class="rodape acima-nav"><div><button class="btn btn-ouro largo" id="comecar">Começar treino de ${esc(dia.toLowerCase())}</button></div></div>` : ''}`);
   onAll('.dia','click',(e, el) => { st.diaSel = el.dataset.dia; renderTreino(); });
@@ -813,6 +1018,8 @@ function renderTreino(){
     execSalvo.set(st.exec); ir('#/treino/executar');
   });
   on('#descartarExec','click',() => { execSalvo.limpar(); st.exec = null; renderTreino(); });
+  on('#baixarPdf','click', e => baixarPdf(e.currentTarget));
+  anunciar('treino', '#adTreino');
 }
 function previewExercicio(ex){
   const m = modal(`${modalCab(ex.nome)}<div class="modal-corpo">${midiaExercicio(ex)}
@@ -861,6 +1068,7 @@ function renderExec(){
     const i = +el.dataset.i, antes = e.feitas[e.idx] || 0;
     e.feitas[e.idx] = i < antes ? i : i + 1;
     pintar(); salvar();
+    if (e.feitas[e.idx] > antes) som.tocar(e.feitas[e.idx] === total ? 'ponto' : 'serie');
     if (e.feitas[e.idx] > antes && e.feitas[e.idx] < total) iniciarDescanso(prefDescanso.get() || 60); else pararTimer();
   });
   onAll('[data-desc]','click',(ev, el) => { prefDescanso.set(+el.dataset.desc); document.querySelectorAll('[data-desc]').forEach(b => b.setAttribute('aria-pressed', b === el)); });
@@ -873,7 +1081,7 @@ function iniciarDescanso(seg){
   const fim = Date.now() + seg * 1000;
   const tick = () => {
     const r = Math.max(0, Math.round((fim - Date.now()) / 1000));
-    if (r <= 0){ pararTimer(); if (navigator.vibrate) navigator.vibrate([150, 80, 150]); toast('Descanso encerrado. Bora pra próxima série.'); return; }
+    if (r <= 0){ pararTimer(); som.tocar('descanso'); if (navigator.vibrate) navigator.vibrate([150, 80, 150]); toast('Descanso encerrado. Bora pra próxima série.'); return; }
     box.innerHTML = `<div class="descanso"><span>Descanso</span><b>${Math.floor(r / 60)}:${String(r % 60).padStart(2, '0')}</b><button class="link" id="pularDesc">Pular</button></div>`;
     on('#pularDesc','click',pararTimer);
   };
@@ -903,9 +1111,13 @@ function telaConclusao(){
     if (!cansaco) return msgErro('eFim', new Error('Escolha o nível de cansaço de 1 a 5.'));
     const b = ev.currentTarget; ocupado(b, 'Salvando…');
     try {
-      await api('registrar_conclusao', {dia:e.dia, id_treino:e.treino.id_treino, exercicios:e.treino.exercicios.map(x => x.nome),
+      const r = await api('registrar_conclusao', {dia:e.dia, id_treino:e.treino.id_treino, exercicios:e.treino.exercicios.map(x => x.nome),
         tempo_min:document.getElementById('tMin').value, cansaco, comentario:document.getElementById('coment').value});
-      execSalvo.limpar(); st.exec = null; toast('Treino salvo'); ir('#/treino');
+      execSalvo.limpar(); st.exec = null; st.aluno = null; cacheLocal.set('ranking', null);
+      som.tocar('fim');
+      toast(r.ganhou ? `Treino salvo. Você ganhou ${plural(r.ganhou, 'ponto', 'pontos')}` : 'Treino salvo');
+      ir('#/treino');
+      if (r.conquistas && r.conquistas.length) setTimeout(() => modalConquistas(r.conquistas), 400);
     } catch(err){ msgErro('eFim', err); livre(b); }
   });
 }
@@ -914,13 +1126,16 @@ function telaConclusao(){
    EVOLUÇÃO
    ========================================================= */
 async function telaEvolucaoAluno(){
-  pagina(`<h1 class="display titulo">Evolução</h1><div id="evo"><p class="sub">Carregando…</p></div>`);
+  pagina(abasProgresso('#/evolucao') + `<div id="adEvolucao"></div><div id="evo"><p class="sub">Carregando…</p></div>`);
+  anunciosNaTela('evolucao', '#adEvolucao');
   const el = document.getElementById('evo');
   try { const d = await api('evolucao'); if (el.isConnected) montarEvolucao(el, d, null); }
   catch(e){ if (!e.sessao) el.innerHTML = `<p class="erro">${esc(e.message)}</p>`; }
 }
 function montarEvolucao(el, d, idAluno){
-  el.innerHTML = htmlEvolucao(d);
+  el.innerHTML = htmlEvolucao(d) + '<section class="bloco"><h2>Fotos de progresso</h2><div id="fotosProg"></div></section>';
+  const caixa = el.querySelector('#fotosProg');
+  if (caixa) montarFotos(caixa, idAluno);
   onAll('[data-registrar]','click',() => modalMedidas(el, idAluno), el);
   onAll('[data-apagar]','click', async (e, b) => {
     if (!confirm('Apagar este registro?')) return;
@@ -1024,7 +1239,11 @@ function modalMedidas(el, idAluno){
     const dados = {id_usuario:idAluno || undefined, data:f.data.value, peso:lerNum(f.peso.value), observacao:f.observacao.value};
     MEDIDAS.forEach(([k]) => dados[k] = lerNum(f[k].value));
     ocupado(b, 'Salvando…');
-    try { const d = await api('registrar_medidas', dados); m.fechar(); montarEvolucao(el, d, idAluno); toast('Registro salvo'); }
+    try {
+      const r = await api('registrar_medidas', dados);
+      m.fechar(); montarEvolucao(el, r, idAluno); toast('Registro salvo');
+      if (r.conquistas && r.conquistas.length) setTimeout(() => modalConquistas(r.conquistas), 350);
+    }
     catch(err){ msgErro('eMed', err); livre(b); }
   }, m.el);
 }
@@ -1034,6 +1253,11 @@ function modalMedidas(el, idAluno){
    ========================================================= */
 async function telaChat(idAluno){
   const s = sessao.get(), ehAluno = !idAluno, comNav = ehAluno;
+  if (ehAluno){
+    if (!st.aluno) st.aluno = cacheLocal.get('treino');
+    if (!st.aluno){ carregando('Abrindo os recados…'); try { st.aluno = await api('obter_treino'); cacheLocal.set('treino', st.aluno); } catch(e){ return erroTela(e, () => telaChat(null)); } }
+    if (!(st.aluno.plano && st.aluno.plano.pro)) return telaChatBloqueado();
+  }
   pagina(`<header class="chat-cab">${idAluno ? voltarHtml(`#/alunos/${idAluno}/treino`, 'Voltar') : ''}<div class="quem" id="chatQuem"><b>Recados</b><span>Carregando…</span></div></header>
     <div class="chat-lista" id="chatLista" aria-live="polite"></div>
     <div class="chat-rodape" id="chatRodape" hidden><div>
@@ -1083,7 +1307,9 @@ async function telaChat(idAluno){
       if (inicial){
         dados = d; cabecalho();
         if (ehAluno && !d.personal){
-          lista.innerHTML = `<div class="vazio">Escolha uma personal para poder conversar sobre seus treinos.<br><a class="btn btn-ouro" href="#/personais">Escolher personal</a></div>`;
+          if (d.mensagens.length) desenhar(true); else lista.innerHTML = '';
+          lista.insertAdjacentHTML('beforeend', `<div class="vazio" style="text-align:center">Escolha uma personal para conversar sobre seus treinos.<br><a class="btn btn-ouro" href="#/personais" style="margin-top:12px">Escolher personal</a></div>`);
+          window.scrollTo(0, document.body.scrollHeight);
           return;
         }
         rodape.hidden = false;
@@ -1133,6 +1359,14 @@ async function telaPersonais(){
     const [lista, eu] = await Promise.all([api('listar_personais'), api('meu_perfil')]);
     const atual = eu.perfil_aluno ? eu.perfil_aluno.id_personal : '';
     if (!el.isConnected) return;
+    if (!eu.usuario.plano.pro){
+      el.innerHTML = `<div class="cartao ouro"><h3>Escolher personal é do plano Pro</h3>
+          <p>${esc((eu.config && eu.config.plano_texto) || '')} Por R$ ${fmtDin(eu.config.valor)} no Pix.</p>
+          <div class="linha-btns" style="margin-top:16px"><a class="btn btn-ouro" href="#/plano">Ver o plano</a></div></div>
+        <h2 class="rot2">Quem atende pelo app</h2>
+        ${lista.length ? lista.map(pp => cardPersonal(pp)).join('') : '<p class="sub">Nenhuma personal disponível no momento.</p>'}`;
+      return;
+    }
     el.innerHTML = (lista.length ? lista.map(p => cardPersonal(p, {sel:p.id === atual,
       acoes:`<div class="linha-btns">${p.id === atual ? '<span class="btn btn-linha btn-p desativado">Sua personal</span>' : `<button class="btn btn-ouro btn-p" data-escolher="${esc(p.id)}">Escolher ${esc(p.nome.split(' ')[0])}</button>`}</div>`})).join('')
       : '<p class="vazio">Nenhuma personal disponível no momento.</p>')
@@ -1149,17 +1383,45 @@ async function telaPersonais(){
 
 async function telaPerfil(){
   const s = sessao.get();
-  pagina(`<h1 class="display titulo">${esc(s.nome.split(' ')[0])}</h1><div id="perfil"><p class="sub">Carregando…</p></div>`);
+  pagina(`<h1 class="display titulo">${esc(s.nome.split(' ')[0])}</h1><div id="adPerfil"></div><div id="perfil"><p class="sub">Carregando…</p></div>`);
   const el = document.getElementById('perfil');
   let d;
   try { d = await api('meu_perfil'); } catch(e){ if (!e.sessao) el.innerHTML = `<p class="erro">${esc(e.message)}</p>`; return; }
   if (!el.isConnected) return;
-  const conta = `<section class="bloco"><h2>Conta</h2><p class="sub" style="margin-bottom:14px">${esc(d.usuario.email)}${d.usuario.admin ? ', administrador' : ''}</p>
+  st.cfg = d.config || st.cfg;
+  st.semAcesso = !d.usuario.plano.acesso;
+  const conta = `<section class="bloco"><h2>Preferências</h2>
+      <div class="toggle"><span>Sons do app<small>Marcar série, fim do descanso e treino concluído.</small></span>
+        <button class="chave" id="somToggle" role="switch" aria-checked="${som.ligado()}" aria-pressed="${som.ligado()}" aria-label="Sons do app"></button></div>
+    </section>
+    <section class="bloco"><h2>Conta</h2><p class="sub" style="margin-bottom:14px">${esc(d.usuario.email)}${d.usuario.telefone ? ', ' + esc(fmtTelefone(d.usuario.telefone)) : ''}${d.usuario.admin ? ', administrador' : ''}</p>
     <div class="linha-btns"><button class="btn btn-linha" id="bSenha">Trocar senha</button><button class="btn btn-perigo" id="bSair">Sair</button></div></section>`;
+  const blocoExtra = `<section class="bloco"><h2>Indique e ganhe</h2>
+      <a class="cartao" href="#/afiliado" style="text-decoration:none;display:block"><h3>Seu link de indicação</h3>
+        <p>Ganhe uma parte de cada plano Pro assinado pelo seu link. O repasse é por Pix, no começo do mês.</p></a></section>
+    ${s.admin ? `<section class="bloco"><h2>Administração</h2>
+      <a class="cartao" href="#/admin" style="text-decoration:none;display:block"><h3>Área do administrador</h3>
+        <p>Pagamentos, comissões, usuários, biblioteca de exercícios e configurações.</p></a></section>` : ''}`;
+  const pl = d.usuario.plano;
+  const pendente = d.pagamento && d.pagamento.status === 'Aguardando';
+  const blocoPlano = s.tipo !== 'Aluno' ? '' : `<section class="bloco" style="margin-top:18px"><h2>Seu plano</h2>
+      ${pl.pro ? `<div class="cartao ouro"><h3>Plano Pro <span class="tag-pro">ATIVO</span></h3>
+          <p>Acompanhamento com personal liberado até ${fmtLonga(pl.ate)}.</p>
+          <div class="linha-btns" style="margin-top:14px"><a class="btn btn-linha btn-p" href="#/plano">Renovar</a></div></div>`
+        : pl.teste ? `<div class="cartao ouro"><h3>Mês grátis <span class="tag-pro">TESTE</span></h3>
+          <p>Você usa tudo até ${fmtLonga(pl.acesso_ate)}${pl.dias > 0 ? `, faltam ${plural(pl.dias, 'dia', 'dias')}` : ''}. Depois, a mensalidade é de R$ ${fmtDin(d.config.basico)} ou R$ ${fmtDin(d.config.valor)} com personal.</p>
+          <div class="linha-btns" style="margin-top:14px"><a class="btn btn-ouro btn-p" href="#/plano">${pendente ? 'Ver meu pagamento' : 'Ver os planos'}</a></div></div>`
+        : pl.acesso ? `<div class="cartao"><h3>Plano Básico <span class="tag-free">ATIVO</span></h3>
+          <p>Acesso ao app até ${fmtLonga(pl.acesso_ate)}. Para ter uma personal acompanhando, o plano Pro sai por R$ ${fmtDin(d.config.valor)}.</p>
+          <div class="linha-btns" style="margin-top:14px"><a class="btn btn-ouro btn-p" href="#/plano">${pendente ? 'Ver meu pagamento' : 'Quero uma personal'}</a></div></div>`
+        : `<div class="cartao"><h3>Acesso vencido</h3>
+          <p>Escolha um plano para voltar a treinar. Seus dados continuam guardados.</p>
+          <div class="linha-btns" style="margin-top:14px"><a class="btn btn-ouro btn-p" href="#/plano">${pendente ? 'Ver meu pagamento' : 'Ver os planos'}</a></div></div>`}
+    </section>`;
 
   if (s.tipo === 'Aluno'){
     const p = d.perfil_aluno || {};
-    el.innerHTML = `<section class="bloco" style="margin-top:18px"><h2>Sua personal</h2>
+    el.innerHTML = `${blocoPlano}${blocoExtra}<section class="bloco"><h2>Sua personal</h2>
         ${d.personal ? cardPersonal(d.personal, {acoes:`<div class="linha-btns"><a class="btn btn-ouro btn-p" href="#/chat">Conversar</a><a class="btn btn-linha btn-p" href="#/personais">Trocar</a></div>`})
           : `<p class="sub" style="margin-bottom:12px">Ninguém acompanha seus treinos ainda.</p><a class="btn btn-ouro largo" href="#/personais">Escolher personal</a>`}</section>
       <section class="bloco"><h2>Seu plano</h2><form id="fPlano">
@@ -1198,7 +1460,7 @@ async function telaPerfil(){
         <label class="check"><input type="checkbox" name="aceita" ${f.aceita ? 'checked' : ''}><span>Aceitando novos alunos. Desmarque para sumir da lista de escolha.</span></label>
         <p class="erro" id="ePer" role="alert"></p>
         <button class="btn btn-ouro largo" type="submit">Salvar perfil</button></form></section>
-      <section class="bloco"><h2>Como os alunos veem você</h2><div id="previa"></div></section>${conta}`;
+      <section class="bloco"><h2>Como os alunos veem você</h2><div id="previa"></div></section>${blocoExtra}${conta}`;
     const form = document.getElementById('fPer');
     const previa = () => { document.getElementById('previa').innerHTML = cardPersonal({nome:s.nome, foto:f.foto, descricao:form.descricao.value, especialidades:form.especialidades.value, registro:form.registro.value, alunos:pp.alunos}); };
     previa();
@@ -1222,8 +1484,10 @@ async function telaPerfil(){
       livre(b);
     });
   } else {
-    el.innerHTML = conta;
+    el.innerHTML = blocoExtra + conta;
   }
+  anunciosNaTela('perfil', '#adPerfil');
+  on('#somToggle','click', e => { const b = e.currentTarget, novo = b.getAttribute('aria-checked') !== 'true'; som.alternar(novo); b.setAttribute('aria-checked', novo); b.setAttribute('aria-pressed', novo); });
   on('#bSenha','click',modalSenha);
   on('#bSair','click',() => { if (confirm('Sair da sua conta neste aparelho?')) sair(); });
 }
@@ -1249,7 +1513,11 @@ function telaAdmin(){
   pagina(`<h1 class="display titulo">Admin</h1><p class="sub" style="margin-bottom:10px">Gerencie a biblioteca, as contas e acompanhe todos os alunos.</p>
     <div class="hub">
       <a href="#/exercicios"><h2>Exercícios</h2><p class="sub">Cadastre exercícios e envie fotos e vídeos de demonstração para o seu Drive.</p></a>
+      <a href="#/pagamentos"><h2>Pagamentos</h2><p class="sub">Confira os Pix recebidos pelo código, libere o plano Pro e avise a personal.</p></a>
       <a href="#/usuarios"><h2>Usuários</h2><p class="sub">Crie contas de alunos e personais, defina quem é administrador e redefina senhas.</p></a>
+      <a href="#/anuncios"><h2>Anúncios</h2><p class="sub">Crie faixas, cartões e janelas de oferta, escolha em quais telas aparecem e acompanhe vistas e cliques.</p></a>
+      <a href="#/comissoes"><h2>Comissões</h2><p class="sub">Veja quanto cada afiliado tem a receber, com a chave Pix, e marque os repasses pagos.</p></a>
+      <a href="#/config"><h2>Configurações</h2><p class="sub">Valor do plano, chave Pix, prêmio do ranking e quantos pontos vale cada coisa.</p></a>
       <a href="#/alunos"><h2>Todos os alunos</h2><p class="sub">Veja o progresso e edite o treino de qualquer aluno.</p></a>
     </div>`);
 }
@@ -1274,25 +1542,26 @@ function cardAluno(a){
   const st7 = a.stats;
   const peso = st7.peso_variacao != null ? `${st7.peso_variacao > 0 ? '+' : st7.peso_variacao < 0 ? '−' : ''}${fmtNum(Math.abs(st7.peso_variacao))}` : (st7.peso_atual != null ? fmtNum(st7.peso_atual) : '–');
   return `<article class="aluno">
-    <div class="aluno-topo"><h2><a href="#/alunos/${esc(a.id)}/treino">${esc(a.nome)}</a></h2>
+    <div class="aluno-topo"><h2><a href="#/alunos/${esc(a.id)}/treino">${esc(a.nome)}</a> ${a.plano && a.plano.pro ? '<span class="tag-pro">PRO</span>' : a.plano && a.plano.vencido ? '<span class="tag-free">PRO VENCIDO</span>' : '<span class="tag-free">FREE</span>'}</h2>
       <a class="btn btn-linha btn-p" href="#/alunos/${esc(a.id)}/chat">Recados${a.nao_lidas ? `<span class="badge-inline">${a.nao_lidas}</span>` : ''}</a></div>
     <p class="perfil">${a.perfil ? esc(perfilTxt(a.perfil)) : 'Ainda não respondeu o questionário.'}${!a.meu ? (a.personal_nome ? `. Personal: ${esc(a.personal_nome)}` : '. Sem personal') : ''}</p>
     <div class="numeros">
       <div><b>${st7.treinos_7d}</b><span>dias treinados na semana</span></div>
       <div><b>${peso}</b><span>${st7.peso_variacao != null ? 'kg desde o início' : 'kg, peso atual'}</span></div>
-      <div><b class="menor">${st7.ultimo ? fmtData(st7.ultimo) : '–'}</b><span>último treino${st7.cansaco_medio != null ? `, cansaço ${String(st7.cansaco_medio).replace('.', ',')}` : ''}</span></div>
+      <div><b class="menor">${st7.ultimo ? fmtData(st7.ultimo) : '–'}</b><span>último treino${a.pontos_mes ? `, ${a.pontos_mes} pontos no mês` : ''}</span></div>
     </div>
     <a class="btn btn-linha largo" href="#/alunos/${esc(a.id)}/treino">Ver treino e evolução</a></article>`;
 }
 function renderAlunos(){
   const s = sessao.get(), d = st.dash;
   const meus = d.alunos.filter(a => a.meu), outros = d.alunos.filter(a => !a.meu);
-  pagina(`<h1 class="display titulo">Alunos</h1>
+  pagina(`<h1 class="display titulo">Alunos</h1><div id="adAlunos"></div>
     ${!d.alunos.length ? `<p class="vazio">${s.tipo === 'Personal' ? 'Nenhum aluno escolheu você ainda. Complete seu perfil com foto e descrição para aparecer bem na lista de personais.' : 'Nenhum aluno cadastrado.'}${s.tipo === 'Personal' ? '<br><a class="btn btn-ouro" href="#/perfil">Completar meu perfil</a>' : ''}</p>` : ''}
     ${meus.map(cardAluno).join('')}
     ${outros.length ? `<h2 class="grupo-titulo">${s.tipo === 'Personal' ? 'Outros alunos (você vê como administrador)' : 'Todos os alunos'}</h2>${outros.map(cardAluno).join('')}` : ''}
     <p style="text-align:center;margin-top:24px"><button class="link" id="atualizar">Atualizar dados</button></p>`);
   on('#atualizar','click',() => { st.dash = null; telaAlunos(); });
+  anunciosNaTela('alunos', '#adAlunos');
 }
 function perfilTxt(p){ return [p.objetivo, p.local === 'Casa' ? 'treina em casa' : p.local === 'Academia' ? 'treina na academia' : '', p.tempo ? p.tempo + ' min por dia' : ''].filter(Boolean).join(', '); }
 
@@ -1350,6 +1619,7 @@ function renderEditor(c){
         </div></div>`).join('')
       : '<p class="sub" style="margin:8px 0 4px">Dia de descanso. Adicione exercícios para montar um treino neste dia.</p>'}
     <button class="btn btn-linha largo" id="add" style="margin-top:16px">Adicionar exercício da biblioteca</button>
+    <p style="text-align:center;margin-top:12px"><button class="link" id="pdfAluno">Baixar a semana em PDF</button></p>
     <div class="acoes-edit">
       <button class="btn btn-ouro largo" id="salvarTreino" ${det.sujo[det.dia] ? '' : 'disabled'}>Salvar treino de ${esc(det.dia.toLowerCase())}</button>
       ${lista.length ? '<button class="link" id="descansoDia">Transformar em dia de descanso</button>' : ''}
@@ -1367,6 +1637,7 @@ function renderEditor(c){
   }, c);
   on('#descansoDia','click',() => { det.rascunho[det.dia] = []; mudou(); }, c);
   on('#add','click',() => modalBiblioteca(c), c);
+  on('#pdfAluno','click', e => baixarPdf(e.currentTarget, det.id), c);
   on('#salvarTreino','click', async e => {
     const b = e.currentTarget, dia = det.dia; ocupado(b, 'Salvando…');
     try {
@@ -1554,17 +1825,22 @@ async function telaUsuarios(){
       const us = lista.filter(u => u.tipo === t);
       return us.length ? `<h2 class="grupo-titulo">${rot}</h2>${us.map(u => `<button class="u-row" data-u="${esc(u.id)}">
         <span><span class="nome" style="display:block">${esc(u.nome)}${u.admin && t !== 'Admin' ? ' <span class="selo ouro">admin</span>' : ''}</span>
-        <span class="sub">${esc(u.email)}${u.personal_nome ? `, com ${esc(u.personal_nome)}` : ''}</span></span><span class="link">Editar</span></button>`).join('')}` : '';
+        <span class="sub">${esc(u.email)}${u.personal_nome ? `, com ${esc(u.personal_nome)}` : ''}${u.tipo === 'Aluno' ? (u.plano.pro ? ', Pro até ' + fmtLonga(u.plano.ate) : ', conta gratuita') : ''}</span></span><span class="link">Editar</span></button>`).join('')}` : '';
     }).join('');
     onAll('[data-u]','click',(e, b) => modalUsuario(lista.find(u => u.id === b.dataset.u)), el);
   };
   function modalUsuario(u){
     const s = sessao.get();
     const m = modal(`${modalCab(u ? 'Editar usuário' : 'Novo usuário', 'Cancelar')}<form class="modal-corpo" id="fU">
-      <label class="campo"><span>Nome</span><input name="nome" value="${esc(u ? u.nome : '')}" required></label>
+      <div class="duas"><label class="campo"><span>Nome</span><input name="nome" value="${esc(u ? u.nome : '')}" required></label>
+      <label class="campo"><span>Apelido</span><input name="apelido" value="${esc(u ? u.apelido : '')}" maxlength="20"></label></div>
       <label class="campo"><span>E-mail</span><input type="email" name="email" value="${esc(u ? u.email : '')}" required></label>
+      <label class="campo"><span>WhatsApp</span><input name="telefone" type="tel" value="${u && u.telefone ? esc(fmtTelefone(u.telefone)) : ''}" placeholder="(88) 99999-8888"></label>
       <label class="campo"><span>Tipo de conta</span><select name="tipo">${[['Aluno','Aluno'],['Personal','Personal'],['Admin','Só administrador (não treina nem atende)']].map(([v, l]) => `<option value="${v}" ${(u ? u.tipo : 'Aluno') === v ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
       <label class="check"><input type="checkbox" name="admin" ${u && u.admin ? 'checked' : ''}><span>Administrador: acessa usuários, todos os alunos e a biblioteca.</span></label>
+      ${!u || u.tipo === 'Aluno' ? `<label class="campo"><span>Liberar plano Pro (dias)</span><input name="dias_pro" inputmode="numeric" placeholder="30">
+        <small>${u && u.plano && u.plano.pro ? 'Pro ativo até ' + fmtLonga(u.plano.ate) + '. O prazo informado é somado a esse.' : 'Use quando o pagamento vier por fora do app. Deixe vazio para não mexer.'}</small></label>
+      ${u && u.plano && u.plano.pro ? '<label class="check"><input type="checkbox" name="remover_pro"><span>Encerrar o plano Pro agora</span></label>' : ''}` : ''}
       <label class="campo"><span>${u ? 'Nova senha (deixe em branco para manter)' : 'Senha inicial'}</span><input type="text" name="senha" autocomplete="off" minlength="6" ${u ? '' : 'required'}><small>Passe a senha para a pessoa e peça para ela trocar no primeiro acesso.</small></label>
       <p class="erro" id="eU" role="alert"></p>
       <button class="btn btn-ouro largo" type="submit">${u ? 'Salvar' : 'Criar conta'}</button>
@@ -1573,13 +1849,679 @@ async function telaUsuarios(){
       e.preventDefault();
       const f = e.target, b = f.querySelector('button[type=submit]'); ocupado(b, 'Salvando…');
       try {
-        lista = await api('salvar_usuario', {id:u ? u.id : '', nome:f.nome.value, email:f.email.value, tipo:f.tipo.value, admin:f.admin.checked, senha:f.senha.value});
+        lista = await api('salvar_usuario', {id:u ? u.id : '', nome:f.nome.value, apelido:f.apelido.value, email:f.email.value,
+          telefone:f.telefone.value, tipo:f.tipo.value, admin:f.admin.checked, senha:f.senha.value,
+          dias_pro:f.dias_pro ? f.dias_pro.value : '', remover_pro:f.remover_pro ? f.remover_pro.checked : false});
         m.fechar(); desenhar(); st.dash = null; toast(u ? 'Usuário atualizado' : 'Conta criada');
       } catch(err){ msgErro('eU', err); livre(b); }
     }, m.el);
   }
   on('#novoU','click',() => modalUsuario(null));
   try { lista = await api('listar_usuarios'); if (el.isConnected) desenhar(); }
+  catch(e){ if (!e.sessao) el.innerHTML = `<p class="erro">${esc(e.message)}</p>`; }
+}
+
+
+/* =========================================================
+   PROGRESSO: ATIVIDADES E RANKING
+   ========================================================= */
+const fmtTelefone = t => { const n = String(t || '').replace(/\D/g, ''); return n.length === 11 ? `(${n.slice(0,2)}) ${n.slice(2,7)}-${n.slice(7)}` : n.length === 10 ? `(${n.slice(0,2)}) ${n.slice(2,6)}-${n.slice(6)}` : String(t || ''); };
+const abasProgresso = ativo => `<h1 class="display titulo">Progresso</h1>
+  <nav class="abas" aria-label="Seções do progresso">${ABAS_PROGRESSO.map(([h, l]) =>
+    `<a class="aba ${h === ativo ? 'ativa' : ''}" href="${h}" ${h === ativo ? 'aria-current="page"' : ''}>${l}</a>`).join('')}</nav>`;
+
+async function telaAtividades(){
+  const cache = cacheLocal.get('atividades');
+  pagina(abasProgresso('#/atividades') + `<div id="adAtividades"></div><div id="ativ">${cache ? htmlAtividades(cache) : '<p class="sub">Carregando…</p>'}</div>`);
+  if (cache) ligarAtividades();
+  const codigo = new URLSearchParams(location.search).get('code');
+  if (codigo){
+    try {
+      history.replaceState(null, '', location.pathname + location.hash);
+      toast('Conectando ao Strava…');
+      montarAtividades(await api('strava_conectar', {code:codigo}));
+      toast('Strava conectado');
+      return;
+    } catch(e){ if (!e.sessao) toast(e.message); }
+  }
+  anunciar('atividades', '#adAtividades');
+  try { montarAtividades(await api('atividades')); }
+  catch(e){ if (!cache && !e.sessao) document.getElementById('ativ').innerHTML = `<p class="erro">${esc(e.message)}</p>`; }
+}
+function montarAtividades(d){
+  cacheLocal.set('atividades', d);
+  const el = document.getElementById('ativ');
+  if (!el) return;
+  el.innerHTML = htmlAtividades(d);
+  ligarAtividades();
+}
+function htmlAtividades(d){
+  const c = d.config || {km:20, mil_passos:5, max_dia:300};
+  const r = d.resumo;
+  return `<p class="sub" style="margin:-4px 0 18px">Caminhada, corrida e esteira também valem pontos: ${c.km} por quilômetro e ${c.mil_passos} a cada mil passos, até ${c.max_dia} pontos por dia.</p>
+    <div class="numeros"><div><b>${fmtNum(r.km)}</b><span>km no mês</span></div><div><b class="${r.passos > 99999 ? 'menor' : ''}">${fmtNum(r.passos, 0)}</b><span>passos no mês</span></div><div><b>${r.minutos}</b><span>minutos no mês</span></div></div>
+    <button class="btn btn-ouro largo" data-nova>Registrar atividade</button>
+    ${d.strava && d.strava.disponivel ? `<div class="cartao" style="margin-top:14px"><h3>Strava</h3>
+      ${d.strava.conectado ? `<p>Conectado${d.strava.atleta ? ' como ' + esc(d.strava.atleta) : ''}. As caminhadas, corridas e pedaladas entram sozinhas.</p>
+        <div class="linha-btns" style="margin-top:12px"><button class="btn btn-linha btn-p" data-sincronizar>Buscar atividades</button><button class="btn btn-perigo btn-p" data-desconectar>Desconectar</button></div>`
+        : `<p>Conecte o Strava e suas corridas e caminhadas viram pontos automaticamente.</p>
+        <div class="linha-btns" style="margin-top:12px"><button class="btn btn-linha btn-p" data-strava>Conectar Strava</button></div>`}</div>` : ''}
+    <h2 class="rot2">Registradas</h2>
+    ${d.atividades.length ? d.atividades.map(a => `<div class="at-linha"><div>
+        <b>${esc(a.tipo)}</b>
+        <p class="sub">${[fmtData(a.data), a.km ? fmtNum(a.km) + ' km' : '', a.minutos ? a.minutos + ' min' : '', a.passos ? fmtNum(a.passos, 0) + ' passos' : '', a.origem === 'Strava' ? 'via Strava' : ''].filter(Boolean).join(', ')}</p></div>
+        <button class="ic-btn rm" data-apagar-at="${esc(a.id)}" aria-label="Apagar ${esc(a.tipo)} de ${fmtData(a.data)}">${ICON.x}</button></div>`).join('')
+      : '<p class="sub">Nada registrado ainda. Uma caminhada de 30 minutos já rende pontos.</p>'}`;
+}
+function ligarAtividades(){
+  onAll('[data-nova]','click',modalAtividade);
+  onAll('[data-apagar-at]','click', async (e, b) => {
+    if (!confirm('Apagar esta atividade? Os pontos dela saem do ranking.')) return;
+    ocupado(b, '…');
+    try { montarAtividades(await api('excluir_atividade', {id:b.dataset.apagarAt})); cacheLocal.set('ranking', null); toast('Atividade apagada'); }
+    catch(err){ if (!err.sessao) toast(err.message); livre(b); }
+  });
+  onAll('[data-strava]','click', async (e, b) => {
+    ocupado(b, 'Abrindo…');
+    try {
+      const volta = location.origin + location.pathname;
+      const r = await api('strava_url', {redirect:volta});
+      location.href = r.url;
+    } catch(err){ if (!err.sessao) toast(err.message); livre(b); }
+  });
+  onAll('[data-sincronizar]','click', async (e, b) => {
+    ocupado(b, 'Buscando…');
+    try {
+      const d = await api('strava_sincronizar');
+      cacheLocal.set('ranking', null);
+      toast(d.novas ? `${plural(d.novas, 'atividade nova', 'atividades novas')}, +${plural(d.ganhou, 'ponto', 'pontos')}` : 'Nada novo por lá');
+      montarAtividades(d);
+    } catch(err){ if (!err.sessao) toast(err.message); livre(b); }
+  });
+  onAll('[data-desconectar]','click', async (e, b) => {
+    if (!confirm('Desconectar o Strava? As atividades já registradas continuam valendo.')) return;
+    ocupado(b, '…');
+    try { montarAtividades(await api('strava_desconectar')); toast('Strava desconectado'); }
+    catch(err){ if (!err.sessao) toast(err.message); livre(b); }
+  });
+}
+function modalAtividade(){
+  let tipo = 'Caminhada';
+  const m = modal(`${modalCab('Registrar atividade', 'Cancelar')}<form class="modal-corpo" id="fAt">
+    <span class="rotulo">Tipo</span>
+    <div class="chips" style="margin:0 0 16px">${TIPOS_ATIVIDADE.map(t => `<button type="button" class="chip" data-tipo="${t}" aria-pressed="${t === tipo}">${t}</button>`).join('')}</div>
+    <label class="campo"><span>Data</span><input type="date" name="data" value="${hojeIso()}" max="${hojeIso()}"></label>
+    <div class="tres">
+      <label class="campo"><span>Distância (km)</span><input name="km" inputmode="decimal" placeholder="5,2"></label>
+      <label class="campo"><span>Tempo (min)</span><input name="minutos" inputmode="numeric" placeholder="45"></label>
+      <label class="campo"><span>Passos</span><input name="passos" inputmode="numeric" placeholder="7000"></label>
+    </div>
+    <p class="sub" style="margin-bottom:14px">Preencha o que souber. Se o relógio ou o celular contar os passos, é só copiar o número do dia.</p>
+    <p class="erro" id="eAt" role="alert"></p>
+    <button class="btn btn-ouro largo" type="submit">Salvar atividade</button></form>`, {rotulo:'Registrar atividade'});
+  onAll('[data-tipo]','click',(e, b) => { tipo = b.dataset.tipo; m.el.querySelectorAll('[data-tipo]').forEach(x => x.setAttribute('aria-pressed', x === b)); }, m.el);
+  on('#fAt','submit', async e => {
+    e.preventDefault();
+    const f = e.target, b = f.querySelector('button[type=submit]');
+    ocupado(b, 'Salvando…');
+    try {
+      const d = await api('registrar_atividade', {tipo, data:f.data.value, km:lerNum(f.km.value), minutos:lerNum(f.minutos.value), passos:lerNum(f.passos.value)});
+      m.fechar(); montarAtividades(d); cacheLocal.set('ranking', null);
+      som.tocar('ponto');
+      toast(d.limitado ? `+${plural(d.ganhou, 'ponto', 'pontos')} (limite diário atingido)` : `+${plural(d.ganhou, 'ponto', 'pontos')}`);
+    } catch(err){ msgErro('eAt', err); livre(b); }
+  }, m.el);
+}
+
+async function telaRanking(){
+  const cache = cacheLocal.get('ranking');
+  pagina(abasProgresso('#/ranking') + `<div id="adRanking"></div><div id="rk">${cache ? htmlRanking(cache) : '<p class="sub">Carregando…</p>'}</div>`);
+  try {
+    const d = await api('ranking');
+    cacheLocal.set('ranking', d);
+    const el = document.getElementById('rk');
+    if (el) el.innerHTML = htmlRanking(d);
+    anunciar('ranking', '#adRanking');
+  } catch(e){ if (!cache && !e.sessao){ const el = document.getElementById('rk'); if (el) el.innerHTML = `<p class="erro">${esc(e.message)}</p>`; } }
+}
+function htmlRanking(d){
+  if (!d.ativo) return '<p class="vazio">O ranking está desligado no momento.</p>';
+  const top = d.top, podio = top.slice(0, 3), resto = top.slice(3);
+  const eu = d.eu;
+  const ordemPodio = [podio[1], podio[0], podio[2]].filter(Boolean);
+  const colunas = podio.length === 1 ? '1fr' : podio.length === 2 ? '1fr 1.15fr' : '1fr 1.15fr 1fr';
+  const lugar = x => `<div class="lugar p${x.posicao}"><div class="med">${x.posicao}º</div><div class="nome">${esc(x.nome)}</div><div class="pts">${fmtNum(x.pontos, 0)}</div></div>`;
+  const mesNome = new Date(d.mes + '-02').toLocaleDateString('pt-BR', {month:'long'});
+  return `${d.premio ? `<div class="rk-premio">${ICON.trofeu}<div><b>${esc(d.premio)}</b><span>Zera no fim do mês. Faltam ${plural(d.dias_restantes, 'dia', 'dias')}.</span></div></div>` : ''}
+    ${top.length ? `<div class="podio" style="grid-template-columns:${colunas}">${ordemPodio.map(lugar).join('')}</div>` : '<p class="vazio">Ninguém pontuou em ' + mesNome + ' ainda. Faça o treino de hoje e assuma o primeiro lugar.</p>'}
+    ${resto.map(x => `<div class="rk-linha ${eu && x.id === eu.id ? 'eu' : ''}"><span class="pos">${x.posicao}</span><span class="nome">${esc(x.nome)}</span><span class="pts">${fmtNum(x.pontos, 0)}</span></div>`).join('')}
+    ${eu && eu.posicao > 20 ? `<div class="rk-linha eu" style="margin-top:10px"><span class="pos">${eu.posicao}</span><span class="nome">${esc(eu.nome)}</span><span class="pts">${fmtNum(eu.pontos, 0)}</span></div>` : ''}
+    <section class="bloco"><h2>Seus pontos em ${mesNome}</h2>
+      <div class="stats"><div><b>${fmtNum(eu ? eu.pontos : 0, 0)}</b><span>pontos no mês</span></div>
+        <div><b>${eu ? eu.posicao + 'º' : '–'}</b><span>entre ${plural(d.total, 'pessoa', 'pessoas')}</span></div></div>
+      <p class="sub" style="margin-top:10px">Treinos: ${fmtNum(d.meus_pontos.Treino || 0, 0)}. Atividades: ${fmtNum(d.meus_pontos.Atividade || 0, 0)}. Cada exercício vale ${d.config.exercicio} e cada treino concluído rende ${d.config.treino} de bônus.</p>
+      ${d.ultimos.length ? `<h2 class="rot2">Últimos pontos</h2>${d.ultimos.map(u => `<div class="at-linha"><div><b>+${u.pontos}</b><p class="sub">${esc(u.detalhe || u.tipo)}</p></div><span class="sub">${fmtData(u.data)}</span></div>`).join('')}` : ''}
+    </section>
+    <section class="bloco"><h2>Suas conquistas</h2>
+      ${d.sequencia ? `<div class="sequencia" style="margin:0 0 14px">${ICON.fogo}<div><b>${plural(d.sequencia, 'dia seguido', 'dias seguidos')}</b><span>Recorde: ${plural(d.recorde, 'dia', 'dias')}</span></div></div>` : ''}
+      <div class="medalhas">${(d.medalhas || []).map(m => `<div class="medalha ${m.vezes ? 'tem' : ''}">${ICON.medalha}<b>${esc(m.nome)}</b>
+        <span>${m.vezes ? (m.vezes > 1 ? `<span class="vezes">${m.vezes}x</span>, ` : '') + `+${m.pontos} pontos` : esc(m.descricao)}</span></div>`).join('')}</div>
+    </section>
+    ${d.campeao_anterior ? `<section class="bloco"><h2>Campeão do mês passado</h2><div class="cartao"><h3>${esc(d.campeao_anterior.nome)}</h3><p>${plural(d.campeao_anterior.pontos, 'ponto', 'pontos')}${d.campeao_anterior.premio ? '. ' + esc(d.campeao_anterior.premio) : ''}</p></div></section>` : ''}
+    <a class="btn btn-linha largo" href="#/atividades" style="margin-top:18px">Registrar caminhada ou corrida</a>`;
+}
+
+/* =========================================================
+   PLANO PRO E PAGAMENTO POR PIX
+   ========================================================= */
+function telaChatBloqueado(){
+  const c = st.cfg || {};
+  pagina(`<h1 class="display titulo">Recados</h1>
+    <div class="cartao ouro" style="margin-top:18px"><h3>Converse com uma personal <span class="tag-pro">PRO</span></h3>
+      <p>${esc(c.plano_texto || 'Acompanhamento online com personal: treino montado para você e conversa direta pelo app.')}</p>
+      <div class="linha-btns" style="margin-top:16px"><a class="btn btn-ouro" href="#/plano">Ver o plano</a></div></div>
+    <p class="sub" style="margin-top:18px">Enquanto isso, seu treino automático, a evolução e o ranking continuam liberados.</p>`);
+}
+async function telaPlano(){
+  pagina(`${voltarHtml('#/perfil', 'Perfil')}<h1 class="display titulo">Plano Pro</h1><div id="plano"><p class="sub">Carregando…</p></div>`);
+  const el = document.getElementById('plano');
+  try {
+    const d = await api('meu_perfil');
+    st.cfg = d.config || st.cfg;
+    if (el.isConnected) montarPlano(el, d);
+  } catch(e){ if (!e.sessao && el.isConnected) el.innerHTML = `<p class="erro">${esc(e.message)}</p>`; }
+}
+function montarPlano(el, d){
+  const c = d.config, p = d.pagamento, pl = d.usuario.plano;
+  st.semAcesso = !pl.acesso;
+  const aguardando = p && p.status === 'Aguardando';
+  const situacao = pl.pro ? `<div class="cartao ouro"><h3>Plano Pro ativo até ${fmtLonga(pl.ate)}</h3>
+        <p>${d.personal ? `Sua personal é ${esc(d.personal.nome)}.` : 'Escolha sua personal na tela de perfil para começar.'}</p></div>`
+    : pl.teste ? `<div class="cartao ouro"><h3>Mês grátis até ${fmtLonga(pl.acesso_ate)}</h3>
+        <p>${pl.dias <= 0 ? 'Termina hoje.' : `Faltam ${plural(pl.dias, 'dia', 'dias')}.`} Depois disso é só escolher um dos planos abaixo. Nada é cobrado automaticamente: você paga por Pix quando quiser continuar.</p></div>`
+    : pl.acesso ? `<div class="cartao"><h3>Plano Básico até ${fmtLonga(pl.acesso_ate)}</h3><p>Seu acesso ao app está em dia.</p></div>`
+    : `<div class="cartao"><h3>Seu acesso terminou</h3><p>Escolha um plano abaixo para voltar a treinar. Seus treinos, sua evolução e seus pontos continuam guardados.</p></div>`;
+  const item = t => `<li style="grid-template-columns:1fr">${t}</li>`;
+  el.innerHTML = `${situacao}
+    ${aguardando ? htmlPagamentoPendente(p, c) : `
+      <div class="cartao" style="margin-top:18px"><h3>Básico <span class="tag-free">R$ ${fmtDin(c.basico)} por mês</span></h3>
+        <p>${esc(c.basico_texto || '')}</p>
+        <ul class="passos" style="counter-reset:none;margin-top:10px">
+          ${item('Treino da semana montado para o seu objetivo, seu tempo e onde você treina.')}
+          ${item('Execução guiada, com descanso e vídeo de cada exercício.')}
+          ${item('Evolução de peso e medidas, fotos de progresso e ranking com prêmio.')}
+        </ul>
+        <div class="linha-btns" style="margin-top:14px"><button class="btn btn-linha largo" data-pedir="basico">${pl.acesso && !pl.teste && !pl.pro ? 'Renovar por R$ ' + fmtDin(c.basico) : 'Assinar por R$ ' + fmtDin(c.basico)}</button></div></div>
+
+      <div class="cartao ouro"><h3>Pro <span class="tag-pro">R$ ${fmtDin(c.valor)} por mês</span></h3>
+        <p>${esc(c.plano_texto || '')}</p>
+        <ul class="passos" style="counter-reset:none;margin-top:10px">
+          ${item('Tudo do Básico.')}
+          ${item('Uma personal de verdade montando e ajustando a sua série.')}
+          ${item('Conversa direta pelo app para dúvidas, dores e trocas de exercício.')}
+          ${item('Ela acompanha sua evolução de peso, medidas e frequência.')}
+        </ul>
+        <p class="sub" style="margin-top:10px">Atendimento 100% online, pelo app. Não é aula presencial.</p>
+        <div class="linha-btns" style="margin-top:14px"><button class="btn btn-ouro largo" data-pedir="pro">${pl.pro ? 'Renovar o Pro' : 'Quero o acompanhamento'}</button></div></div>
+      <p class="sub" style="margin-top:12px">Pagamento por Pix, com um código só seu para a conferência. Sem débito automático e sem fidelidade.</p>`}
+    ${p && p.status === 'Recusado' ? `<p class="sub" style="margin-top:14px">Seu último pedido foi recusado${p.observacao ? ': ' + esc(p.observacao) : '. Fale com o administrador.'}</p>` : ''}
+    <div id="adPlano"></div>`;
+  ligarCopiar(el);
+  onAll('[data-pedir]','click', async e => {
+    const b = e.currentTarget; ocupado(b, 'Gerando código…');
+    try {
+      const r = await api('solicitar_pro', {plano:b.dataset.pedir});
+      montarPlano(el, Object.assign({}, d, {pagamento:r.pagamento, config:r.config}));
+      window.scrollTo(0, document.body.scrollHeight);
+    } catch(err){ if (!err.sessao) toast(err.message); livre(b); }
+  }, el);
+  anunciosNaTela('plano', '#adPlano');
+}
+function htmlPagamentoPendente(p, c){
+  return `<div class="cartao ouro" style="margin-top:4px"><h3>Pedido do plano ${esc(p.plano === 'Basico' ? 'Básico' : 'Pro')} feito. Agora é só pagar.</h3>
+      <p>Faça um Pix de R$ ${fmtDin(p.valor)} e coloque o código abaixo na mensagem do pagamento. É por ele que identificamos que o Pix é seu.</p>
+      <div class="pix-box">
+        ${c.pix_chave ? `<div class="pix-linha"><div><span>Chave Pix</span><b>${esc(c.pix_chave)}</b></div><button class="ic-btn" data-copiar="${esc(c.pix_chave)}" aria-label="Copiar chave Pix">${ICON.copiar}</button></div>` : '<div class="pix-linha"><div><span>Chave Pix</span><b>Peça a chave ao administrador</b></div></div>'}
+        ${c.pix_titular ? `<div class="pix-linha"><div><span>Titular</span><b>${esc(c.pix_titular)}</b></div></div>` : ''}
+        <div class="pix-linha"><div><span>Valor</span><b>R$ ${fmtDin(p.valor)}</b></div></div>
+        <div class="pix-linha"><div><span>Seu código</span><b class="pix-codigo">${esc(p.codigo)}</b></div><button class="ic-btn" data-copiar="${esc(p.codigo)}" aria-label="Copiar código">${ICON.copiar}</button></div>
+      </div>
+      <ol class="passos">
+        <li>Abra o app do seu banco e faça o Pix para a chave acima.</li>
+        <li>Na mensagem ou descrição do Pix, escreva o código ${esc(p.codigo)}.</li>
+        <li>Pronto. A conferência é feita manualmente, uma por uma.</li>
+      </ol>
+      <div class="aviso-espera">${p.plano === 'Basico' ? '<b>Seu acesso é liberado assim que o Pix for conferido.</b><br>A conferência é manual e costuma sair no mesmo dia. Você recebe uma mensagem nos recados.'
+        : '<b>O personal vai entrar em contato com você após a confirmação do pagamento.</b><br>Assim que o Pix for conferido, seu plano é liberado aqui no app e você recebe uma mensagem nos recados. Costuma sair no mesmo dia.'}</div>
+      <p class="sub" style="margin-top:12px">Pedido feito ${fmtData(p.data).toLowerCase()}. Situação: aguardando confirmação.</p></div>`;
+}
+function ligarCopiar(root){
+  onAll('[data-copiar]','click',(e, b) => {
+    const txt = b.dataset.copiar;
+    const ok = () => { toast('Copiado'); som.tocar('toque'); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(ok, () => toast(txt));
+    else { const t = document.createElement('textarea'); t.value = txt; document.body.appendChild(t); t.select(); try { document.execCommand('copy'); ok(); } catch(_){ toast(txt); } t.remove(); }
+  }, root);
+}
+
+/* =========================================================
+   ADMIN: PAGAMENTOS E CONFIGURAÇÕES
+   ========================================================= */
+async function telaPagamentos(){
+  pagina(`${voltarHtml('#/admin', 'Admin')}<h1 class="display titulo">Pagamentos</h1>
+    <p class="sub" style="margin-bottom:8px">Confira no extrato do banco se o Pix com o código chegou e libere o plano.</p>
+    <div id="pgs"><p class="sub">Carregando…</p></div>`);
+  const el = document.getElementById('pgs');
+  let lista = [];
+  const desenhar = () => {
+    const espera = lista.filter(p => p.status === 'Aguardando'), resto = lista.filter(p => p.status !== 'Aguardando');
+    const linha = p => `<div class="pg-linha">
+      <div class="pg-topo"><b>${esc(p.nome)}</b><span class="status ${p.status === 'Aguardando' ? 'espera' : p.status === 'Confirmado' ? 'ok' : 'nao'}">${p.status}</span></div>
+      <p class="sub">Plano <b style="color:var(--bone)">${esc(p.plano === 'Basico' ? 'Básico' : 'Pro')}</b>, código <b style="color:var(--gold)">${esc(p.codigo)}</b>, R$ ${fmtDin(p.valor)}, pedido ${fmtData(p.data).toLowerCase()}</p>
+      <p class="sub">${p.telefone ? fmtTelefone(p.telefone) : 'sem telefone'}${p.personal_nome ? ', personal ' + esc(p.personal_nome) : ', sem personal escolhida'}${p.plano_usuario ? ', hoje ' + esc(p.plano_usuario.nome) + (p.plano_usuario.acesso_ate ? ' até ' + fmtLonga(p.plano_usuario.acesso_ate) : '') : ''}</p>
+      ${p.observacao ? `<p class="sub">Obs.: ${esc(p.observacao)}</p>` : ''}
+      ${p.status === 'Aguardando' ? `<div class="linha-btns" style="margin-top:12px">
+        <button class="btn btn-ouro btn-p" data-ok="${esc(p.id)}">Confirmar pagamento</button>
+        <button class="btn btn-linha btn-p" data-nao="${esc(p.id)}">Recusar</button></div>` : ''}</div>`;
+    el.innerHTML = `${espera.length ? `<h2 class="grupo-titulo">Aguardando conferência (${espera.length})</h2>${espera.map(linha).join('')}`
+      : '<p class="vazio">Nenhum pagamento aguardando conferência.</p>'}
+      ${resto.length ? `<h2 class="grupo-titulo">Histórico</h2>${resto.slice(0, 30).map(linha).join('')}` : ''}`;
+    onAll('[data-ok]','click', async (e, b) => {
+      if (!confirm('Confirmar que o Pix caiu na conta? O plano é liberado na hora e, no Pro, a personal é avisada por e-mail.')) return;
+      ocupado(b, 'Liberando…');
+      try { lista = await api('decidir_pagamento', {id:b.dataset.ok, confirmar:true}); desenhar(); toast('Plano liberado e personal avisada'); }
+      catch(err){ if (!err.sessao) toast(err.message); livre(b); }
+    }, el);
+    onAll('[data-nao]','click', async (e, b) => {
+      const obs = prompt('Motivo da recusa (o aluno vê este texto):', 'Não localizamos o Pix com este código.');
+      if (obs === null) return;
+      ocupado(b, '…');
+      try { lista = await api('decidir_pagamento', {id:b.dataset.nao, confirmar:false, observacao:obs}); desenhar(); toast('Pedido recusado'); }
+      catch(err){ if (!err.sessao) toast(err.message); livre(b); }
+    }, el);
+  };
+  try { lista = await api('listar_pagamentos'); if (el.isConnected) desenhar(); }
+  catch(e){ if (!e.sessao) el.innerHTML = `<p class="erro">${esc(e.message)}</p>`; }
+}
+
+const GRUPOS_CONFIG = [
+  ['Plano com personal', ['plano_valor', 'plano_dias', 'pix_chave', 'pix_titular', 'plano_texto']],
+  ['Ranking e prêmio', ['premio_texto', 'ranking_ativo']],
+  ['Quanto vale cada coisa', ['pontos_exercicio', 'pontos_treino', 'pontos_km', 'pontos_mil_passos', 'pontos_max_dia']]
+];
+const ROTULOS_CONFIG = {
+  plano_valor:'Valor do plano (R$)', plano_dias:'Dias liberados por pagamento', pix_chave:'Chave Pix', pix_titular:'Titular da chave',
+  plano_texto:'Texto que o aluno lê sobre o plano', premio_texto:'Prêmio do 1º lugar', ranking_ativo:'Mostrar o ranking',
+  pontos_exercicio:'Pontos por exercício', pontos_treino:'Bônus por treino concluído', pontos_km:'Pontos por quilômetro',
+  pontos_mil_passos:'Pontos a cada mil passos', pontos_max_dia:'Limite de pontos por dia em atividades'
+};
+async function telaConfig(){
+  pagina(`${voltarHtml('#/admin', 'Admin')}<h1 class="display titulo">Configurações</h1><div id="cfg"><p class="sub">Carregando…</p></div>`);
+  const el = document.getElementById('cfg');
+  let itens = [];
+  const desenhar = () => {
+    const mapa = {};
+    itens.forEach(i => mapa[i.chave] = i);
+    const campo = k => {
+      const i = mapa[k] || {chave:k, valor:'', descricao:''};
+      const rot = ROTULOS_CONFIG[k] || k;
+      if (k === 'ranking_ativo') return `<label class="check"><input type="checkbox" data-cfg="${k}" ${i.valor !== 'Não' ? 'checked' : ''}><span>${rot}. ${esc(i.descricao)}</span></label>`;
+      if (k === 'plano_texto') return `<label class="campo"><span>${rot}</span><textarea data-cfg="${k}" rows="3">${esc(i.valor)}</textarea></label>`;
+      const numerico = /^(plano_valor|plano_dias|pontos_)/.test(k);
+      return `<label class="campo"><span>${rot}</span><input data-cfg="${k}" value="${esc(i.valor)}" ${numerico ? 'inputmode="decimal"' : ''}>${i.descricao ? `<small>${esc(i.descricao)}</small>` : ''}</label>`;
+    };
+    el.innerHTML = GRUPOS_CONFIG.map(([titulo, chaves]) => `<div class="cfg-grupo"><h2>${titulo}</h2>${chaves.map(campo).join('')}</div>`).join('')
+      + `<p class="erro" id="eCfg" role="alert"></p><button class="btn btn-ouro largo" id="salvarCfg" style="margin-top:8px">Salvar configurações</button>
+         <p class="sub" style="margin-top:12px">O ranking zera sozinho na virada do mês: o resultado vai para a aba Ranking_Historico e o campeão recebe um recado no app.</p>`;
+    on('#salvarCfg','click', async e => {
+      const b = e.currentTarget; ocupado(b, 'Salvando…');
+      const valores = {};
+      el.querySelectorAll('[data-cfg]').forEach(i => { valores[i.dataset.cfg] = i.type === 'checkbox' ? (i.checked ? 'Sim' : 'Não') : i.value.trim(); });
+      try { itens = await api('salvar_config', {valores}); st.cfg = null; cacheLocal.limpar(); desenhar(); toast('Configurações salvas'); }
+      catch(err){ msgErro('eCfg', err); livre(b); }
+    }, el);
+  };
+  try { itens = await api('obter_config'); if (el.isConnected) desenhar(); }
+  catch(e){ if (!e.sessao) el.innerHTML = `<p class="erro">${esc(e.message)}</p>`; }
+}
+
+/* =========================================================
+   CONQUISTAS, FOTOS DE PROGRESSO, PDF E AFILIADOS
+   ========================================================= */
+function modalConquistas(lista){
+  som.tocar('ponto');
+  modal(`${modalCab(lista.length > 1 ? 'Conquistas novas' : 'Conquista nova', 'Fechar')}<div class="modal-corpo" style="text-align:center">
+    <div class="medalhas" style="grid-template-columns:repeat(${Math.min(lista.length, 2)},1fr);margin-bottom:16px">
+      ${lista.map(c => `<div class="medalha tem">${ICON.medalha}<b>${esc(c.nome)}</b><span>+${c.pontos} pontos</span></div>`).join('')}</div>
+    <p class="sub">${esc(lista[0].descricao)}</p>
+    <button class="btn btn-ouro largo" data-fechar style="margin-top:18px">Boa!</button></div>`, {rotulo:'Conquista'});
+}
+
+async function baixarPdf(botao, idAluno){
+  ocupado(botao, 'Gerando PDF…');
+  try {
+    const r = await api('treino_pdf', idAluno ? {id_usuario:idAluno} : {});
+    const bytes = Uint8Array.from(atob(r.base64), c => c.charCodeAt(0));
+    const url = URL.createObjectURL(new Blob([bytes], {type:'application/pdf'}));
+    const a = document.createElement('a');
+    a.href = url; a.download = r.nome; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 30000);
+    toast('PDF pronto');
+  } catch(e){ if (!e.sessao) toast(e.message); }
+  livre(botao);
+}
+
+/* fotos de progresso: ficam no Drive, sem link público, e só abrem dentro do app */
+async function montarFotos(el, idAluno){
+  el.innerHTML = '<p class="sub">Carregando fotos…</p>';
+  let d;
+  try { d = await api('fotos', idAluno ? {id_usuario:idAluno} : {}); }
+  catch(e){ if (!e.sessao && el.isConnected) el.innerHTML = `<p class="erro">${esc(e.message)}</p>`; return; }
+  if (!el.isConnected) return;
+  const temDoMes = d.fotos.some(f => f.mes === d.mes_atual);
+  el.innerHTML = `<p class="sub" style="margin-bottom:12px">Uma foto por mês, guardada na pasta do Drive. Só você e sua personal enxergam.</p>
+    <div class="fotos">
+      ${!temDoMes ? `<button class="foto vazia" data-nova-foto>+<br>Foto de ${mesNome(d.mes_atual)}</button>` : ''}
+      ${d.fotos.map(f => `<button class="foto" data-ver-foto="${esc(f.id)}" aria-label="Ver foto de ${mesNome(f.mes)}">
+        <span class="sub">${mesNome(f.mes)}</span><span class="rot">${mesNome(f.mes)}</span></button>`).join('')}
+    </div>
+    ${temDoMes ? '<p style="text-align:center;margin-top:12px"><button class="link" data-nova-foto>Trocar a foto deste mês</button></p>' : ''}`;
+  onAll('[data-nova-foto]','click',() => modalNovaFoto(el, idAluno), el);
+  onAll('[data-ver-foto]','click',(e, b) => verFoto(b.dataset.verFoto, el, idAluno), el);
+}
+function mesNome(mes){
+  const d = new Date(String(mes) + '-02T12:00:00');
+  return isNaN(d) ? String(mes) : d.toLocaleDateString('pt-BR', {month:'long', year:'numeric'}).replace(' de ', ' ');
+}
+function modalNovaFoto(el, idAluno){
+  const m = modal(`${modalCab('Foto do mês', 'Cancelar')}<div class="modal-corpo">
+    <p class="sub" style="margin-bottom:14px">De frente, com boa luz e a mesma roupa todo mês: assim a comparação vale alguma coisa.</p>
+    <label class="btn btn-ouro largo"><input type="file" accept="image/*" id="upFoto" class="sr-only">Escolher foto</label>
+    <div id="progFoto"></div>
+    <label class="campo" style="margin-top:14px"><span>Observação (opcional)</span><input id="obsFoto" maxlength="200" placeholder="Ex.: começo do plano"></label>
+    <p class="erro" id="eFoto" role="alert"></p></div>`, {rotulo:'Foto do mês'});
+  on('#upFoto','change', async e => {
+    const file = e.target.files[0]; e.target.value = ''; if (!file) return;
+    const prog = m.el.querySelector('#progFoto');
+    prog.innerHTML = '<div class="prog"><i></i></div><p class="prog-txt">Enviando…</p>';
+    const barra = prog.querySelector('i'), txt = prog.querySelector('.prog-txt');
+    try {
+      const arquivo = await enviarArquivo(file, 'progresso', p => { barra.style.width = (p * 100) + '%'; txt.textContent = `Enviando… ${Math.round(p * 100)}%`; });
+      await api('salvar_foto', {arquivo, observacao:m.el.querySelector('#obsFoto').value, id_usuario:idAluno || undefined});
+      m.fechar(); montarFotos(el, idAluno); toast('Foto guardada');
+    } catch(err){ if (!err.sessao){ txt.textContent = err.message; txt.style.color = 'var(--coral)'; } }
+  }, m.el);
+}
+async function verFoto(id, el, idAluno){
+  const m = modal(`${modalCab('Foto de progresso')}<div class="modal-corpo" id="fotoCorpo"><p class="sub">Abrindo…</p></div>`, {rotulo:'Foto de progresso'});
+  try {
+    const f = await api('obter_foto', {id});
+    const corpo = m.el.querySelector('#fotoCorpo');
+    if (!corpo) return;
+    corpo.innerHTML = `<div class="img-prot" style="aspect-ratio:3/4;border-radius:14px;background-image:url('data:${f.mime};base64,${f.base64}')" role="img" aria-label="Foto de progresso"></div>
+      <div class="linha-btns" style="margin-top:16px"><button class="btn btn-perigo" id="apagarFoto">Apagar foto</button></div>`;
+    on('#apagarFoto','click', async ev => {
+      if (!confirm('Apagar esta foto? Ela vai para a lixeira do Drive.')) return;
+      ocupado(ev.currentTarget, 'Apagando…');
+      try { await api('excluir_foto', {id}); m.fechar(); montarFotos(el, idAluno); toast('Foto apagada'); }
+      catch(err){ if (!err.sessao) toast(err.message); }
+    }, m.el);
+  } catch(e){ if (!e.sessao && m.el.querySelector('#fotoCorpo')) m.el.querySelector('#fotoCorpo').innerHTML = `<p class="erro">${esc(e.message)}</p>`; }
+}
+
+async function telaAfiliado(){
+  pagina(`<h1 class="display titulo">Indique</h1><div id="af"><p class="sub">Carregando…</p></div>`);
+  const el = document.getElementById('af');
+  let d;
+  try { d = await api('afiliado'); } catch(e){ if (!e.sessao) el.innerHTML = `<p class="erro">${esc(e.message)}</p>`; return; }
+  if (!el.isConnected) return;
+  const desenhar = () => {
+    const ganho = Math.round(d.valor_plano * d.percentual) / 100;
+    el.innerHTML = `<p class="desc" style="margin-bottom:18px">Cada pessoa que assinar pelo seu link rende ${d.percentual}% no primeiro mês e ${d.recorrente}% nos meses seguintes, enquanto a assinatura durar. No Pro isso dá R$ ${fmtDin(ganho)} na entrada e R$ ${fmtDin(d.valor_plano * d.recorrente / 100)} por mês depois. O repasse cai no começo de cada mês, por Pix.</p>
+      <div class="cartao ouro"><h3>Seu link</h3>
+        ${d.link ? `<div class="af-link"><b>${esc(d.link)}</b><button class="ic-btn" data-copiar="${esc(d.link)}" aria-label="Copiar link">${ICON.copiar}</button></div>
+          <div class="linha-btns"><a class="btn btn-ouro btn-p" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent('Estou usando o Série para treinar. Entra pelo meu link: ' + d.link)}">Enviar no WhatsApp</a></div>`
+          : `<p>Seu código é <b>${esc(d.codigo)}</b>. O link completo aparece assim que o administrador preencher o endereço do app nas configurações.</p>`}</div>
+      <div class="numeros" style="margin-top:16px">
+        <div><b>${d.indicados.length}</b><span>${d.indicados.length === 1 ? 'pessoa indicada' : 'pessoas indicadas'}</span></div>
+        <div><b>${d.assinaturas}</b><span>${d.assinaturas === 1 ? 'assinatura' : 'assinaturas'}</span></div>
+        <div><b class="menor">R$ ${fmtDin(d.a_receber)}</b><span>a receber</span></div>
+      </div>
+      <p class="sub">Já recebido: R$ ${fmtDin(d.recebido)}.</p>
+      <section class="bloco"><h2>Onde você recebe</h2>
+        <label class="campo"><span>Sua chave Pix</span><input id="pixAf" value="${esc(d.pix)}" placeholder="CPF, telefone, e-mail ou chave aleatória"><small>Sem a chave não dá para fazer o repasse.</small></label>
+        <button class="btn btn-linha largo" id="salvarPix">Salvar chave</button></section>
+      ${d.indicados.length ? `<section class="bloco"><h2>Quem entrou pelo seu link</h2>
+        ${d.indicados.map(i => `<div class="com-linha"><div><b>${esc(i.nome)}</b><p class="sub">${i.tipo === 'Personal' ? 'Personal' : 'Aluno'}, desde ${fmtData(i.desde).toLowerCase()}</p></div>
+          <span class="status ${i.pro ? 'ok' : ''}">${i.pro ? 'Pro' : 'Gratuito'}</span></div>`).join('')}</section>` : ''}
+      ${d.comissoes.length ? `<section class="bloco"><h2>Suas comissões</h2>
+        ${d.comissoes.map(c => `<div class="com-linha"><div><b>R$ ${fmtDin(c.valor)}</b><p class="sub">${fmtData(c.data)}</p></div>
+          <span class="status ${c.status === 'Pago' ? 'ok' : 'espera'}">${c.status === 'Pago' ? 'pago ' + fmtData(c.pago_em).toLowerCase() : 'a pagar'}</span></div>`).join('')}</section>` : ''}
+      <p class="sub" style="margin-top:22px">Vale para alunos e personais. Quem entra pelo seu link continua ligado a você mesmo que assine depois.</p>`;
+    ligarCopiar(el);
+    on('#salvarPix','click', async e => {
+      const b = e.currentTarget; ocupado(b, 'Salvando…');
+      try { d = await api('salvar_pix_afiliado', {pix:document.getElementById('pixAf').value}); desenhar(); toast('Chave salva'); }
+      catch(err){ if (!err.sessao) toast(err.message); livre(b); }
+    }, el);
+  };
+  desenhar();
+}
+
+async function telaComissoes(){
+  pagina(`${voltarHtml('#/admin', 'Admin')}<h1 class="display titulo">Comissões</h1>
+    <p class="sub" style="margin-bottom:8px">Repasse dos afiliados, por Pix, no começo de cada mês. Depois de pagar, marque aqui.</p>
+    <div id="com"><p class="sub">Carregando…</p></div>`);
+  const el = document.getElementById('com');
+  let lista = [];
+  const desenhar = () => {
+    const total = lista.reduce((t, a) => t + a.pendente, 0);
+    el.innerHTML = lista.length ? `<div class="numeros"><div><b class="menor">R$ ${fmtDin(total)}</b><span>a pagar agora</span></div>
+        <div><b>${lista.filter(a => a.pendente > 0).length}</b><span>afiliados na fila</span></div>
+        <div><b>${lista.reduce((t, a) => t + a.itens.length, 0)}</b><span>indicações geradas</span></div></div>
+      ${lista.map(a => `<div class="pg-linha">
+        <div class="pg-topo"><b>${esc(a.nome)}</b><span class="status ${a.pendente > 0 ? 'espera' : 'ok'}">R$ ${fmtDin(a.pendente)}</span></div>
+        <p class="sub">${a.pix ? 'Pix: ' + esc(a.pix) : 'sem chave Pix cadastrada'}${a.pago ? `, já recebeu R$ ${fmtDin(a.pago)}` : ''}</p>
+        <p class="sub">${a.itens.slice(0, 5).map(i => `${esc(i.indicado)} R$ ${fmtDin(i.valor)} (${i.status.toLowerCase()})`).join(', ')}</p>
+        ${a.pendente > 0 ? `<div class="linha-btns" style="margin-top:12px"><button class="btn btn-ouro btn-p" data-pagar="${esc(a.id)}" ${a.pix ? '' : 'disabled'}>Marcar como pago</button></div>${a.pix ? '' : '<p class="sub">Peça para o afiliado cadastrar a chave Pix na aba Indique.</p>'}` : ''}</div>`).join('')}`
+      : '<p class="vazio">Nenhuma comissão gerada ainda.</p>';
+    onAll('[data-pagar]','click', async (e, b) => {
+      if (!confirm('Confirmar que o Pix da comissão já foi enviado?')) return;
+      ocupado(b, 'Marcando…');
+      try { lista = await api('pagar_comissoes', {id_afiliado:b.dataset.pagar}); desenhar(); toast('Comissão marcada como paga'); }
+      catch(err){ if (!err.sessao) toast(err.message); livre(b); }
+    }, el);
+  };
+  try { lista = await api('listar_comissoes'); if (el.isConnected) desenhar(); }
+  catch(e){ if (!e.sessao) el.innerHTML = `<p class="erro">${esc(e.message)}</p>`; }
+}
+
+/* =========================================================
+   ANÚNCIOS: FAIXAS, CARTÕES E JANELAS DE OFERTA
+   ========================================================= */
+const adsEstado = guardado('serie_ads'); // {ultimo, visto:{id:ts}, ultimoId}
+let adsCache = null;
+let adsSessao = 0; // no máximo uma janela por abertura do app
+
+async function carregarAnuncios(){
+  if (adsCache) return adsCache;
+  const guardados = cacheLocal.get('anuncios');
+  if (guardados) adsCache = guardados;
+  try {
+    const d = await api('anuncios');
+    adsCache = d; cacheLocal.set('anuncios', d);
+  } catch(e){ if (!adsCache) adsCache = {anuncios:[], horas:8}; }
+  return adsCache;
+}
+function sorteado(lista){
+  const total = lista.reduce((t, a) => t + (a.peso || 1), 0);
+  let n = Math.random() * total;
+  for (const a of lista){ n -= (a.peso || 1); if (n <= 0) return a; }
+  return lista[0];
+}
+function htmlAnuncio(a, {dentroDoModal = false} = {}){
+  const tag = a.link ? 'a' : 'div';
+  const destino = a.link ? (a.externo ? `href="${esc(a.link)}" target="_blank" rel="noopener sponsored"` : `href="${esc(a.link)}"`) : '';
+  const rotulo = a.rotulo ? `<span class="rotulo-ad">${esc(a.rotulo)}</span>` : '';
+  if (a.tipo === 'faixa' && !dentroDoModal){
+    return `<${tag} class="anuncio faixa" ${destino} data-ad="${esc(a.id)}">
+      <div class="txt">${a.rotulo ? `<span class="rotulo-ad">${esc(a.rotulo)}</span>` : ''}<b>${esc(a.titulo)}</b>
+        ${a.texto ? `<span>${esc(a.texto)}</span>` : ''}${a.preco ? `<span>${esc(a.preco)}</span>` : ''}</div>
+      ${a.link ? '<span class="seta" aria-hidden="true">›</span>' : ''}</${tag}>`;
+  }
+  return `<${tag} class="anuncio cartao-an" ${destino} data-ad="${esc(a.id)}">
+    ${rotulo}
+    ${imgSrc(a.imagem) ? `<div class="capa">${htmlImg(a.imagem, a.titulo, '', 900)}</div>` : ''}
+    <div class="corpo"><h3>${esc(a.titulo)}</h3>
+      ${a.texto ? `<p>${esc(a.texto)}</p>` : ''}
+      ${a.preco ? `<div class="preco">${esc(a.preco)}</div>` : ''}
+      ${a.link ? `<span class="btn ${dentroDoModal ? 'btn-ouro largo' : 'btn-ouro btn-p'}" style="margin-top:14px">${esc(a.botao)}</span>` : ''}
+      ${a.aviso ? `<p class="aviso-ad">${esc(a.aviso)}</p>` : ''}</div></${tag}>`;
+}
+function ligarAnuncios(root){
+  onAll('[data-ad]','click',(e, el) => {
+    api('marcar_anuncio', {id:el.dataset.ad, clique:true}).catch(() => {});
+  }, root || document);
+}
+/** Coloca as faixas e cartões da tela dentro do elemento indicado. */
+async function anunciosNaTela(tela, seletor){
+  const d = await carregarAnuncios();
+  const el = document.querySelector(seletor);
+  if (!el || !el.isConnected) return;
+  const lista = d.anuncios.filter(a => a.tipo !== 'popup' && a.telas.indexOf(tela) >= 0);
+  if (!lista.length) return;
+  el.innerHTML = lista.map(a => htmlAnuncio(a)).join('');
+  ligarAnuncios(el);
+  lista.forEach(a => api('marcar_anuncio', {id:a.id}).catch(() => {}));
+}
+/** Janela de oferta: no máximo uma por sessão, com descanso entre elas e sem repetir a última. */
+async function popupAnuncio(tela){
+  if (adsSessao) return;
+  const d = await carregarAnuncios();
+  if (location.hash.indexOf('#/treino/') === 0) return; // nunca no meio do treino
+  const est = adsEstado.get() || {visto:{}, ultimo:0, ultimoId:''};
+  const horas = d.horas || 8;
+  if (Date.now() - (est.ultimo || 0) < horas * 36e5) return;
+  const tresDias = 3 * 864e5;
+  let lista = d.anuncios.filter(a => a.tipo === 'popup' && a.telas.indexOf(tela) >= 0
+    && Date.now() - ((est.visto || {})[a.id] || 0) > tresDias);
+  if (lista.length > 1) lista = lista.filter(a => a.id !== est.ultimoId);
+  if (!lista.length) return;
+  const a = sorteado(lista);
+  adsSessao = 1;
+  est.ultimo = Date.now(); est.ultimoId = a.id;
+  est.visto = est.visto || {}; est.visto[a.id] = Date.now();
+  adsEstado.set(est);
+  api('marcar_anuncio', {id:a.id}).catch(() => {});
+  const m = modal(`<div class="modal-corpo" style="padding-top:18px;position:relative">
+      <button class="fechar-x" data-fechar aria-label="Fechar">${ICON.x}</button>
+      ${htmlAnuncio(a, {dentroDoModal:true})}
+      <p style="text-align:center;margin-top:12px"><button class="link" data-fechar>Agora não</button></p>
+    </div>`, {rotulo:a.titulo});
+  ligarAnuncios(m.el);
+  onAll('[data-ad]','click',() => m.fechar(), m.el);
+}
+/** Chamada pelas telas: cuida das faixas e, depois de um tempinho, da janela. */
+function anunciar(tela, seletor){
+  anunciosNaTela(tela, seletor);
+  setTimeout(() => { if (st.hashAtual === location.hash) popupAnuncio(tela); }, 2500);
+}
+
+async function telaAnuncios(){
+  pagina(`${voltarHtml('#/admin', 'Admin')}<div class="cab-aluno"><h1 class="display titulo" style="margin:0">Anúncios</h1>
+      <button class="btn btn-ouro btn-p" id="novoAd">Nova</button></div>
+    <p class="sub" style="margin-top:10px">Faixa aparece fixa no meio da tela, cartão é maior e com imagem, e janela abre sozinha de tempos em tempos.</p>
+    <div id="ads" style="margin-top:14px"><p class="sub">Carregando…</p></div>`);
+  const el = document.getElementById('ads');
+  let lista = [];
+  const desenhar = () => {
+    el.innerHTML = lista.length ? lista.map(a => `<button class="ad-row" data-ad-edit="${esc(a.id)}">
+        <span class="thumb">${esc(a.tipo)}${htmlImg(a.imagem, a.titulo, '', 200)}</span>
+        <span class="info"><span class="nome" style="display:block">${esc(a.nome)}</span>
+          <span class="foco">${a.publico === 'Todos' ? 'todo mundo' : a.publico === 'Free' ? 'contas gratuitas' : a.publico === 'Pro' ? 'assinantes Pro' : 'personais'}, em ${esc(a.telas.join(', '))}</span><br>
+          <span class="selo ${a.ativo ? 'ouro' : 'coral'}">${a.ativo ? 'no ar' : 'parada'}</span>
+          <span class="selo">${a.vistas} ${a.vistas === 1 ? 'vista' : 'vistas'}</span>
+          <span class="selo">${a.cliques} ${a.cliques === 1 ? 'clique' : 'cliques'}</span>
+          ${a.vistas ? `<span class="selo">${(a.cliques / a.vistas * 100).toFixed(1).replace('.', ',')}%</span>` : ''}</span></button>`).join('')
+      : '<p class="vazio">Nenhuma campanha criada.</p>';
+    onAll('[data-ad-edit]','click',(e, b) => editorAnuncio(lista.find(a => a.id === b.dataset.adEdit)), el);
+  };
+  function editorAnuncio(a){
+    const f = Object.assign({tipo:'faixa', publico:'Free', telas:['treino'], botao:'Saiba mais', peso:1, ativo:true,
+      nome:'', titulo:'', texto:'', imagem:'', preco:'', link:'', rotulo:'', aviso:'', inicio:'', fim:''}, a || {});
+    const m = modal(`${modalCab(a ? 'Editar campanha' : 'Nova campanha', 'Cancelar')}<form class="modal-corpo" id="fAd">
+      <label class="campo"><span>Nome interno</span><input name="nome" value="${esc(f.nome)}" required><small>Só você vê. Ex.: "Douradinha maio".</small></label>
+      <span class="rotulo">Formato</span>
+      <div class="chips" style="margin:0 0 16px">${[['faixa','Faixa'],['cartao','Cartão'],['popup','Janela']].map(([v, l]) => `<button type="button" class="chip" data-tipo-ad="${v}" aria-pressed="${f.tipo === v}">${l}</button>`).join('')}</div>
+      <label class="campo"><span>Para quem</span><select name="publico">${[['Free','Contas gratuitas'],['Pro','Assinantes Pro'],['Personal','Personais'],['Todos','Todo mundo']].map(([v, l]) => `<option value="${v}" ${f.publico === v ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
+      <span class="rotulo">Em quais telas</span>
+      <div class="chips" style="margin:0 0 16px">${[['treino','Treino'],['evolucao','Evolução'],['atividades','Atividades'],['ranking','Ranking'],['perfil','Perfil'],['plano','Plano'],['alunos','Painel da personal']].map(([v, l]) => `<button type="button" class="chip" data-tela-ad="${v}" aria-pressed="${f.telas.indexOf(v) >= 0}">${l}</button>`).join('')}</div>
+      <label class="campo"><span>Título</span><input name="titulo" value="${esc(f.titulo)}" required></label>
+      <label class="campo"><span>Texto</span><textarea name="texto" rows="3" maxlength="600">${esc(f.texto)}</textarea></label>
+      <div class="duas">
+        <label class="campo"><span>Preço (opcional)</span><input name="preco" value="${esc(f.preco)}" placeholder="R$ 197,00"></label>
+        <label class="campo"><span>Texto do botão</span><input name="botao" value="${esc(f.botao)}"></label>
+      </div>
+      <label class="campo"><span>Link</span><input name="link" value="${esc(f.link)}" placeholder="https://loja.com/produto ou #/plano">
+        <small>Endereço completo para fora do app, ou #/plano e #/afiliado para telas daqui.</small></label>
+      <span class="rotulo">Imagem</span>
+      <div class="upl">
+        <div class="upl-prev">${imgSrc(f.imagem) ? htmlImg(f.imagem, f.titulo, '', 900) : '<div class="upl-vazio">Sem imagem</div>'}</div>
+        <div class="upl-acoes"><label class="btn btn-linha btn-p"><input type="file" accept="image/*" id="upAd" class="sr-only">${f.imagem ? 'Trocar' : 'Enviar imagem'}</label>
+          ${f.imagem ? '<button type="button" class="btn btn-perigo btn-p" id="rmAd">Remover</button>' : ''}</div>
+        <div id="progAd"></div>
+      </div>
+      <label class="campo"><span>Rótulo</span><input name="rotulo" value="${esc(f.rotulo)}" placeholder="Publicidade"><small>Anúncio com link para fora do app é marcado como "Publicidade" mesmo se você deixar em branco.</small></label>
+      <label class="campo"><span>Aviso no rodapé do anúncio</span><textarea name="aviso" rows="2" maxlength="300" placeholder="Ex.: produto de terceiros, procure um médico antes de usar.">${esc(f.aviso)}</textarea></label>
+      <div class="tres">
+        <label class="campo"><span>Peso</span><input name="peso" inputmode="numeric" value="${esc(f.peso)}"><small>1 a 10</small></label>
+        <label class="campo"><span>Começa</span><input type="date" name="inicio" value="${esc(f.inicio)}"></label>
+        <label class="campo"><span>Termina</span><input type="date" name="fim" value="${esc(f.fim)}"></label>
+      </div>
+      <label class="check"><input type="checkbox" name="ativo" ${f.ativo ? 'checked' : ''}><span>No ar</span></label>
+      <p class="erro" id="eAd" role="alert"></p>
+      <button class="btn btn-ouro largo" type="submit">Salvar campanha</button>
+      ${a ? '<p style="text-align:center;margin-top:10px"><button type="button" class="link" id="apagarAd">Apagar campanha</button></p>' : ''}</form>`, {rotulo:'Campanha'});
+    const form = m.el.querySelector('#fAd');
+    onAll('[data-tipo-ad]','click',(e, b) => { f.tipo = b.dataset.tipoAd; m.el.querySelectorAll('[data-tipo-ad]').forEach(x => x.setAttribute('aria-pressed', x === b)); }, m.el);
+    onAll('[data-tela-ad]','click',(e, b) => {
+      const t = b.dataset.telaAd, i = f.telas.indexOf(t);
+      if (i >= 0) f.telas.splice(i, 1); else f.telas.push(t);
+      b.setAttribute('aria-pressed', f.telas.indexOf(t) >= 0);
+    }, m.el);
+    on('#upAd','change', async e => {
+      const file = e.target.files[0]; e.target.value = ''; if (!file) return;
+      const prog = m.el.querySelector('#progAd');
+      prog.innerHTML = '<div class="prog"><i></i></div><p class="prog-txt">Enviando…</p>';
+      const barra = prog.querySelector('i'), txt = prog.querySelector('.prog-txt');
+      try {
+        f.imagem = await enviarArquivo(file, 'imagem', pc => { barra.style.width = (pc * 100) + '%'; txt.textContent = `Enviando… ${Math.round(pc * 100)}%`; });
+        m.el.querySelector('.upl-prev').innerHTML = htmlImg(f.imagem, f.titulo, '', 900);
+        txt.textContent = 'Imagem pronta. Salve a campanha.';
+      } catch(err){ if (!err.sessao){ txt.textContent = err.message; txt.style.color = 'var(--coral)'; } }
+    }, m.el);
+    on('#rmAd','click',() => { f.imagem = ''; m.el.querySelector('.upl-prev').innerHTML = '<div class="upl-vazio">Sem imagem</div>'; }, m.el);
+    on('#apagarAd','click', async e => {
+      if (!confirm('Apagar esta campanha?')) return;
+      ocupado(e.currentTarget, 'Apagando…');
+      try { lista = await api('excluir_anuncio', {id:a.id}); adsCache = null; cacheLocal.set('anuncios', null); m.fechar(); desenhar(); toast('Campanha apagada'); }
+      catch(err){ if (!err.sessao) toast(err.message); }
+    }, m.el);
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const b = form.querySelector('button[type=submit]'); ocupado(b, 'Salvando…');
+      try {
+        lista = await api('salvar_anuncio', {id:a ? a.id : '', nome:form.nome.value, tipo:f.tipo, publico:form.publico.value,
+          telas:f.telas, titulo:form.titulo.value, texto:form.texto.value, imagem:f.imagem, preco:form.preco.value,
+          botao:form.botao.value, link:form.link.value, rotulo:form.rotulo.value, aviso:form.aviso.value,
+          peso:form.peso.value, ativo:form.ativo.checked, inicio:form.inicio.value, fim:form.fim.value});
+        adsCache = null; cacheLocal.set('anuncios', null);
+        m.fechar(); desenhar(); toast('Campanha salva');
+      } catch(err){ msgErro('eAd', err); livre(b); }
+    });
+  }
+  on('#novoAd','click',() => editorAnuncio(null));
+  try { lista = await api('listar_anuncios'); if (el.isConnected) desenhar(); }
   catch(e){ if (!e.sessao) el.innerHTML = `<p class="erro">${esc(e.message)}</p>`; }
 }
 
